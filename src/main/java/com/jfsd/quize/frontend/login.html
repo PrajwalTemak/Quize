@@ -494,11 +494,11 @@ function draw() {
       var dx = nodes[i].x - nodes[j].x;
       var dy = nodes[i].y - nodes[j].y;
       var d = Math.sqrt(dx*dx+dy*dy);
-      if (d < 110) {
+      if (d < 20) {
         ctx.beginPath();
         ctx.moveTo(nodes[i].x, nodes[i].y);
         ctx.lineTo(nodes[j].x, nodes[j].y);
-        ctx.strokeStyle = 'rgba(3,150,157,' + (0.18*(1-d/110)) + ')';
+        ctx.strokeStyle = "rgba(3,150,157,0.25)";;
         ctx.lineWidth = 0.7;
         ctx.stroke();
       }
