@@ -384,33 +384,60 @@ function setRole(role) {
 }
 
 /* ── Login with ripple + shake ── */
-function handleLogin(e) {
-  var btn = document.getElementById('signBtn');
-  var email = document.getElementById('emailField');
-  var pw = document.getElementById('pwField');
+async function handleLogin(e) {
 
-  var ripple = document.createElement('span');
-  ripple.className = 'ripple';
-  var rect = btn.getBoundingClientRect();
-  var size = Math.max(rect.width, rect.height);
-  ripple.style.width = ripple.style.height = size + 'px';
-  ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
-  ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
-  btn.appendChild(ripple);
-  setTimeout(function(){ ripple.remove(); }, 600);
+  const idField = document.getElementById("emailField");
+  const pwField = document.getElementById("pwField");
 
-  if (!email.value || !pw.value) {
-    if (!email.value) { email.classList.add('shake'); setTimeout(function(){ email.classList.remove('shake'); }, 500); }
-    if (!pw.value) { pw.classList.add('shake'); setTimeout(function(){ pw.classList.remove('shake'); }, 500); }
-    return;
+  let role =
+    document.getElementById("rStudent").classList.contains("active")
+      ? "STUDENT"
+      : "TEACHER";
+
+  try {
+
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id: idField.value,
+        password: pwField.value,
+        role: role
+      })
+    });
+
+    const data = await response.text();
+
+    if (response.ok) {
+
+      if (data.includes("TEACHER")) {
+        window.location.href = "/teacher.html";
+      }
+
+      else if (data.includes("STUDENT")) {
+        window.location.href = "/student.html";
+      }
+
+      else {
+        alert(data);
+      }
+
+    }
+
+    else {
+      alert(data);
+    }
+
   }
 
-  btn.textContent = 'Signing in…';
-  btn.style.opacity = '0.8';
-  setTimeout(function(){ btn.textContent = 'Sign in'; btn.style.opacity = '1'; }, 1800);
-}
+  catch(error) {
+    console.error(error);
+    alert("Login Failed");
+  }
 
-/* ── Counter animation ── */
+}/* ── Counter animation ── */
 function animateCount(el, target, suffix) {
   var start = 0;
   var dur = 1600;

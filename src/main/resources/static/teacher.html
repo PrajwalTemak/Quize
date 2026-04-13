@@ -989,6 +989,372 @@ function confirmLogout(){
 
 /* ── INIT ── */
 renderCards();
+
+const BASE_URL = "http://localhost:8080";
+
+/* =========================
+   TOAST MESSAGE
+========================= */
+function showToast(msg, type="success") {
+    alert(msg); // Replace later with custom toast if needed
+}
+
+/* =========================
+   CREATE TEST
+========================= */
+async function submitCreateTest() {
+    const body = {
+        title: document.getElementById("ct-title").value,
+        description: document.getElementById("ct-desc").value,
+        examCode: document.getElementById("ct-code").value,
+        createdBy: document.getElementById("ct-creator").value,
+        totalMarks: parseInt(document.getElementById("ct-marks").value),
+        durationMinutes: parseInt(document.getElementById("ct-duration").value),
+        startTime: document.getElementById("ct-start").value,
+        endTime: document.getElementById("ct-end").value,
+        negativeMarking: parseFloat(document.getElementById("ct-neg").value),
+        isPublished: document.getElementById("toggle-publish").classList.contains("on"),
+        showResults: document.getElementById("toggle-results").classList.contains("on")
+    };
+
+    try {
+        const res = await fetch(`${BASE_URL}/tests/add`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(body)
+        });
+
+        if(res.ok){
+            showToast("Test Created Successfully");
+        } else {
+            showToast("Failed To Create Test","error");
+        }
+    } catch(err){
+        console.error(err);
+        showToast("Server Error","error");
+    }
+}
+
+
+/* =========================
+   EDIT TEST
+========================= */
+async function submitEditTest() {
+    const testId = document.getElementById("et-id").value;
+
+    const body = {
+        title: document.getElementById("et-title").value,
+        durationMinutes: parseInt(document.getElementById("et-duration").value),
+        totalMarks: parseInt(document.getElementById("et-marks").value),
+        startTime: document.getElementById("et-start").value,
+        endTime: document.getElementById("et-end").value,
+        isPublished: document.getElementById("toggle-et-publish").classList.contains("on"),
+        showResults: document.getElementById("toggle-et-results").classList.contains("on")
+    };
+
+    try{
+        const res = await fetch(`${BASE_URL}/tests/update/${testId}`,{
+            method:"PUT",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(body)
+        });
+
+        if(res.ok){
+            showToast("Test Updated Successfully");
+        } else {
+            showToast("Failed To Update");
+        }
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+
+/* =========================
+   DELETE TEST
+========================= */
+async function submitDeleteTest() {
+    const testId = document.getElementById("del-testid").value;
+
+    try{
+        const res = await fetch(`${BASE_URL}/tests/delete/${testId}`,{
+            method:"DELETE"
+        });
+
+        if(res.ok){
+            showToast("Test Deleted");
+        } else {
+            showToast("Delete Failed");
+        }
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+
+/* =========================
+   ADD QUESTION
+========================= */
+async function submitAddQuestion() {
+
+    const selectedCorrect = document.querySelector('input[name="correct"]:checked');
+
+    const body = {
+        testId: parseInt(document.getElementById("qq-testid").value),
+        questionText: document.getElementById("qq-text").value,
+        questionType: window.currentQType || "OBJECTIVE",
+        option1: document.getElementById("opt1").value,
+        option2: document.getElementById("opt2").value,
+        option3: document.getElementById("opt3").value,
+        option4: document.getElementById("opt4").value,
+        correctOption: selectedCorrect ? parseInt(selectedCorrect.value) : null,
+        marks: parseInt(document.getElementById("qq-marks").value)
+    };
+
+    if(body.questionType==="SUBJECTIVE"){
+        body.option1=null;
+        body.option2=null;
+        body.option3=null;
+        body.option4=null;
+        body.correctOption=null;
+    }
+
+    try{
+        const res = await fetch(`${BASE_URL}/questions/add`,{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(body)
+        });
+
+        if(res.ok){
+            showToast("Question Added");
+            loadQPreview();
+        }else{
+            showToast("Failed To Add");
+        }
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+
+/* =========================
+   LOAD QUESTIONS PREVIEW
+========================= */
+async function loadQPreview() {
+
+    const testId = document.getElementById("qq-testid").value;
+
+    if(!testId) return;
+
+    try{
+        const res = await fetch(`${BASE_URL}/questions/test/${testId}`);
+        const data = await res.json();
+
+        let html = "";
+
+        data.forEach((q,index)=>{
+
+            html+=`
+            <div class="q-item">
+                <div class="q-item-hd">
+                    <div class="q-num">${index+1}</div>
+                    <div class="q-text">${q.questionText}</div>
+                </div>
+                <div>${q.questionType}</div>
+                <div>Marks: ${q.marks}</div>
+            </div>
+            `;
+        });
+
+        document.getElementById("qPreviewList").innerHTML = html;
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+
+/* =========================
+   ADD USER
+========================= */
+async function submitAddUser() {
+
+    const body = {
+        id: document.getElementById("au-id").value,
+        name: document.getElementById("au-name").value,
+        email: document.getElementById("au-email").value,
+        password: document.getElementById("au-pass").value,
+        role: window.currentRole || "STUDENT"
+    };
+
+    try{
+        const res = await fetch(`${BASE_URL}/api/auth/add-user`,{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(body)
+        });
+
+        if(res.ok){
+            showToast("User Added Successfully");
+        }else{
+            showToast("Failed To Add User");
+        }
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+
+/* =========================
+   LOAD STUDENT RESULTS
+========================= */
+async function loadStudentResults() {
+
+    const testId = document.getElementById("studentTestSelect").value;
+
+    try{
+        const res = await fetch(`${BASE_URL}/submissions/matrix/${testId}`);
+        const data = await res.json();
+
+        let html = `
+        <table class="result-table">
+            <tr>
+                <th>Student</th>
+                <th>Score</th>
+            </tr>
+        `;
+
+        data.forEach(student=>{
+            html+=`
+            <tr>
+                <td>${student.studentId}</td>
+                <td>${student.score}</td>
+            </tr>
+            `;
+        });
+
+        html+="</table>";
+
+        document.getElementById("resultsArea").innerHTML=html;
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+
+/* =========================
+   LOAD ANALYTICS
+========================= */
+async function loadAnalytics(testId){
+
+    try{
+        const res = await fetch(`${BASE_URL}/analytics/test/${testId}`);
+        const data = await res.json();
+
+        console.log(data);
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+
+/* =========================
+   LOAD GRADING DATA
+========================= */
+async function loadGrading(){
+
+    const testId=document.getElementById("gradeTestSelect").value;
+
+    try{
+        const res=await fetch(`${BASE_URL}/submissions/test/${testId}`);
+        const data=await res.json();
+
+        console.log(data);
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+
+/* =========================
+   SEND NOTIFICATION
+========================= */
+async function sendNotification(userId,title,message){
+
+    const body={
+        userId,
+        title,
+        message
+    };
+
+    try{
+        await fetch(`${BASE_URL}/notifications/send`,{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(body)
+        });
+
+        showToast("Notification Sent");
+
+    }catch(err){
+        console.error(err);
+    }
+}
+
+
+/* =========================
+   TOGGLE BUTTON
+========================= */
+function toggleBtn(btn){
+    btn.classList.toggle("on");
+}
+
+
+/* =========================
+   QUESTION TYPE
+========================= */
+function setQType(type){
+
+    window.currentQType=type;
+
+    document.getElementById("qt-obj").classList.remove("selected");
+    document.getElementById("qt-sub").classList.remove("selected");
+
+    if(type==="OBJECTIVE"){
+        document.getElementById("qt-obj").classList.add("selected");
+        document.getElementById("objOptions").style.display="block";
+    }else{
+        document.getElementById("qt-sub").classList.add("selected");
+        document.getElementById("objOptions").style.display="none";
+    }
+}
+
+
+/* =========================
+   ROLE SELECT
+========================= */
+function setRole(role){
+
+    window.currentRole=role;
+
+    document.getElementById("role-student").classList.remove("selected");
+    document.getElementById("role-teacher").classList.remove("selected");
+
+    if(role==="STUDENT"){
+        document.getElementById("role-student").classList.add("selected");
+    }else{
+        document.getElementById("role-teacher").classList.add("selected");
+    }
+}
+
 </script>
 </body>
 </html>
