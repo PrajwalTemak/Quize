@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Quizely — Student Dashboard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal-dark:#05585C;--teal:#089790;--teal-light:#6EC6CA;--teal-pale:#e6f9f9;
+  --purple-dark:#05585C;--purple:#05585C;--purple-mid:#8474A1;--purple-light:#CCA8D8;--purple-pale:#E8F7F7;
+  --white:#fff;--bg:#f3f0f8;--card:#fff;
+  --border:#D4F0F0;--border-light:#E8F7F7;
+  --text:#033B3E;--text-mid:#067275;--text-muted:#8474A1;--text-hint:#D4C5E4;
+  --amber:#9a6000;--amber-bg:#fff4e0;--amber-border:#ffd98a;
+  --red:#b91c1c;--red-bg:#fef2f2;--red-border:#fecaca;
+  --green:#05585C;--green-bg:#e6f9f9;--green-border:#b0e8e8;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{width:72px;background:linear-gradient(180deg,#05585C 0%,#05585C 100%);display:flex;flex-direction:column;align-items:center;padding:18px 0;gap:4px;flex-shrink:0;height:100vh;position:fixed;left:0;top:0;z-index:50}
+.sb-logo{width:42px;height:42px;background:rgba(255,255,255,0.18);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;border:1px solid rgba(255,255,255,0.25);flex-shrink:0}
+.sb-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;position:relative;border:none;background:none}
+.sb-icon:hover{background:rgba(255,255,255,0.14)}
+.sb-icon.active{background:rgba(202,171,213,0.32)}
+.sb-icon svg{width:20px;height:20px;stroke:rgba(255,255,255,0.65);stroke-width:1.8;fill:none;transition:stroke 0.2s}
+.sb-icon.active svg,.sb-icon:hover svg{stroke:#fff}
+.sb-tip{position:absolute;left:62px;background:#033B3E;color:#fff;font-size:11.5px;padding:5px 10px;border-radius:7px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.15s;z-index:200;box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+.sb-icon:hover .sb-tip{opacity:1}
+.sb-divider{width:30px;height:1px;background:rgba(255,255,255,0.12);margin:6px 0}
+.sb-spacer{flex:1}
+.notif-dot-sb{position:absolute;top:8px;right:9px;width:7px;height:7px;background:#089790;border-radius:50%;border:1.5px solid #05585C}
+
+/* MAIN */
+.main{margin-left:72px;flex:1;display:flex;flex-direction:column;height:100vh;min-width:0}
+.topbar{height:62px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:14px;flex-shrink:0}
+.topbar-greeting{flex:1}
+.topbar-greeting h1{font-size:16px;font-weight:600;color:var(--purple-dark)}
+.topbar-greeting p{font-size:12px;color:var(--text-muted)}
+.tb-badge{background:var(--teal-pale);color:var(--teal-dark);font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:20px;border:1px solid var(--green-border)}
+.icon-btn{width:36px;height:36px;border-radius:9px;background:none;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.18s;position:relative;flex-shrink:0}
+.icon-btn:hover{background:var(--purple-pale);border-color:var(--purple-light)}
+.icon-btn svg{width:17px;height:17px;stroke:var(--text-muted);stroke-width:1.8;fill:none}
+.notif-dot{position:absolute;top:7px;right:8px;width:7px;height:7px;background:var(--teal);border-radius:50%;border:2px solid #fff}
+.avatar{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--teal-light),var(--teal));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;cursor:pointer}
+.logout-btn{padding:7px 14px;border-radius:8px;background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.18s;display:flex;align-items:center;gap:5px}
+.logout-btn:hover{background:#fee2e2}
+.logout-btn svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none}
+
+/* VIEWS */
+.view{display:none;flex:1;overflow-y:auto;padding:26px 28px}
+.view.active{display:block}
+
+/* SECTION HEADERS */
+.section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.section-title{font-size:14px;font-weight:600;color:var(--purple-dark)}
+.badge-count{font-size:11.5px;color:var(--text-muted);background:var(--purple-pale);padding:3px 10px;border-radius:20px}
+
+/* TEST CARDS */
+.scroll-row{display:flex;gap:14px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory;-ms-overflow-style:none;scrollbar-width:none}
+.scroll-row::-webkit-scrollbar{display:none}
+.test-card{min-width:290px;max-width:310px;background:#fff;border-radius:16px;border:1px solid var(--border);padding:18px;display:flex;flex-direction:column;gap:12px;flex-shrink:0;scroll-snap-align:start;transition:all 0.2s;position:relative}
+.test-card:hover{border-color:var(--teal-light);transform:translateY(-2px);box-shadow:0 6px 20px rgba(7,88,91,0.09)}
+.chip{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;align-self:flex-start}
+.chip-active{background:var(--teal-pale);color:var(--teal-dark);border:1px solid var(--green-border)}
+.chip-upcoming{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.chip-completed{background:var(--purple-pale);color:var(--purple);border:1px solid var(--border)}
+.card-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.35}
+.card-desc{font-size:12.5px;color:var(--text-muted);line-height:1.5}
+.card-meta{display:flex;flex-direction:column;gap:5px}
+.meta-row{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-mid)}
+.meta-row svg{width:12px;height:12px;stroke:var(--text-hint);stroke-width:1.9;fill:none;flex-shrink:0}
+.countdown-badge{background:var(--teal-pale);color:var(--teal-dark);font-size:12px;font-weight:700;padding:6px 12px;border-radius:9px;text-align:center;border:1px solid var(--green-border)}
+.card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--border-light)}
+.marks-badge{font-size:12px;color:var(--text-hint);display:flex;align-items:center;gap:5px}
+.marks-badge svg{width:13px;height:13px;stroke:var(--text-hint);stroke-width:1.8;fill:none}
+.btn{padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all 0.18s;display:inline-flex;align-items:center;gap:5px}
+.btn svg{width:13px;height:13px;stroke:currentColor;stroke-width:2;fill:none}
+.btn-start{background:linear-gradient(135deg,var(--teal-dark),var(--teal));color:#fff}
+.btn-start:hover{opacity:.88;transform:translateY(-1px)}
+.btn-disabled{background:var(--bg);color:var(--text-hint);border:1px solid var(--border);cursor:default}
+.btn-review{background:var(--purple-pale);color:var(--purple);border:1px solid var(--border)}
+.btn-review:hover{background:#e8e0f5}
+
+/* GRAPH SECTION */
+.graph-panel{background:#fff;border-radius:16px;border:1px solid var(--border);padding:22px;margin-top:24px}
+.chart-wrap{overflow-x:auto;padding-bottom:8px}
+.chart-svg{min-width:100%}
+
+/* REVIEW SECTION */
+.panel{background:#fff;border-radius:16px;border:1px solid var(--border);padding:24px;margin-bottom:20px}
+.panel-title{font-size:15px;font-weight:600;color:var(--purple-dark);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.panel-title svg{width:18px;height:18px;stroke:var(--purple);stroke-width:1.9;fill:none}
+.styled-select{padding:9px 14px;border-radius:9px;border:1.5px solid var(--border);font-size:13.5px;color:var(--text);background:#fff;outline:none;cursor:pointer;min-width:200px;transition:border-color .2s}
+.styled-select:focus{border-color:var(--purple-mid)}
+.review-q{background:var(--bg);border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid var(--border-light)}
+.review-q-hd{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.review-q-num{width:26px;height:26px;border-radius:7px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.review-q-text{font-size:13.5px;color:var(--text);flex:1;line-height:1.5}
+.review-ans{margin-top:8px;display:flex;flex-direction:column;gap:6px}
+.ans-row{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border-radius:8px;font-size:13px}
+.ans-correct{background:#dcfce7;border:1px solid #86efac;color:#166534}
+.ans-wrong{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
+.ans-subjective{background:var(--purple-pale);border:1px solid var(--border);color:var(--purple-dark)}
+.ans-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.marks-awarded{margin-top:6px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;display:inline-block;background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+
+/* NOTIFICATIONS */
+.notif-panel{background:#fff;border-radius:16px;border:1px solid var(--border);overflow:hidden}
+.notif-item{display:flex;align-items:flex-start;gap:12px;padding:14px 18px;border-bottom:1px solid var(--border-light);transition:background .15s;cursor:pointer}
+.notif-item:last-child{border-bottom:none}
+.notif-item:hover{background:var(--purple-pale)}
+.notif-item.notif-unread{background:var(--teal-pale)}
+.notif-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--teal-light),var(--teal));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.notif-icon svg{width:16px;height:16px;stroke:#fff;stroke-width:2;fill:none}
+.notif-body{flex:1;min-width:0}
+.notif-title{font-size:13px;font-weight:600;color:var(--text)}
+.notif-msg{font-size:12px;color:var(--text-muted);margin-top:2px;line-height:1.4}
+.notif-time{font-size:11px;color:var(--text-hint);margin-top:4px}
+.notif-dot-badge{width:8px;height:8px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:6px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(43,32,77,0.45);z-index:1000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:18px;padding:28px;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(43,32,77,0.2);animation:modalIn .2s ease}
+@keyframes modalIn{from{transform:scale(0.95);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-title{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:8px}
+.modal-sub{font-size:13px;color:var(--text-muted);margin-bottom:22px;line-height:1.5}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end}
+.btn-primary{padding:10px 22px;border-radius:10px;background:linear-gradient(135deg,var(--teal-dark),var(--teal));color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:all .2s}
+.btn-primary:hover{opacity:.88}
+.btn-secondary{padding:10px 20px;border-radius:10px;background:#fff;color:var(--purple);font-size:13px;font-weight:600;border:1.5px solid var(--border);cursor:pointer;transition:all .2s}
+.btn-secondary:hover{border-color:var(--purple-light);background:var(--purple-pale)}
+.btn-danger{padding:10px 20px;border-radius:10px;background:var(--red-bg);color:var(--red);font-size:13px;font-weight:600;border:1.5px solid var(--red-border);cursor:pointer;transition:all .2s}
+.btn-danger:hover{background:#fee2e2}
+
+/* EXAM INTERFACE */
+.exam-overlay{position:fixed;inset:0;background:var(--bg);z-index:500;display:none;flex-direction:column}
+.exam-overlay.open{display:flex}
+
+/* CODE ENTRY SCREEN */
+.code-screen{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem}
+.code-card{background:#fff;border-radius:22px;border:1px solid var(--border);padding:42px;max-width:460px;width:100%;text-align:center;box-shadow:0 12px 40px rgba(43,32,77,0.1)}
+.code-card h2{font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:8px}
+.code-card p{font-size:13.5px;color:var(--text-muted);margin-bottom:28px;line-height:1.6}
+.code-input{width:100%;padding:14px 18px;border-radius:12px;border:2px solid var(--border);font-size:18px;font-weight:700;text-align:center;letter-spacing:.1em;color:var(--purple-dark);outline:none;transition:border-color .2s;text-transform:uppercase;font-family:inherit}
+.code-input:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(3,150,157,0.1)}
+
+/* INSTRUCTIONS SCREEN */
+.instr-screen{flex:1;display:none;align-items:center;justify-content:center;padding:2rem;overflow-y:auto}
+.instr-card{background:#fff;border-radius:22px;border:1px solid var(--border);padding:38px;max-width:580px;width:100%;box-shadow:0 12px 40px rgba(43,32,77,0.1)}
+.instr-card h2{font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:6px}
+.instr-card .test-subtitle{font-size:13px;color:var(--text-muted);margin-bottom:24px}
+.instr-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.instr-list li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--text-mid);line-height:1.5}
+.instr-icon{width:22px;height:22px;border-radius:6px;background:var(--teal-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.instr-icon svg{width:13px;height:13px;stroke:var(--teal-dark);stroke-width:2.2;fill:none}
+.instr-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.instr-meta-card{background:var(--bg);border-radius:10px;padding:12px 14px;border:1px solid var(--border-light)}
+.imc-label{font-size:10.5px;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.imc-val{font-size:15px;font-weight:700;color:var(--purple-dark)}
+
+/* EXAM BODY */
+.exam-body{flex:1;display:none;flex-direction:column;height:100vh}
+.exam-topbar{height:56px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:14px;flex-shrink:0}
+.exam-test-name{font-size:14px;font-weight:700;color:var(--purple-dark);flex:1}
+.exam-timer{background:var(--teal-pale);color:var(--teal-dark);font-size:13px;font-weight:700;padding:6px 14px;border-radius:9px;border:1px solid var(--green-border);display:flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
+.exam-timer svg{width:14px;height:14px;stroke:var(--teal-dark);stroke-width:2;fill:none}
+.exam-timer.urgent{background:var(--red-bg);color:var(--red);border-color:var(--red-border)}
+.exam-layout{flex:1;display:flex;overflow:hidden}
+
+/* QUESTION PALETTE */
+.q-palette{width:220px;background:#fff;border-right:1px solid var(--border);padding:16px;overflow-y:auto;flex-shrink:0}
+.q-palette-title{font-size:11px;font-weight:700;color:var(--text-hint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+.palette-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.p-slot{width:100%;aspect-ratio:1;border-radius:7px;background:var(--bg);border:1.5px solid var(--border);font-size:12px;font-weight:600;color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .18s}
+.p-slot:hover{border-color:var(--purple-mid);color:var(--purple)}
+.p-slot.answered{background:var(--teal-pale);border-color:var(--teal);color:var(--teal-dark)}
+.p-slot.current{background:var(--purple-pale);border-color:var(--purple);color:var(--purple);font-weight:700}
+.palette-legend{display:flex;flex-direction:column;gap:6px;margin-top:16px;padding-top:14px;border-top:1px solid var(--border-light)}
+.legend-row{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text-muted)}
+.legend-dot{width:13px;height:13px;border-radius:4px;flex-shrink:0}
+.ld-ans{background:var(--teal-pale);border:1.5px solid var(--teal)}
+.ld-cur{background:var(--purple-pale);border:1.5px solid var(--purple)}
+.ld-unan{background:var(--bg);border:1.5px solid var(--border)}
+
+/* QUESTION BODY */
+.q-main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.q-content{flex:1;overflow-y:auto;padding:28px}
+.q-progress{font-size:12px;color:var(--text-muted);margin-bottom:6px;font-weight:500}
+.q-question-text{font-size:16px;font-weight:600;color:var(--text);line-height:1.6;margin-bottom:22px}
+.q-options{display:flex;flex-direction:column;gap:10px}
+.q-option{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border-radius:12px;border:1.5px solid var(--border);cursor:pointer;transition:all .2s;background:#fff}
+.q-option:hover{border-color:var(--teal);background:var(--teal-pale)}
+.q-option.selected{border-color:var(--teal);background:var(--teal-pale)}
+.q-option-alpha{width:26px;height:26px;border-radius:7px;background:var(--bg);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text-muted);flex-shrink:0;transition:all .2s}
+.q-option.selected .q-option-alpha{background:var(--teal-dark);border-color:var(--teal-dark);color:#fff}
+.q-option-text{font-size:14px;color:var(--text-mid);line-height:1.5;padding-top:2px}
+.q-subjective textarea{width:100%;min-height:150px;padding:14px;border-radius:12px;border:1.5px solid var(--border);font-size:14px;color:var(--text);outline:none;resize:vertical;font-family:inherit;transition:border-color .2s;line-height:1.6}
+.q-subjective textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(3,150,157,0.1)}
+
+/* EXAM BOTTOM BAR */
+.exam-bottombar{height:62px;background:#fff;border-top:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:10px;flex-shrink:0}
+.eb-spacer{flex:1}
+.save-status{font-size:12px;color:var(--text-hint);display:flex;align-items:center;gap:5px}
+.save-status svg{width:13px;height:13px;stroke:currentColor;stroke-width:2;fill:none}
+.save-status.saved{color:var(--teal-dark)}
+
+/* RESULT SCREEN */
+.result-screen{flex:1;display:none;align-items:center;justify-content:center;padding:2rem;overflow-y:auto}
+.result-card{background:#fff;border-radius:22px;border:1px solid var(--border);padding:42px;max-width:520px;width:100%;text-align:center;box-shadow:0 12px 40px rgba(43,32,77,0.1)}
+.result-icon{width:72px;height:72px;border-radius:20px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center}
+.result-icon.pass{background:linear-gradient(135deg,var(--teal-light),var(--teal-dark))}
+.result-icon.submitted{background:linear-gradient(135deg,var(--purple-light),var(--purple))}
+.result-icon svg{width:32px;height:32px;stroke:#fff;stroke-width:2;fill:none}
+.result-score{font-size:52px;font-weight:800;color:var(--purple-dark);line-height:1}
+.result-score span{font-size:22px;font-weight:500;color:var(--text-muted)}
+.result-title{font-size:18px;font-weight:700;color:var(--purple-dark);margin-top:10px}
+.result-sub{font-size:13px;color:var(--text-muted);margin-top:6px;line-height:1.5}
+.result-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:24px 0}
+.rs-item{background:var(--bg);border-radius:12px;padding:14px;border:1px solid var(--border-light)}
+.rs-num{font-size:22px;font-weight:700;color:var(--purple-dark)}
+.rs-lbl{font-size:11px;color:var(--text-hint);margin-top:3px;text-transform:uppercase;letter-spacing:.05em}
+
+/* TOAST */
+.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{background:var(--purple-dark);color:#fff;font-size:13px;padding:11px 18px;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.2);animation:toastIn .25s ease;pointer-events:none;display:flex;align-items:center;gap:8px;max-width:320px}
+.toast.success{background:var(--teal-dark)}
+.toast.error{background:var(--red)}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:48px 24px;color:var(--text-muted)}
+.empty-state svg{width:40px;height:40px;stroke:var(--text-hint);stroke-width:1.5;fill:none;margin-bottom:12px}
+.empty-state h3{font-size:15px;font-weight:600;color:var(--text-mid);margin-bottom:6px}
+.empty-state p{font-size:13px}
+
+/* FIELD STYLES */
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.field label{font-size:11.5px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em}
+.field input,.field select,.field textarea{padding:10px 13px;border-radius:9px;border:1.5px solid var(--border);font-size:13.5px;color:var(--text);background:#fff;outline:none;transition:border-color .2s;font-family:inherit}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--purple-mid);box-shadow:0 0 0 3px rgba(131,116,159,0.12)}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sb-logo">
+    <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2.2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+  </div>
+  <div class="sb-icon active" id="sb-dashboard" onclick="showView('dashboard')">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <span class="sb-tip">Dashboard</span>
+  </div>
+  <div class="sb-icon" id="sb-review" onclick="showView('review')">
+    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    <span class="sb-tip">Review Tests</span>
+  </div>
+  <div class="sb-divider"></div>
+  <div class="sb-icon" id="sb-notif" onclick="showView('notifications')">
+    <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    <span class="notif-dot-sb" id="sbNotifDot" style="display:none"></span>
+    <span class="sb-tip">Notifications</span>
+  </div>
+  <div class="sb-spacer"></div>
+</div>
+
+<!-- TOPBAR -->
+<div class="main">
+<div class="topbar">
+  <div class="topbar-greeting">
+    <h1 id="topbarName">Hello, Student 👋</h1>
+    <p id="topbarSub">Here's what's happening today</p>
+  </div>
+  <span class="tb-badge">Student</span>
+  <button class="icon-btn" onclick="showView('notifications')" title="Notifications">
+    <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    <span class="notif-dot" id="topNotifDot" style="display:none"></span>
+  </button>
+  <button class="logout-btn" onclick="confirmLogout()">
+    <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    Logout
+  </button>
+  <div class="avatar" id="avatarEl">S</div>
+</div>
+
+<!-- ═══════════════════════════════
+     VIEW: DASHBOARD
+═══════════════════════════════ -->
+<div class="view active" id="view-dashboard">
+
+  <!-- Active / Available Tests -->
+  <div class="section-hd">
+    <div class="section-title">📋 Available Tests</div>
+    <span class="badge-count" id="activeCount">0 tests</span>
+  </div>
+  <div class="scroll-row" id="activeTestsRow">
+    <div class="empty-state" style="min-width:100%">
+      <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/></svg>
+      <h3>No active tests</h3>
+      <p>Published tests will appear here</p>
+    </div>
+  </div>
+
+  <!-- Upcoming Tests -->
+  <div class="section-hd" style="margin-top:26px">
+    <div class="section-title">🕐 Upcoming Tests</div>
+    <span class="badge-count" id="upcomingCount">0 tests</span>
+  </div>
+  <div class="scroll-row" id="upcomingTestsRow">
+    <div class="empty-state" style="min-width:100%">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <h3>No upcoming tests</h3>
+      <p>Scheduled tests will appear here</p>
+    </div>
+  </div>
+
+  <!-- Performance Graph -->
+  <div class="graph-panel">
+    <div class="section-hd" style="margin-bottom:18px">
+      <div class="section-title">📊 My Performance</div>
+    </div>
+    <div class="chart-wrap" id="chartWrap">
+      <div class="empty-state"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><h3>No results yet</h3><p>Complete tests to see your performance graph</p></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════
+     VIEW: REVIEW
+═══════════════════════════════ -->
+<div class="view" id="view-review">
+  <div class="panel">
+    <div class="panel-title">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Review a Test
+    </div>
+    <div class="field">
+      <label>Select Test</label>
+      <select class="styled-select" id="reviewTestSelect" onchange="loadReviewQuestions()" style="width:100%">
+        <option value="">— Choose a completed test —</option>
+      </select>
+    </div>
+  </div>
+  <div id="reviewArea">
+    <div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px">
+      <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      <h3>Select a test to review</h3>
+      <p>See your answers vs correct answers with marks breakdown</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     VIEW: NOTIFICATIONS
+═══════════════════════════════ -->
+<div class="view" id="view-notifications">
+  <div class="section-hd">
+    <div class="section-title">🔔 Notifications</div>
+  </div>
+  <div class="notif-panel" id="notifList">
+    <div class="empty-state" style="padding:48px"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><h3>No notifications</h3><p>You're all caught up!</p></div>
+  </div>
+</div>
+
+</div><!-- end .main -->
+
+<!-- ══════════════════════════════════════════
+     EXAM OVERLAY (Code Entry → Instructions → Exam → Result)
+══════════════════════════════════════════ -->
+<div class="exam-overlay" id="examOverlay">
+
+  <!-- STEP 1: EXAM CODE -->
+  <div style="background:#fff;border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;padding:0 20px;gap:12px;flex-shrink:0">
+    <button class="btn btn-secondary" onclick="closeExam()" style="padding:6px 14px;font-size:12px">✕ Cancel</button>
+    <span style="font-size:15px;font-weight:700;color:var(--purple-dark)">Enter Exam</span>
+  </div>
+  <div class="code-screen" id="codeScreen">
+    <div class="code-card">
+      <div style="width:56px;height:56px;background:linear-gradient(135deg,var(--teal-light),var(--teal-dark));border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+        <svg width="26" height="26" fill="none" stroke="#fff" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h2>Enter Exam Code</h2>
+      <p>Ask your teacher for the exam code.<br/>Codes are case-insensitive.</p>
+      <input class="code-input" id="examCodeInput" placeholder="e.g. JAVA-MID-01" maxlength="30"
+        oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')verifyCode()"/>
+      <button class="btn-primary" onclick="verifyCode()" style="width:100%;margin-top:18px;padding:13px">Continue →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: INSTRUCTIONS -->
+  <div class="instr-screen" id="instrScreen">
+    <div class="instr-card">
+      <h2 id="instrTestName">Test Instructions</h2>
+      <div class="test-subtitle" id="instrTestDesc"></div>
+      <div class="instr-meta-grid">
+        <div class="instr-meta-card"><div class="imc-label">Duration</div><div class="imc-val" id="instrDuration">—</div></div>
+        <div class="instr-meta-card"><div class="imc-label">Total Marks</div><div class="imc-val" id="instrMarks">—</div></div>
+        <div class="instr-meta-card"><div class="imc-label">Questions</div><div class="imc-val" id="instrQCount">—</div></div>
+        <div class="instr-meta-card"><div class="imc-label">Negative Marking</div><div class="imc-val" id="instrNeg">—</div></div>
+      </div>
+      <ul class="instr-list">
+        <li><div class="instr-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Read each question carefully before selecting an answer.</li>
+        <li><div class="instr-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Answers are auto-saved when you click Save &amp; Next.</li>
+        <li><div class="instr-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>You can navigate between questions using the palette on the left.</li>
+        <li><div class="instr-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Do not refresh or close the browser during the exam.</li>
+        <li><div class="instr-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>The exam will auto-submit when time runs out.</li>
+        <li id="instrNegLi" style="display:none"><div class="instr-icon" style="background:var(--amber-bg)"><svg viewBox="0 0 24 24" stroke="#9a6000"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><circle cx="12" cy="12" r="10"/></svg></div><span id="instrNegText"></span></li>
+      </ul>
+      <div style="display:flex;gap:10px">
+        <button class="btn-secondary" onclick="showCodeScreen()" style="flex:1">← Back</button>
+        <button class="btn-primary" onclick="startExam()" style="flex:2">I'm Ready — Start Exam →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: EXAM BODY -->
+  <div class="exam-body" id="examBody">
+    <div class="exam-topbar">
+      <div class="exam-test-name" id="examTestName">Test Name</div>
+      <div class="exam-timer" id="examTimer">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span id="timerDisplay">00:00</span>
+      </div>
+      <button class="btn-danger" onclick="confirmEndTest()" style="font-size:12px;padding:7px 14px">End Test</button>
+    </div>
+    <div class="exam-layout">
+      <div class="q-palette">
+        <div class="q-palette-title">Questions</div>
+        <div class="palette-grid" id="paletteGrid"></div>
+        <div class="palette-legend">
+          <div class="legend-row"><div class="legend-dot ld-ans"></div> Answered</div>
+          <div class="legend-row"><div class="legend-dot ld-cur"></div> Current</div>
+          <div class="legend-row"><div class="legend-dot ld-unan"></div> Not answered</div>
+        </div>
+      </div>
+      <div class="q-main">
+        <div class="q-content" id="qContent">
+          <!-- question rendered here -->
+        </div>
+        <div class="exam-bottombar">
+          <div class="save-status" id="saveStatus">
+            <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Auto-save enabled
+          </div>
+          <div class="eb-spacer"></div>
+          <button class="btn btn-secondary" id="prevBtn" onclick="navigateQ(-1)">← Prev</button>
+          <button class="btn btn-start" id="saveNextBtn" onclick="saveAndNext()">Save &amp; Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: RESULT -->
+  <div class="result-screen" id="resultScreen">
+    <div class="result-card">
+      <div class="result-icon submitted" id="resultIcon">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="result-score" id="resultScore">—</div>
+      <div class="result-title" id="resultTitle">Test Submitted!</div>
+      <div class="result-sub" id="resultSub">Your answers have been recorded.</div>
+      <div class="result-stats" id="resultStats"></div>
+      <button class="btn-primary" onclick="closeExam()" style="width:100%;margin-top:6px">Back to Dashboard</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-title" id="modalTitle">Confirm</div>
+    <div class="modal-sub" id="modalSub"></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn-danger" id="modalConfirmBtn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+const BASE_URL = '';
+
+/* ════════════════════════════════════════
+   SESSION
+════════════════════════════════════════ */
+let currentUser = null;
+
+function initSession() {
+  // Try sessionStorage first, then localStorage
+  const raw = sessionStorage.getItem('quizely_user') || localStorage.getItem('quizely_user');
+  if (raw) {
+    try { currentUser = JSON.parse(raw); } catch(e) {}
+  }
+  if (!currentUser) {
+    // Attempt to parse from URL params as fallback
+    const p = new URLSearchParams(location.search);
+    const id = p.get('id'), name = p.get('name'), email = p.get('email');
+    if (id) {
+      currentUser = { id, name: name || id, email: email || '', role: 'STUDENT' };
+    } else {
+      // If no session found, redirect to login
+      window.location.href = '/login.html';
+      return;
+    }
+  }
+  // Set UI
+  const name = currentUser.name || currentUser.id || 'Student';
+  document.getElementById('topbarName').textContent = `Hello, ${name} 👋`;
+  document.getElementById('topbarSub').textContent = `${new Date().toLocaleDateString('en-IN', {weekday:'long',day:'numeric',month:'long'})}`;
+  document.getElementById('avatarEl').textContent = name.charAt(0).toUpperCase();
+}
+
+/* ════════════════════════════════════════
+   VIEWS
+════════════════════════════════════════ */
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.sb-icon').forEach(b => b.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  const sb = document.getElementById('sb-' + id);
+  if (sb) sb.classList.add('active');
+
+  if (id === 'dashboard') fetchPublishedTests();
+  if (id === 'review') populateReviewSelect();
+  if (id === 'notifications') fetchNotifications();
+}
+
+/* ════════════════════════════════════════
+   PUBLISHED TESTS
+════════════════════════════════════════ */
+let publishedTests = [];
+let completedSubmissions = {}; // testId → submissionId
+
+async function fetchPublishedTests() {
+  try {
+    const [activeRes, scheduledRes] = await Promise.all([
+      fetch(`${BASE_URL}/student/tests/available`),
+      fetch(`${BASE_URL}/student/tests/scheduled`)
+    ]);
+    const activeTests = activeRes.ok ? await activeRes.json() : [];
+    const scheduledTests = scheduledRes.ok ? await scheduledRes.json() : [];
+    publishedTests = [...(activeTests || []), ...(scheduledTests || [])];
+    renderTestCards();
+  } catch(e) {
+    console.error(e);
+    showToast('Failed to load tests', 'error');
+  }
+}
+
+function renderTestCards() {
+  const now = new Date();
+  const active = [], upcoming = [];
+
+  publishedTests.forEach(t => {
+    const start = new Date(t.startTime);
+    const end = new Date(t.endTime);
+    if (now >= start && now <= end) active.push(t);
+    else if (now < start) upcoming.push(t);
+  });
+
+  document.getElementById('activeCount').textContent = `${active.length} test${active.length!==1?'s':''}`;
+  document.getElementById('upcomingCount').textContent = `${upcoming.length} test${upcoming.length!==1?'s':''}`;
+
+  renderRow('activeTestsRow', active, 'active');
+  renderRow('upcomingTestsRow', upcoming, 'upcoming');
+  fetchPerformanceGraph();
+}
+
+function renderRow(containerId, tests, type) {
+  const row = document.getElementById(containerId);
+  if (!tests.length) {
+    const label = type === 'active' ? 'active' : 'upcoming';
+    row.innerHTML = `<div class="empty-state" style="min-width:100%"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><h3>No ${label} tests</h3><p>${type==='active'?'Published tests will appear here':'Scheduled tests will appear here'}</p></div>`;
+    return;
+  }
+  row.innerHTML = tests.map(t => buildTestCard(t, type)).join('');
+  // start countdowns
+  tests.forEach(t => {
+    if (type === 'active') startCountdown(`cd_${t.id}`, new Date(t.endTime), 'Ends in');
+    else startCountdown(`cd_${t.id}`, new Date(t.startTime), 'Starts in');
+  });
+}
+
+function buildTestCard(t, type) {
+  const start = new Date(t.startTime).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  const end = new Date(t.endTime).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  const chipClass = type === 'active' ? 'chip-active' : 'chip-upcoming';
+  const chipLabel = type === 'active' ? '🟢 Live' : '🕐 Upcoming';
+  const cdLabel = type === 'active' ? 'Ends in' : 'Starts in';
+  const btn = type === 'active'
+    ? `<button class="btn btn-start" onclick="openExam('${t.examCode}')">▶ Start Test</button>`
+    : `<button class="btn btn-disabled" disabled>Not started</button>`;
+
+  return `
+    <div class="test-card">
+      <span class="chip ${chipClass}">${chipLabel}</span>
+      <div class="card-title">${esc(t.title)}</div>
+      <div class="card-desc">${esc(t.description||'No description')}</div>
+      <div class="card-meta">
+        <div class="meta-row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${t.durationMinutes} minutes</div>
+        <div class="meta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Start: ${start}</div>
+        <div class="meta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>End: ${end}</div>
+      </div>
+      <div class="countdown-badge" id="cd_${t.id}">Loading…</div>
+      <div class="card-footer">
+        <div class="marks-badge"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>${t.totalMarks} marks</div>
+        ${btn}
+      </div>
+    </div>`;
+}
+
+const cdTimers = {};
+function startCountdown(elId, targetDate, label) {
+  if (cdTimers[elId]) clearInterval(cdTimers[elId]);
+  function update() {
+    const el = document.getElementById(elId);
+    if (!el) { clearInterval(cdTimers[elId]); return; }
+    const diff = targetDate - new Date();
+    if (diff <= 0) { el.textContent = label === 'Ends in' ? 'Ended' : 'Started'; clearInterval(cdTimers[elId]); fetchPublishedTests(); return; }
+    const h = Math.floor(diff/3600000);
+    const m = Math.floor((diff%3600000)/60000);
+    const s = Math.floor((diff%60000)/1000);
+    el.textContent = `${label}: ${h>0?h+'h ':''} ${m}m ${s}s`;
+  }
+  update();
+  cdTimers[elId] = setInterval(update, 1000);
+}
+
+/* ════════════════════════════════════════
+   PERFORMANCE GRAPH
+════════════════════════════════════════ */
+async function fetchPerformanceGraph() {
+  if (!currentUser) return;
+  try {
+    const res = await fetch(`${BASE_URL}/student/${currentUser.id}/performance`);
+    if (!res.ok) return;
+    const data = await res.json();
+    renderGraph(data);
+  } catch(e) { console.error(e); }
+}
+
+function renderGraph(data) {
+  const wrap = document.getElementById('chartWrap');
+  if (!data || !data.length) {
+    wrap.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><h3>No results yet</h3><p>Complete tests to see your performance</p></div>`;
+    return;
+  }
+  const W = Math.max(data.length * 90, 400);
+  const H = 220;
+  const PAD = {t:20,r:20,b:60,l:54};
+  const chartW = W - PAD.l - PAD.r;
+  const chartH = H - PAD.t - PAD.b;
+  const barW = Math.min(50, chartW / data.length - 12);
+
+  let svg = `<svg class="chart-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  [0,25,50,75,100].forEach(pct => {
+    const y = PAD.t + chartH - (pct/100)*chartH;
+    svg += `<line x1="${PAD.l}" y1="${y}" x2="${W-PAD.r}" y2="${y}" stroke="#D4F0F0" stroke-width="1" stroke-dasharray="4,3"/>`;
+    svg += `<text x="${PAD.l-8}" y="${y+4}" text-anchor="end" font-size="10" fill="#D4C5E4">${pct}%</text>`;
+  });
+
+  data.forEach((item, i) => {
+    const totalMarks = item.totalMarks || 0;
+    const scoredMarks = parseFloat(item.scoredMarks) || 0;
+    const pct = totalMarks > 0 ? Math.min(100, Math.max(0, (scoredMarks / totalMarks) * 100)) : 0;
+    const x = PAD.l + i*(chartW/data.length) + (chartW/data.length - barW)/2;
+    const barH = (pct/100)*chartH;
+    const y = PAD.t + chartH - barH;
+    const color = pct >= 70 ? '#089790' : pct >= 40 ? '#9a6000' : '#b91c1c';
+    svg += `<rect x="${x}" y="${y}" width="${barW}" height="${barH}" rx="5" fill="${color}" opacity="0.85"/>`;
+    svg += `<text x="${x+barW/2}" y="${y-5}" text-anchor="middle" font-size="10" font-weight="700" fill="${color}">${Math.round(pct)}%</text>`;
+    const label = (item.testTitle || 'Test').substring(0,10) + ((item.testTitle||'').length>10?'…':'');
+    svg += `<text x="${x+barW/2}" y="${H-PAD.b+14}" text-anchor="middle" font-size="10" fill="#8474A1">${esc(label)}</text>`;
+    svg += `<text x="${x+barW/2}" y="${H-PAD.b+26}" text-anchor="middle" font-size="9" fill="#D4C5E4">${Math.round(scoredMarks)}/${totalMarks}</text>`;
+  });
+
+  svg += `</svg>`;
+  wrap.innerHTML = svg;
+}
+
+/* ════════════════════════════════════════
+   EXAM FLOW
+════════════════════════════════════════ */
+let examState = {
+  test: null, questions: [], submissionId: null,
+  currentQ: 0, answers: {}, timer: null, timeLeft: 0
+};
+
+function openExam(examCode) {
+  document.getElementById('examCodeInput').value = examCode || '';
+  document.getElementById('examOverlay').classList.add('open');
+  showCodeScreen();
+}
+
+function showCodeScreen() {
+  document.getElementById('codeScreen').style.display = 'flex';
+  document.getElementById('instrScreen').style.display = 'none';
+  document.getElementById('examBody').style.display = 'none';
+  document.getElementById('resultScreen').style.display = 'none';
+}
+
+async function verifyCode() {
+  const code = document.getElementById('examCodeInput').value.trim().toUpperCase();
+  if (!code) { showToast('Enter an exam code', 'error'); return; }
+  try {
+    // Step 1: fetch questions (validates code, published state, timing server-side)
+    const qRes = await fetch(`${BASE_URL}/student/tests/${code}/questions`);
+    if (!qRes.ok) {
+      const errText = await qRes.text();
+      showToast(errText || 'Invalid exam code. Please check and retry.', 'error');
+      return;
+    }
+    const questions = await qRes.json();
+
+    // Step 2: find test metadata — try both camelCase and snake_case field names
+    // because Jackson serialization may differ based on Spring config
+    function getExamCode(t) { return t.examCode || t.exam_code || ''; }
+
+    let test = publishedTests.find(t => getExamCode(t).toUpperCase() === code);
+    if (!test) {
+      const avRes = await fetch(`${BASE_URL}/student/tests/available`);
+      const avTests = avRes.ok ? await avRes.json() : [];
+      test = avTests.find(t => getExamCode(t).toUpperCase() === code);
+      if (test) publishedTests = [...publishedTests, ...avTests.filter(t2 => !publishedTests.find(p => p.id === t2.id))];
+    }
+
+    // Step 3: if still not found, build a minimal test object from what we know
+    // The questions endpoint succeeded so the test definitely exists and is active
+    if (!test) {
+      test = {
+        examCode: code,
+        exam_code: code,
+        title: code,
+        description: '',
+        durationMinutes: 60,
+        totalMarks: questions.reduce((s, q) => s + (q.marks || 0), 0),
+        negativeMarking: 0,
+        showResults: false,
+        startTime: new Date(Date.now() - 1000).toISOString(),
+        endTime: new Date(Date.now() + 86400000).toISOString()
+      };
+    }
+
+    // Always store the typed code directly so startExam() never loses it
+    test.examCode = code;
+
+    examState.test = test;
+    examState.questions = questions || [];
+    examState.answers = {};
+    examState.submissionId = null;
+
+    // Show instructions
+    document.getElementById('instrTestName').textContent = test.title || code;
+    document.getElementById('instrTestDesc').textContent = test.description || '';
+    document.getElementById('instrDuration').textContent = `${test.durationMinutes || '?'} min`;
+    document.getElementById('instrMarks').textContent = `${test.totalMarks || '?'}`;
+    document.getElementById('instrQCount').textContent = `${questions.length}`;
+    document.getElementById('instrNeg').textContent = test.negativeMarking > 0 ? `-${test.negativeMarking}` : 'None';
+    if (test.negativeMarking > 0) {
+      document.getElementById('instrNegLi').style.display = 'flex';
+      document.getElementById('instrNegText').textContent = `Negative marking: ${test.negativeMarking} marks deducted per wrong answer.`;
+    } else {
+      document.getElementById('instrNegLi').style.display = 'none';
+    }
+
+    document.getElementById('codeScreen').style.display = 'none';
+    document.getElementById('instrScreen').style.display = 'flex';
+  } catch(e) {
+    console.error(e);
+    showToast('Failed to find exam. Check code or network.', 'error');
+  }
+}
+
+async function startExam() {
+  if (!currentUser) {
+    showToast("Session expired. Please log in again.", "error");
+    setTimeout(() => window.location.href = "/login.html", 1500);
+    return;
+  }
+  if (!examState.test || !examState.test.examCode) {
+    showToast("Exam data missing. Please re-enter the exam code.", "error");
+    showCodeScreen();
+    return;
+  }
+  try {
+    const res = await fetch(`${BASE_URL}/student/tests/start`, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ examCode: examState.test.examCode, studentId: currentUser.id })
+    });
+    if (!res.ok) { const t = await res.text(); showToast(t || "Could not start exam", "error"); return; }
+    const sub = await res.json();
+    examState.submissionId = sub.id || sub.submissionId;
+    examState.currentQ = 0;
+    examState.timeLeft = examState.test.durationMinutes * 60;
+
+    document.getElementById("instrScreen").style.display = "none";
+    document.getElementById("examBody").style.display = "flex";
+    document.getElementById("examTestName").textContent = examState.test.title;
+
+    buildPalette();
+    renderQuestion(0);
+    startTimer();
+  } catch(e) {
+    console.error(e);
+    showToast("Failed to start exam: " + e.message, "error");
+  }
+}
+
+function buildPalette() {
+  const grid = document.getElementById('paletteGrid');
+  grid.innerHTML = examState.questions.map((q,i) => `
+    <div class="p-slot ${i===0?'current':''}" id="ps_${i}" onclick="jumpToQ(${i})">${i+1}</div>`).join('');
+}
+
+function renderQuestion(idx) {
+  const qs = examState.questions;
+  if (idx < 0 || idx >= qs.length) return;
+  examState.currentQ = idx;
+
+  // Update palette
+  document.querySelectorAll('.p-slot').forEach((el,i) => {
+    el.classList.toggle('current', i === idx);
+    el.classList.toggle('answered', !!examState.answers[i+1] || examState.answers[i+1] === 0);
+  });
+
+  const q = qs[idx];
+  const saved = examState.answers[idx+1];
+  const isLast = idx === qs.length - 1;
+
+  let optHTML = '';
+  if (q.questionType === 'OBJECTIVE') {
+    const opts = [q.option1, q.option2, q.option3, q.option4].filter(Boolean);
+    const alphas = ['A','B','C','D'];
+    optHTML = `<div class="q-options">${opts.map((o,i) => `
+      <div class="q-option ${saved === i+1 ? 'selected':''}" onclick="selectOption(${i+1})" id="qopt_${i+1}">
+        <div class="q-option-alpha">${alphas[i]}</div>
+        <div class="q-option-text">${esc(o)}</div>
+      </div>`).join('')}</div>`;
+  } else {
+    optHTML = `<div class="q-subjective"><textarea id="subjectiveAns" placeholder="Type your answer here…" rows="6">${saved||''}</textarea></div>`;
+  }
+
+  document.getElementById('qContent').innerHTML = `
+    <div class="q-progress">Question ${idx+1} of ${qs.length} &nbsp;·&nbsp; ${q.marks} mark${q.marks!==1?'s':''} &nbsp;·&nbsp; <span style="font-size:11px;background:${q.questionType==='OBJECTIVE'?'var(--teal-pale)':'var(--amber-bg)'};color:${q.questionType==='OBJECTIVE'?'var(--teal-dark)':'var(--amber)'};padding:2px 8px;border-radius:10px;font-weight:600">${q.questionType}</span></div>
+    <div class="q-question-text">${esc(q.questionText)}</div>
+    ${optHTML}`;
+
+  document.getElementById('prevBtn').disabled = idx === 0;
+  document.getElementById('saveNextBtn').textContent = isLast ? '✓ Save & Submit' : 'Save & Next →';
+}
+
+function selectOption(optNum) {
+  document.querySelectorAll('.q-option').forEach(el => el.classList.remove('selected'));
+  document.getElementById(`qopt_${optNum}`)?.classList.add('selected');
+  examState.answers[examState.currentQ+1] = optNum;
+}
+
+async function saveAndNext() {
+  await saveCurrentAnswer();
+  const isLast = examState.currentQ === examState.questions.length - 1;
+  if (isLast) {
+    confirmEndTest();
+  } else {
+    renderQuestion(examState.currentQ + 1);
+  }
+}
+
+async function saveCurrentAnswer() {
+  const q = examState.questions[examState.currentQ];
+  const qNum = examState.currentQ + 1;
+  let body = {
+    submissionId: examState.submissionId,
+    testId: examState.test.id,
+    questionNumber: qNum,
+    selectedOption: null,
+    textAnswer: null
+  };
+  if (q.questionType === 'OBJECTIVE') {
+    const sel = examState.answers[qNum];
+    if (!sel) return; // nothing to save
+    body.selectedOption = sel;
+  } else {
+    const ta = document.getElementById('subjectiveAns');
+    const txt = ta ? ta.value.trim() : '';
+    if (!txt) return;
+    examState.answers[qNum] = txt;
+    body.textAnswer = txt;
+  }
+  try {
+    await fetch(`${BASE_URL}/student/answers/save`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(body)
+    });
+    const ss = document.getElementById('saveStatus');
+    ss.className = 'save-status saved';
+    ss.innerHTML = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Saved`;
+    setTimeout(() => { ss.className='save-status'; ss.innerHTML=`<svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Auto-save enabled`; }, 2000);
+    // update palette
+    document.getElementById(`ps_${examState.currentQ}`)?.classList.add('answered');
+  } catch(e) { console.error('Save error', e); }
+}
+
+function navigateQ(dir) {
+  saveCurrentAnswer();
+  renderQuestion(examState.currentQ + dir);
+}
+
+function jumpToQ(idx) {
+  saveCurrentAnswer();
+  renderQuestion(idx);
+}
+
+function startTimer() {
+  if (examState.timer) clearInterval(examState.timer);
+  function tick() {
+    examState.timeLeft--;
+    if (examState.timeLeft <= 0) {
+      clearInterval(examState.timer);
+      showToast('Time up! Submitting your test…', 'error');
+      submitTest(true);
+      return;
+    }
+    const h = Math.floor(examState.timeLeft/3600);
+    const m = Math.floor((examState.timeLeft%3600)/60);
+    const s = examState.timeLeft%60;
+    document.getElementById('timerDisplay').textContent = `${h>0?h+':':''}${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    const el = document.getElementById('examTimer');
+    if (examState.timeLeft <= 300) el.classList.add('urgent');
+    else el.classList.remove('urgent');
+  }
+  tick();
+  examState.timer = setInterval(tick, 1000);
+}
+
+function confirmEndTest() {
+  openModal('End Test', 'Are you sure you want to submit your test? You cannot change answers after submission.', () => submitTest(false), true);
+}
+
+async function submitTest(auto) {
+  if (examState.timer) clearInterval(examState.timer);
+  await saveCurrentAnswer();
+  try {
+    const res = await fetch(`${BASE_URL}/student/tests/${examState.test.examCode}/submit/${currentUser.id}`, { method: 'PUT' });
+    if (!res.ok) { const t=await res.text(); showToast(t||'Submission failed','error'); return; }
+
+    // Check if results are enabled
+    if (examState.test.showResults) {
+      await showResult();
+    } else {
+      document.getElementById('examBody').style.display = 'none';
+      document.getElementById('resultScreen').style.display = 'flex';
+      document.getElementById('resultScore').textContent = '✓';
+      document.getElementById('resultTitle').textContent = 'Test Submitted!';
+      document.getElementById('resultSub').textContent = 'Your answers have been recorded. Results will be published by your teacher.';
+      document.getElementById('resultStats').innerHTML = '';
+      document.getElementById('resultIcon').className = 'result-icon submitted';
+    }
+  } catch(e) {
+    console.error(e);
+    showToast('Submission error. Please contact your teacher.', 'error');
+  }
+}
+
+async function showResult() {
+  try {
+    const res = await fetch(`${BASE_URL}/student/tests/${examState.test.examCode}/result/${currentUser.id}`);
+    if (!res.ok) { throw new Error(); }
+    const data = await res.json();
+    document.getElementById('examBody').style.display = 'none';
+    document.getElementById('resultScreen').style.display = 'flex';
+
+    const scored = parseFloat(data.totalScore) || 0;
+    const total = data.totalMarks || 0;
+    const pct = total > 0 ? Math.round((scored / total) * 100) : 0;
+
+    // Count correct/wrong from questions array
+    const questions = data.questions || [];
+    let correct = 0, wrong = 0;
+    questions.forEach(q => {
+      if (q.questionType === 'OBJECTIVE') {
+        if (q.selectedOption && q.selectedOption === q.correctOption) correct++;
+        else if (q.selectedOption) wrong++;
+      }
+    });
+
+    document.getElementById('resultScore').innerHTML = `${Math.round(scored)}<span>/${total}</span>`;
+    document.getElementById('resultTitle').textContent = pct >= 40 ? '🎉 Congratulations!' : 'Test Completed';
+    document.getElementById('resultSub').textContent = `You scored ${pct}% in ${examState.test.title}`;
+    document.getElementById('resultIcon').className = `result-icon ${pct>=40?'pass':'submitted'}`;
+    document.getElementById('resultStats').innerHTML = `
+      <div class="rs-item"><div class="rs-num" style="color:var(--teal-dark)">${pct}%</div><div class="rs-lbl">Score</div></div>
+      <div class="rs-item"><div class="rs-num">${correct}</div><div class="rs-lbl">Correct</div></div>
+      <div class="rs-item"><div class="rs-num" style="color:var(--red)">${wrong}</div><div class="rs-lbl">Wrong</div></div>`;
+
+    // Store exam code for review
+    if (!completedSubmissions[examState.test.id]) {
+      completedSubmissions[examState.test.id] = examState.test.examCode;
+    }
+  } catch(e) {
+    document.getElementById('examBody').style.display = 'none';
+    document.getElementById('resultScreen').style.display = 'flex';
+    document.getElementById('resultScore').textContent = '✓';
+    document.getElementById('resultTitle').textContent = 'Submitted Successfully';
+    document.getElementById('resultSub').textContent = 'Results will be shown when published by your teacher.';
+    document.getElementById('resultStats').innerHTML = '';
+  }
+}
+
+function closeExam() {
+  if (examState.timer) clearInterval(examState.timer);
+  document.getElementById('examOverlay').classList.remove('open');
+  fetchPublishedTests();
+}
+
+/* ════════════════════════════════════════
+   REVIEW
+════════════════════════════════════════ */
+let allReviewTests = [];
+
+async function populateReviewSelect() {
+  const sel = document.getElementById('reviewTestSelect');
+  try {
+    const [avRes, schRes] = await Promise.all([
+      fetch(`${BASE_URL}/student/tests/available`),
+      fetch(`${BASE_URL}/student/tests/scheduled`)
+    ]);
+    const avTests = avRes.ok ? await avRes.json() : [];
+    const schTests = schRes.ok ? await schRes.json() : [];
+    // Combine and deduplicate by id
+    const seen = new Set();
+    allReviewTests = [...(avTests||[]), ...(schTests||[])].filter(t => {
+      if (seen.has(t.id)) return false;
+      seen.add(t.id); return true;
+    });
+    sel.innerHTML = `<option value="">— Choose a completed test —</option>` +
+      allReviewTests.map(t => `<option value="${t.id}">${esc(t.title)}</option>`).join('');
+  } catch(e) {
+    console.error(e);
+  }
+}
+
+async function loadReviewQuestions() {
+  const testId = document.getElementById('reviewTestSelect').value;
+  const area = document.getElementById('reviewArea');
+  if (!testId) {
+    area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><h3>Select a test to review</h3><p>See your answers vs correct answers</p></div>`;
+    return;
+  }
+
+  const test = allReviewTests.find(t => String(t.id)===String(testId));
+  if (!test || !test.showResults) {
+    area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><h3>Results not published</h3><p>Your teacher hasn't published results for this test yet.</p></div>`;
+    return;
+  }
+
+  area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><h3>Loading review…</h3></div>`;
+
+  try {
+    // Use the student result endpoint: GET /student/tests/{examCode}/result/{studentId}
+    const resultRes = await fetch(`${BASE_URL}/student/tests/${test.examCode}/result/${currentUser.id}`);
+    if (!resultRes.ok) {
+      const errText = await resultRes.text();
+      area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><h3>No submission found</h3><p>${esc(errText) || 'You may not have taken this test.'}</p></div>`;
+      return;
+    }
+
+    const result = await resultRes.json();
+    // ResultResponse fields: totalScore, totalMarks, questions (array of QuestionResult)
+    const scored = parseFloat(result.totalScore) || 0;
+    const total = result.totalMarks || 0;
+    const pct = total > 0 ? Math.round((scored / total) * 100) : 0;
+    const questions = result.questions || [];
+
+    let html = `
+      <div class="panel" style="text-align:center;margin-bottom:16px">
+        <div style="font-size:32px;font-weight:800;color:var(--purple-dark)">${Math.round(scored)}<span style="font-size:16px;font-weight:500;color:var(--text-muted)">/${total}</span></div>
+        <div style="font-size:14px;color:var(--text-muted);margin-top:4px">${pct}% — ${esc(test.title)}</div>
+      </div>`;
+
+    questions.forEach((q, i) => {
+      const qNum = q.questionNumber || (i + 1);
+      let ansBlock = '';
+
+      if (q.questionType === 'OBJECTIVE') {
+        const correct = q.correctOption;
+        const selected = q.selectedOption;
+        const isCorrect = selected && selected === correct;
+        // Option texts are not in ResultResponse, so show option numbers
+        ansBlock = `
+          <div class="review-ans">
+            <div class="ans-row ${isCorrect ? 'ans-correct' : (selected ? 'ans-wrong' : '')}">
+              <div>
+                <div class="ans-label">Your Answer</div>
+                ${selected ? `Option ${selected}` : '<em>Not answered</em>'}
+              </div>
+            </div>
+            ${!isCorrect ? `<div class="ans-row ans-correct"><div><div class="ans-label">Correct Answer</div>Option ${correct}</div></div>` : ''}
+          </div>`;
+      } else {
+        const marksAwarded = q.marksAwarded !== null && q.marksAwarded !== undefined ? parseFloat(q.marksAwarded) : null;
+        ansBlock = `
+          <div class="review-ans">
+            <div class="ans-row ans-subjective">
+              <div>
+                <div class="ans-label">Your Answer</div>
+                ${esc(q.textAnswer || 'Not answered')}
+              </div>
+            </div>
+            ${marksAwarded !== null
+              ? `<div class="marks-awarded">Marks awarded: ${marksAwarded} / ${q.maxMarks}</div>`
+              : '<div class="marks-awarded">Pending review by teacher</div>'}
+          </div>`;
+      }
+
+      html += `
+        <div class="review-q">
+          <div class="review-q-hd">
+            <div class="review-q-num">${qNum}</div>
+            <div class="review-q-text">${esc(q.questionText)}</div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-muted);white-space:nowrap;margin-left:8px">${q.maxMarks} mk</div>
+          </div>
+          ${ansBlock}
+        </div>`;
+    });
+
+    area.innerHTML = html;
+  } catch(e) {
+    console.error(e);
+    area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><h3>Failed to load review</h3><p>Please try again later.</p></div>`;
+  }
+}
+
+/* ════════════════════════════════════════
+   NOTIFICATIONS
+════════════════════════════════════════ */
+async function fetchNotifications() {
+  if (!currentUser) return;
+  try {
+    const res = await fetch(`${BASE_URL}/student/${currentUser.id}/notifications`);
+    const data = await res.json();
+    const list = document.getElementById('notifList');
+    const unread = data.filter(n => !n.isRead).length;
+    const dotSb = document.getElementById('sbNotifDot');
+    const dotTop = document.getElementById('topNotifDot');
+    dotSb.style.display = unread > 0 ? 'block' : 'none';
+    dotTop.style.display = unread > 0 ? 'block' : 'none';
+
+    if (!data.length) {
+      list.innerHTML = `<div class="empty-state" style="padding:48px"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><h3>No notifications</h3><p>You're all caught up!</p></div>`;
+      return;
+    }
+    list.innerHTML = data.map(n => `
+      <div class="notif-item ${!n.isRead?'notif-unread':''}" onclick="markRead(${n.id}, this)">
+        <div class="notif-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+        <div class="notif-body">
+          <div class="notif-title">${esc(n.title)}</div>
+          <div class="notif-msg">${esc(n.message)}</div>
+          <div class="notif-time">${new Date(n.createdAt||Date.now()).toLocaleString('en-IN')}</div>
+        </div>
+        ${!n.isRead ? '<div class="notif-dot-badge"></div>' : ''}
+      </div>`).join('');
+  } catch(e) { console.error(e); }
+}
+
+async function markRead(notifId, el) {
+  el.classList.remove('notif-unread');
+  const dot = el.querySelector('.notif-dot-badge');
+  if (dot) dot.remove();
+  try {
+    await fetch(`${BASE_URL}/student/notifications/${notifId}/read`, { method: 'PUT' });
+    fetchNotifications(); // refresh dot counts
+  } catch(e) { console.error(e); }
+}
+
+/* ════════════════════════════════════════
+   MODAL
+════════════════════════════════════════ */
+let _modalCb = null;
+function openModal(title, sub, cb, danger) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalSub').textContent = sub;
+  document.getElementById('modalConfirmBtn').className = danger ? 'btn-danger' : 'btn-primary';
+  document.getElementById('modalConfirmBtn').textContent = 'Confirm';
+  _modalCb = cb;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  _modalCb = null;
+}
+document.getElementById('modalConfirmBtn').onclick = function() {
+  closeModal();
+  if (_modalCb) _modalCb();
+};
+
+/* ════════════════════════════════════════
+   LOGOUT
+════════════════════════════════════════ */
+function confirmLogout() {
+  openModal('Sign Out', 'Are you sure you want to sign out of Quizely?', () => {
+    sessionStorage.removeItem('quizely_user');
+    localStorage.removeItem('quizely_user');
+    showToast('Signing out…');
+    setTimeout(() => window.location.href = '/login.html', 900);
+  }, true);
+}
+
+/* ════════════════════════════════════════
+   TOAST
+════════════════════════════════════════ */
+function showToast(msg, type='') {
+  const wrap = document.getElementById('toastWrap');
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.textContent = msg;
+  wrap.appendChild(el);
+  setTimeout(() => el.remove(), 3200);
+}
+
+/* ════════════════════════════════════════
+   UTILS
+════════════════════════════════════════ */
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ════════════════════════════════════════
+   INIT
+════════════════════════════════════════ */
+initSession();
+fetchPublishedTests();
+fetchNotifications();
+</script>
+</body>
+</html>
