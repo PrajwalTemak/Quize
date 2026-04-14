@@ -109,8 +109,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .btn-delete{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
 .btn-delete:hover{background:#fee2e2}
 .btn-published{background:var(--teal-pale);color:var(--teal-dark);border:1px solid var(--green-border);cursor:default}
-.card-more{position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:7px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-hint);transition:all .15s}
-.card-more:hover{background:var(--purple-pale);color:var(--purple)}
 
 /* FORMS / PANELS */
 .panel{background:#fff;border-radius:16px;border:1px solid var(--border);padding:24px;margin-bottom:20px}
@@ -171,11 +169,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .score-high{background:#dcfce7;color:#166534}
 .score-mid{background:var(--amber-bg);color:var(--amber)}
 .score-low{background:var(--red-bg);color:var(--red)}
-.grade-pill{display:inline-block;width:28px;height:28px;border-radius:50%;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
-.grade-a{background:#dcfce7;color:#166534}
-.grade-b{background:#e0f2fe;color:#0c4a6e}
-.grade-c{background:var(--amber-bg);color:var(--amber)}
-.grade-f{background:var(--red-bg);color:var(--red)}
 
 /* ANALYTICS */
 .analytics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:22px}
@@ -189,7 +182,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .bar-fill{height:100%;border-radius:5px;transition:width .6s ease}
 .bar-val{font-size:12px;font-weight:600;color:var(--text-mid);width:32px;text-align:right;flex-shrink:0}
 
-/* SUBJECTIVE GRADING */
+/* GRADING */
 .grading-card{background:#fff;border-radius:14px;border:1px solid var(--border);padding:18px;margin-bottom:14px}
 .grading-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .student-info{display:flex;align-items:center;gap:10px}
@@ -255,7 +248,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .empty-state h3{font-size:15px;font-weight:600;color:var(--text-mid);margin-bottom:6px}
 .empty-state p{font-size:13px;color:var(--text-hint)}
 
-/* RESPONSIVE */
+/* info box */
+.info-box{background:var(--teal-pale);border:1px solid var(--green-border);border-radius:9px;padding:10px 14px;font-size:12.5px;color:var(--teal-dark);margin-bottom:14px}
+
 @media(max-width:640px){
   .form-grid{grid-template-columns:1fr}
   .main{margin-left:0}
@@ -304,12 +299,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 </div>
 
-<!-- TOPBAR -->
+<!-- MAIN -->
 <div class="main">
 <div class="topbar">
   <div class="topbar-greeting">
     <h1 id="topbarTitle">Dashboard</h1>
-    <p>Monday, April 13, 2026 · Grade 10 Science</p>
+    <p>Teacher Portal · Quizely</p>
   </div>
   <div class="tb-badge">Teacher</div>
   <div style="flex:1"></div>
@@ -320,21 +315,21 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div class="avatar">MS</div>
 </div>
 
-<!-- ═══════════════════════════ DASHBOARD ═══════════════════════════ -->
+<!-- ═══════════ DASHBOARD ═══════════ -->
 <div class="view active" id="view-dashboard">
   <div class="stats-grid">
-    <div class="stat-card teal"><div class="stat-num">12</div><div class="stat-lbl">Total Tests</div></div>
+    <div class="stat-card teal"><div class="stat-num" id="stat-total">—</div><div class="stat-lbl">Total Tests</div></div>
     <div class="stat-card purple"><div class="stat-num">148</div><div class="stat-lbl">Students</div></div>
-    <div class="stat-card default"><div class="stat-num">4</div><div class="stat-lbl">Live Now</div></div>
-    <div class="stat-card amber"><div class="stat-num">3</div><div class="stat-lbl">Drafts</div></div>
+    <div class="stat-card default"><div class="stat-num" id="stat-live">—</div><div class="stat-lbl">Published</div></div>
+    <div class="stat-card amber"><div class="stat-num" id="stat-draft">—</div><div class="stat-lbl">Drafts</div></div>
   </div>
 
   <div class="actions-row">
-    <div class="action-card primary" onclick="showView('add-test')">
+    <div class="action-card primary" onclick="showView('add-test');switchTestTab('create')">
       <div class="ac-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
       <div><div class="ac-label">Add Test</div><div class="ac-sub">Create a new quiz or exam</div></div>
     </div>
-    <div class="action-card secondary" onclick="showView('add-test');switchTab('edit')">
+    <div class="action-card secondary" onclick="showView('add-test');switchTestTab('edit')">
       <div class="ac-icon"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
       <div><div class="ac-label">Edit Test</div><div class="ac-sub">Modify existing tests</div></div>
     </div>
@@ -345,47 +340,40 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 
   <div class="section-hd">
-    <div class="section-title">Draft & Scheduled Tests</div>
-    <div class="badge-count" id="draftCount">3 drafts</div>
+    <div class="section-title">All Tests</div>
+    <div class="badge-count" id="draftCount">loading…</div>
   </div>
   <div class="scroll-row" id="testCardContainer">
-    <!-- Cards injected by JS -->
+    <div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><h3>Loading tests…</h3></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════ ADD TEST / EDIT / QUESTIONS ═══════════════════════════ -->
+<!-- ═══════════ ADD TEST / EDIT / QUESTIONS ═══════════ -->
 <div class="view" id="view-add-test">
-  <!-- Tab switcher -->
-  <div style="display:flex;gap:8px;margin-bottom:20px">
-    <button class="btn btn-primary" id="tabCreate" onclick="switchTestTab('create')" style="font-size:13px">Create Test</button>
-    <button class="btn btn-edit" id="tabEdit" onclick="switchTestTab('edit')" style="font-size:13px">Edit Test</button>
-    <button class="btn btn-edit" id="tabQuestions" onclick="switchTestTab('questions')" style="font-size:13px">Add Questions</button>
-    <button class="btn btn-delete" id="tabDelete" onclick="switchTestTab('delete')" style="font-size:13px">Delete Test</button>
+  <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+    <button class="btn btn-primary" id="tabCreate" onclick="switchTestTab('create')">Create Test</button>
+    <button class="btn btn-edit"    id="tabEdit"     onclick="switchTestTab('edit')">Edit Test</button>
+    <button class="btn btn-edit"    id="tabQuestions" onclick="switchTestTab('questions')">Add Questions</button>
+    <button class="btn btn-delete"  id="tabDelete"   onclick="switchTestTab('delete')">Delete Test</button>
   </div>
 
-  <!-- CREATE TEST -->
+  <!-- ── CREATE TEST ── -->
   <div id="tabPane-create">
     <div class="panel">
       <div class="panel-title"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Test Details</div>
       <div class="form-grid">
-        <div class="field"><label>Test Title</label><input type="text" id="ct-title" placeholder="e.g. Java Midterm 2025"/></div>
-        <div class="field"><label>Exam Code</label><input type="text" id="ct-code" placeholder="e.g. JAVA-MID-01"/></div>
+        <div class="field"><label>Test Title *</label><input type="text" id="ct-title" placeholder="e.g. Java Midterm 2025"/></div>
+        <div class="field"><label>Exam Code * <span style="font-size:10px;text-transform:none;color:var(--teal-dark)">(unique key — used everywhere)</span></label><input type="text" id="ct-code" placeholder="e.g. JAVA-MID-01"/></div>
         <div class="field" style="grid-column:span 2"><label>Description</label><textarea id="ct-desc" placeholder="What topics does this test cover?"></textarea></div>
-        <div class="field"><label>Total Marks</label><input type="number" id="ct-marks" placeholder="100" min="1"/></div>
-        <div class="field"><label>Duration (minutes)</label><input type="number" id="ct-duration" placeholder="60" min="1"/></div>
+        <div class="field"><label>Total Marks *</label><input type="number" id="ct-marks" placeholder="100" min="1"/></div>
+        <div class="field"><label>Duration (minutes) *</label><input type="number" id="ct-duration" placeholder="60" min="1"/></div>
         <div class="field"><label>Start Time</label><input type="datetime-local" id="ct-start"/></div>
         <div class="field"><label>End Time</label><input type="datetime-local" id="ct-end"/></div>
         <div class="field"><label>Negative Marking</label><input type="number" id="ct-neg" placeholder="0.25" step="0.25" min="0"/></div>
-        <div class="field"><label>Created By (User ID)</label><input type="text" id="ct-creator" placeholder="vrunani@123"/></div>
+        <div class="field"><label>Created By (User ID) *</label><input type="text" id="ct-creator" placeholder="vrunani@123"/></div>
       </div>
-      <div class="toggle-row">
-        <span class="toggle-label">Publish Immediately</span>
-        <button class="toggle" id="toggle-publish" onclick="toggleBtn(this)"></button>
-      </div>
-      <div class="toggle-row">
-        <span class="toggle-label">Show Results to Students</span>
-        <button class="toggle" id="toggle-results" onclick="toggleBtn(this)"></button>
-      </div>
+      <div class="toggle-row"><span class="toggle-label">Publish Immediately</span><button class="toggle" id="toggle-publish" onclick="toggleBtn(this)"></button></div>
+      <div class="toggle-row"><span class="toggle-label">Show Results to Students</span><button class="toggle" id="toggle-results" onclick="toggleBtn(this)"></button></div>
       <div class="form-actions">
         <button class="btn-secondary" onclick="resetCreateForm()">Clear</button>
         <button class="btn-primary" onclick="submitCreateTest()">Create Test &amp; Add Questions →</button>
@@ -393,41 +381,53 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
   </div>
 
-  <!-- EDIT TEST -->
+  <!-- ── EDIT TEST ── -->
   <div id="tabPane-edit" style="display:none">
     <div class="panel">
       <div class="panel-title"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit Test</div>
+
+      <!-- FIX #2 & #4: dropdown to select test by examCode -->
+      <div class="field" style="margin-bottom:16px">
+        <label>Select Test (by Exam Code) *</label>
+        <select id="et-examCode" class="styled-select" style="width:100%" onchange="prefillEditForm()">
+          <option value="">— Choose a test —</option>
+        </select>
+      </div>
+
       <div class="form-grid">
-        <div class="field"><label>Test ID</label><input type="number" id="et-id" placeholder="1"/></div>
         <div class="field"><label>Updated Title</label><input type="text" id="et-title" placeholder="Leave blank to keep current"/></div>
         <div class="field"><label>Duration (minutes)</label><input type="number" id="et-duration" placeholder="90"/></div>
         <div class="field"><label>Total Marks</label><input type="number" id="et-marks" placeholder=""/></div>
+        <div class="field"><label>Negative Marking</label><input type="number" id="et-neg" placeholder="0.25" step="0.25" min="0"/></div>
         <div class="field"><label>Start Time</label><input type="datetime-local" id="et-start"/></div>
         <div class="field"><label>End Time</label><input type="datetime-local" id="et-end"/></div>
       </div>
-      <div class="toggle-row">
-        <span class="toggle-label">Publish Test</span>
-        <button class="toggle" id="toggle-et-publish" onclick="toggleBtn(this)"></button>
-      </div>
-      <div class="toggle-row">
-        <span class="toggle-label">Show Results</span>
-        <button class="toggle" id="toggle-et-results" onclick="toggleBtn(this)"></button>
-      </div>
+      <div class="toggle-row"><span class="toggle-label">Publish Test</span><button class="toggle" id="toggle-et-publish" onclick="toggleBtn(this)"></button></div>
+      <div class="toggle-row"><span class="toggle-label">Show Results</span><button class="toggle" id="toggle-et-results" onclick="toggleBtn(this)"></button></div>
       <div class="form-actions">
         <button class="btn-primary" onclick="submitEditTest()">Save Changes</button>
       </div>
     </div>
   </div>
 
-  <!-- ADD QUESTIONS -->
+  <!-- ── ADD QUESTIONS ── -->
   <div id="tabPane-questions" style="display:none">
     <div class="panel">
       <div class="panel-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Question Builder</div>
-      <div class="form-grid">
-        <div class="field"><label>Test ID</label><input type="number" id="qq-testid" placeholder="1" oninput="loadQPreview()"/></div>
-        <div class="field"><label>Marks for this Question</label><input type="number" id="qq-marks" placeholder="2" min="1"/></div>
-        <div class="field" style="grid-column:span 2"><label>Question Text</label><textarea id="qq-text" placeholder="Type your question here…" rows="3"></textarea></div>
+
+      <!-- FIX #1 & #2: dropdown to pick test by examCode -->
+      <div class="field" style="margin-bottom:14px">
+        <label>Select Test (by Exam Code) *</label>
+        <select id="qq-examCode" class="styled-select" style="width:100%" onchange="loadQPreview()">
+          <option value="">— Choose a test —</option>
+        </select>
       </div>
+
+      <div class="form-grid">
+        <div class="field"><label>Marks for this Question *</label><input type="number" id="qq-marks" placeholder="2" min="1"/></div>
+        <div class="field" style="grid-column:span 2"><label>Question Text *</label><textarea id="qq-text" placeholder="Type your question here…" rows="3"></textarea></div>
+      </div>
+
       <div class="field" style="margin-top:10px"><label>Question Type</label>
         <div class="radio-group">
           <div class="radio-opt selected" id="qt-obj" onclick="setQType('OBJECTIVE')">Objective (MCQ)</div>
@@ -457,22 +457,29 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       </div>
     </div>
 
-    <!-- Existing questions preview -->
     <div class="panel">
       <div class="panel-title"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Questions in this Test</div>
       <div class="q-list" id="qPreviewList">
-        <div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><h3>No questions yet</h3><p>Enter a Test ID above and add your first question.</p></div>
+        <div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><h3>No questions yet</h3><p>Select a test above and add your first question.</p></div>
       </div>
     </div>
   </div>
 
-  <!-- DELETE TEST -->
+  <!-- ── DELETE TEST ── -->
   <div id="tabPane-delete" style="display:none">
     <div class="panel" style="max-width:480px">
       <div class="panel-title" style="color:var(--red)"><svg viewBox="0 0 24 24" style="stroke:var(--red)"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Delete Test</div>
-      <div class="field"><label>Test ID to Delete</label><input type="number" id="del-testid" placeholder="Enter test ID"/></div>
+
+      <!-- FIX #5: dropdown to select test by examCode -->
+      <div class="field">
+        <label>Select Test to Delete *</label>
+        <select id="del-examCode" class="styled-select" style="width:100%">
+          <option value="">— Choose a test —</option>
+        </select>
+      </div>
+
       <div style="background:var(--red-bg);border:1px solid var(--red-border);border-radius:9px;padding:12px 14px;margin-top:14px;font-size:13px;color:var(--red)">
-        ⚠️ This action is permanent. All questions and submissions for this test will also be removed.
+        ⚠️ This action is permanent. All questions for this test will also be removed.
       </div>
       <div class="form-actions">
         <button class="btn-danger" onclick="submitDeleteTest()">Delete Test Permanently</button>
@@ -481,7 +488,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 </div>
 
-<!-- ═══════════════════════════ ADD USER ═══════════════════════════ -->
+<!-- ═══════════ ADD USER ═══════════ -->
 <div class="view" id="view-add-user">
   <div class="panel" style="max-width:560px">
     <div class="panel-title"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg>Add New User</div>
@@ -504,54 +511,34 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 </div>
 
-<!-- ═══════════════════════════ STUDENTS / RESULTS ═══════════════════════════ -->
+<!-- ═══════════ STUDENTS / RESULTS ═══════════ -->
 <div class="view" id="view-students">
   <div class="student-select-wrap">
     <div class="select-row">
       <label>Select Test</label>
-      <select class="styled-select" id="studentTestSelect" onchange="loadStudentResults()">
+      <select class="styled-select" id="studentTestSelect">
         <option value="">— Choose a test —</option>
-        <option value="1">Java Midterm 2025</option>
-        <option value="2">Chapter 7 — Chemical Reactions</option>
-        <option value="3">Quick Quiz — Acids &amp; Bases</option>
       </select>
       <button class="btn-primary" onclick="loadStudentResults()" style="font-size:13px;padding:9px 18px">View Results</button>
     </div>
   </div>
   <div id="resultsArea">
     <div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)">
-      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
       <h3>Select a test to view results</h3>
-      <p>Student scores and grades will appear here.</p>
+      <p>Student scores will appear here.</p>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════ ANALYTICS ═══════════════════════════ -->
+<!-- ═══════════ ANALYTICS ═══════════ -->
 <div class="view" id="view-analytics">
   <div class="analytics-grid">
-    <div class="analytics-card">
-      <div class="ana-title">Average Score</div>
-      <div class="ana-big">72.4%</div>
-      <div class="ana-sub">Java Midterm 2025 · 42 students</div>
-    </div>
-    <div class="analytics-card">
-      <div class="ana-title">Highest Score</div>
-      <div class="ana-big" style="color:var(--teal-dark)">96%</div>
-      <div class="ana-sub">Priya Sharma — 96/100</div>
-    </div>
-    <div class="analytics-card">
-      <div class="ana-title">Pass Rate</div>
-      <div class="ana-big" style="color:var(--purple)">81%</div>
-      <div class="ana-sub">34 of 42 passed</div>
-    </div>
-    <div class="analytics-card">
-      <div class="ana-title">Avg Duration</div>
-      <div class="ana-big">48 min</div>
-      <div class="ana-sub">Out of 60 min allowed</div>
-    </div>
+    <div class="analytics-card"><div class="ana-title">Average Score</div><div class="ana-big">72.4%</div><div class="ana-sub">Java Midterm 2025 · 42 students</div></div>
+    <div class="analytics-card"><div class="ana-title">Highest Score</div><div class="ana-big" style="color:var(--teal-dark)">96%</div><div class="ana-sub">Priya Sharma — 96/100</div></div>
+    <div class="analytics-card"><div class="ana-title">Pass Rate</div><div class="ana-big" style="color:var(--purple)">81%</div><div class="ana-sub">34 of 42 passed</div></div>
+    <div class="analytics-card"><div class="ana-title">Avg Duration</div><div class="ana-big">48 min</div><div class="ana-sub">Out of 60 min allowed</div></div>
   </div>
-
   <div class="panel">
     <div class="panel-title"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Score Distribution</div>
     <div style="margin-top:6px">
@@ -561,59 +548,42 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="bar-row"><span class="bar-label">Below 50%</span><div class="bar-track"><div class="bar-fill" style="width:10%;background:#f09595"></div></div><span class="bar-val">5</span></div>
     </div>
   </div>
-
-  <div class="panel">
-    <div class="panel-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Question-wise Accuracy</div>
-    <div style="margin-top:6px">
-      <div class="bar-row"><span class="bar-label">Q1 — JVM</span><div class="bar-track"><div class="bar-fill" style="width:88%;background:var(--teal)"></div></div><span class="bar-val">88%</span></div>
-      <div class="bar-row"><span class="bar-label">Q2 — OOP</span><div class="bar-track"><div class="bar-fill" style="width:74%;background:var(--teal-light)"></div></div><span class="bar-val">74%</span></div>
-      <div class="bar-row"><span class="bar-label">Q3 — Excep.</span><div class="bar-track"><div class="bar-fill" style="width:56%;background:var(--purple-light)"></div></div><span class="bar-val">56%</span></div>
-      <div class="bar-row"><span class="bar-label">Q4 — Thread</span><div class="bar-track"><div class="bar-fill" style="width:38%;background:#f5c4b3"></div></div><span class="bar-val">38%</span></div>
-      <div class="bar-row"><span class="bar-label">Q5 — Streams</span><div class="bar-track"><div class="bar-fill" style="width:62%;background:var(--teal-light)"></div></div><span class="bar-val">62%</span></div>
-    </div>
-  </div>
 </div>
 
-<!-- ═══════════════════════════ GRADE SUBJECTIVE ═══════════════════════════ -->
+<!-- ═══════════ GRADE SUBJECTIVE ═══════════ -->
 <div class="view" id="view-grade">
-  <div style="margin-bottom:18px">
-    <div class="student-select-wrap">
-      <div class="select-row">
-        <label>Test</label>
-        <select class="styled-select" id="gradeTestSelect">
-          <option value="">— Choose test —</option>
-          <option value="1">Java Midterm 2025</option>
-          <option value="2">Chapter 7 Chemical Reactions</option>
-        </select>
-        <label>Student</label>
-        <select class="styled-select" id="gradeStudentSelect">
-          <option value="">— Choose student —</option>
-          <option value="s1">Rohit Mehta</option>
-          <option value="s2">Priya Sharma</option>
-          <option value="s3">Ankit Joshi</option>
-        </select>
-        <button class="btn-primary" onclick="loadGrading()" style="font-size:13px;padding:9px 18px">Load Answers</button>
-      </div>
+  <div class="student-select-wrap" style="margin-bottom:18px">
+    <div class="select-row">
+      <label>Test</label>
+      <select class="styled-select" id="gradeTestSelect">
+        <option value="">— Choose test —</option>
+      </select>
+      <label>Student</label>
+      <select class="styled-select" id="gradeStudentSelect">
+        <option value="">— Choose student —</option>
+        <option value="s1">Rohit Mehta</option>
+        <option value="s2">Priya Sharma</option>
+        <option value="s3">Ankit Joshi</option>
+      </select>
+      <button class="btn-primary" onclick="loadGrading()" style="font-size:13px;padding:9px 18px">Load Answers</button>
     </div>
   </div>
-
   <div id="gradingArea">
     <div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)">
       <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg>
-      <h3>Select a test and student</h3>
-      <p>Subjective answers will load here for grading.</p>
+      <h3>Select a test and student</h3><p>Subjective answers will load here for grading.</p>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════ NOTIFICATIONS ═══════════════════════════ -->
+<!-- ═══════════ NOTIFICATIONS ═══════════ -->
 <div class="view" id="view-notifications">
   <div class="notif-compose panel">
     <div class="panel-title"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.44 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.72 16z"/></svg>Send Announcement</div>
     <div class="form-grid">
-      <div class="field"><label>Recipient (User ID)</label><input type="text" id="notif-user" placeholder="student@456 or leave blank for all"/></div>
-      <div class="field"><label>Title</label><input type="text" id="notif-title" placeholder="Exam Tomorrow!"/></div>
-      <div class="field" style="grid-column:span 2"><label>Message</label><textarea id="notif-msg" placeholder="Write your announcement…" rows="3"></textarea></div>
+      <div class="field"><label>Recipient User ID *</label><input type="text" id="notif-user" placeholder="student@456"/></div>
+      <div class="field"><label>Title *</label><input type="text" id="notif-title" placeholder="Exam Tomorrow!"/></div>
+      <div class="field" style="grid-column:span 2"><label>Message *</label><textarea id="notif-msg" placeholder="Write your announcement…" rows="3"></textarea></div>
     </div>
     <div class="form-actions">
       <button class="btn-primary" onclick="submitNotification()">Send Notification</button>
@@ -623,19 +593,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div class="section-hd" style="margin-bottom:12px">
     <div class="section-title">Recent Notifications</div>
   </div>
-  <div class="notif-list">
-    <div class="notif-item notif-unread">
-      <div class="notif-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-      <div class="notif-body"><div class="notif-title">Acids &amp; Bases Quiz goes live in 2 days</div><div class="notif-msg">Reminder sent to all enrolled students of Grade 10.</div><div class="notif-time">Apr 13, 2026 · 9:12 AM</div></div>
-    </div>
-    <div class="notif-item">
-      <div class="notif-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-      <div class="notif-body"><div class="notif-title">Rohit M. submitted a late request</div><div class="notif-msg">Student requested extension for Java Midterm 2025.</div><div class="notif-time">Apr 12, 2026 · 4:30 PM</div></div>
-    </div>
-    <div class="notif-item">
-      <div class="notif-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
-      <div class="notif-body"><div class="notif-title">Mid-term draft has unsaved changes</div><div class="notif-msg">Periodic Table &amp; Bonding test has pending edits.</div><div class="notif-time">Apr 12, 2026 · 2:00 PM</div></div>
-    </div>
+  <div class="notif-list" id="notifList">
+    <!-- loaded from server -->
   </div>
 </div>
 
@@ -658,703 +617,582 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 </div>
 
 <script>
-/* ── DATA ── */
-var tests = [
-  {id:1,title:"Java Midterm 2025",desc:"Unit 1 to 3 coverage",status:"draft",start:"Jun 1, 2025 · 9:00 AM",end:"Jun 1, 2025 · 10:00 AM",questions:25,marks:100},
-  {id:2,title:"Chapter 7 — Chemical Reactions",desc:"Covers balancing equations, reaction types, and stoichiometry basics.",status:"draft",start:"Apr 18, 2026 · 9:00 AM",end:"Apr 18, 2026 · 10:30 AM",questions:25,marks:50},
-  {id:3,title:"Quick Quiz — Acids & Bases",desc:"Short formative assessment on pH scale and indicators.",status:"scheduled",start:"Apr 15, 2026 · 2:00 PM",end:"Apr 15, 2026 · 2:15 PM",questions:10,marks:20},
-  {id:4,title:"Unit 3 — Motion & Forces",desc:"Newton's laws, friction, gravity, and projectile motion.",status:"draft",start:"Apr 28, 2026 · 9:30 AM",end:"Apr 28, 2026 · 11:00 AM",questions:30,marks:60},
-];
-var questionsByTest = {};
-var selectedQType = "OBJECTIVE";
-var selectedRole = "STUDENT";
-var lastCreatedTestId = null;
+/* ════════════════════════════════════════
+   CONFIG
+════════════════════════════════════════ */
+const BASE_URL = "http://localhost:8080";
 
-/* ── NAVIGATION ── */
-function showView(name){
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.querySelectorAll('.sb-icon').forEach(i=>i.classList.remove('active'));
-  document.getElementById('view-'+name).classList.add('active');
-  var titles={dashboard:'Dashboard','add-test':'Test Management','add-user':'Add User',students:'Student Results',analytics:'Analytics',grade:'Grade Subjective',notifications:'Notifications'};
-  document.getElementById('topbarTitle').textContent = titles[name]||name;
-  if(name==='dashboard') renderCards();
-}
+// In-memory cache of all tests fetched from server
+// Each test: { id, title, examCode, isPublished, ... }
+let allTests = [];
+let currentQType = "OBJECTIVE";
+let currentRole  = "STUDENT";
 
-/* ── TABS in Add-Test view ── */
-function switchTestTab(tab){
-  ['create','edit','questions','delete'].forEach(t=>{
-    document.getElementById('tabPane-'+t).style.display = t===tab?'block':'none';
-  });
-}
-
-/* ── TOGGLE ── */
-function toggleBtn(el){el.classList.toggle('on')}
-
-/* ── TOAST ── */
-function showToast(msg,type){
-  var t=document.getElementById('toast');
-  t.textContent=msg;t.className='toast '+(type||'');
+/* ════════════════════════════════════════
+   TOAST
+════════════════════════════════════════ */
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + (type || '');
   t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
+  setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-/* ── MODAL ── */
-function openModal(title,msg,cb){
-  document.getElementById('modalTitle').textContent=title;
-  document.getElementById('modalMsg').textContent=msg;
-  document.getElementById('modalConfirmBtn').onclick=function(){closeModal();cb&&cb()};
+/* ════════════════════════════════════════
+   MODAL
+════════════════════════════════════════ */
+function openModal(title, msg, cb) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalMsg').textContent   = msg;
+  document.getElementById('modalConfirmBtn').onclick = () => { closeModal(); cb && cb(); };
   document.getElementById('confirmModal').classList.add('open');
 }
-function closeModal(){document.getElementById('confirmModal').classList.remove('open')}
+function closeModal() {
+  document.getElementById('confirmModal').classList.remove('open');
+}
 
-/* ── RENDER TEST CARDS ── */
-function renderCards(){
-  var c=document.getElementById('testCardContainer');
-  c.innerHTML='';
-  var drafts=tests.filter(t=>t.status==='draft'||t.status==='scheduled');
-  document.getElementById('draftCount').textContent=drafts.filter(t=>t.status==='draft').length+' drafts';
-  drafts.forEach(function(t){
-    var chipClass=t.status==='draft'?'chip-draft':'chip-sched';
-    var chipText=t.status==='draft'?'Draft':'Scheduled';
-    var pubBtn=t.status==='published'?'<button class="btn btn-published">Published</button>':'<button class="btn btn-publish" onclick="publishTest('+t.id+')">Publish</button>';
-    var html='<div class="test-card" id="card-'+t.id+'">'
-      +'<button class="card-more" onclick="cardOptions('+t.id+')"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>'
-      +'<div class="chip '+chipClass+'">'+chipText+'</div>'
-      +'<div class="card-title">'+t.title+'</div>'
-      +'<div class="card-desc">'+t.desc+'</div>'
-      +'<div class="card-meta">'
-      +'<div class="meta-row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Start: '+t.start+'</div>'
-      +'<div class="meta-row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>End: '+t.end+'</div>'
-      +'</div>'
-      +'<div class="card-footer">'
-      +'<div class="q-count"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'+t.questions+' questions</div>'
-      +'<div class="card-actions">'
-      +'<button class="btn btn-edit" onclick="editFromCard('+t.id+')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit</button>'
-      +pubBtn
-      +'</div></div></div>';
-    c.innerHTML+=html;
+/* ════════════════════════════════════════
+   NAVIGATION
+════════════════════════════════════════ */
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.sb-icon').forEach(i => i.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  const titles = {
+    dashboard: 'Dashboard', 'add-test': 'Test Management',
+    'add-user': 'Add User', students: 'Student Results',
+    analytics: 'Analytics', grade: 'Grade Subjective',
+    notifications: 'Notifications'
+  };
+  document.getElementById('topbarTitle').textContent = titles[name] || name;
+  if (name === 'dashboard') renderCards();
+}
+
+function switchTestTab(tab) {
+  ['create','edit','questions','delete'].forEach(t => {
+    document.getElementById('tabPane-' + t).style.display = (t === tab) ? 'block' : 'none';
   });
 }
 
-function publishTest(id){
-  openModal('Publish Test','Are you sure you want to publish this test? Students will be able to see it.',function(){
-    var t=tests.find(x=>x.id===id);
-    if(t){t.status='published';}
+function toggleBtn(el) { el.classList.toggle('on'); }
+
+/* ════════════════════════════════════════
+   FETCH ALL TESTS — populates dropdowns
+   FIX for issues #1 #2 #4 #5: all selects
+   use examCode, not numeric id
+════════════════════════════════════════ */
+async function fetchAllTests() {
+  try {
+    const res  = await fetch(`${BASE_URL}/tests/all`);
+    allTests   = await res.json();
+    populateTestDropdowns();
     renderCards();
-    showToast('Test published successfully!','success');
+    updateStats();
+  } catch (err) {
+    console.error('fetchAllTests:', err);
+    showToast('Could not load tests from server.', 'error');
+  }
+}
+
+function populateTestDropdowns() {
+  const dropdownIds = ['et-examCode', 'qq-examCode', 'del-examCode',
+                       'studentTestSelect', 'gradeTestSelect'];
+  dropdownIds.forEach(id => {
+    const sel = document.getElementById(id);
+    if (!sel) return;
+    const current = sel.value;
+    sel.innerHTML = '<option value="">— Choose a test —</option>';
+    allTests.forEach(t => {
+      const opt = document.createElement('option');
+      opt.value       = t.examCode;
+      opt.textContent = `${t.title} (${t.examCode})`;
+      sel.appendChild(opt);
+    });
+    if (current) sel.value = current;
   });
 }
 
-function editFromCard(id){
-  document.getElementById('et-id').value=id;
+function updateStats() {
+  document.getElementById('stat-total').textContent = allTests.length;
+  document.getElementById('stat-live').textContent  = allTests.filter(t => t.isPublished).length;
+  document.getElementById('stat-draft').textContent = allTests.filter(t => !t.isPublished).length;
+}
+
+/* ════════════════════════════════════════
+   RENDER TEST CARDS (dashboard)
+════════════════════════════════════════ */
+function renderCards() {
+  const c = document.getElementById('testCardContainer');
+  if (!allTests.length) {
+    c.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><h3>No tests yet</h3><p>Create your first test.</p></div>';
+    document.getElementById('draftCount').textContent = '0 drafts';
+    return;
+  }
+
+  document.getElementById('draftCount').textContent =
+    allTests.filter(t => !t.isPublished).length + ' drafts';
+
+  c.innerHTML = allTests.map(t => {
+    const chipClass = t.isPublished ? 'chip-active' : 'chip-draft';
+    const chipText  = t.isPublished ? 'Published'   : 'Draft';
+    const pubBtn    = t.isPublished
+      ? '<button class="btn btn-published">Published</button>'
+      : `<button class="btn btn-publish" onclick="publishTest('${t.examCode}')">Publish</button>`;
+    return `
+    <div class="test-card">
+      <div class="chip ${chipClass}">${chipText}</div>
+      <div class="card-title">${t.title}</div>
+      <div class="card-desc">${t.description || ''}</div>
+      <div class="card-meta">
+        <div class="meta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Code: ${t.examCode}</div>
+        <div class="meta-row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Duration: ${t.durationMinutes} min</div>
+      </div>
+      <div class="card-footer">
+        <div class="q-count"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>${t.totalMarks} marks</div>
+        <div class="card-actions">
+          <button class="btn btn-edit" onclick="editFromCard('${t.examCode}')">Edit</button>
+          ${pubBtn}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* publish from card */
+async function publishTest(examCode) {
+  openModal('Publish Test', 'Publish this test so students can see it?', async () => {
+    try {
+      const res = await fetch(`${BASE_URL}/tests/update/${examCode}`, {
+        method: 'PUT',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ isPublished: true })
+      });
+      if (res.ok) { showToast('Test published!', 'success'); await fetchAllTests(); }
+      else        { showToast('Failed to publish.', 'error'); }
+    } catch (e) { showToast('Server error.', 'error'); }
+  });
+}
+
+/* pre-fill edit form when clicking Edit on a card */
+function editFromCard(examCode) {
   showView('add-test');
   switchTestTab('edit');
+  document.getElementById('et-examCode').value = examCode;
+  prefillEditForm();
 }
 
-function cardOptions(id){
-  openModal('Test Options','Edit or manage questions for this test? (Use the Edit Test / Add Questions tabs for full control.)',null);
+/* pre-fill edit fields from cached data */
+function prefillEditForm() {
+  const examCode = document.getElementById('et-examCode').value;
+  if (!examCode) return;
+  const t = allTests.find(x => x.examCode === examCode);
+  if (!t) return;
+  document.getElementById('et-title').value    = t.title    || '';
+  document.getElementById('et-duration').value = t.durationMinutes || '';
+  document.getElementById('et-marks').value    = t.totalMarks || '';
+  // set toggles
+  if (t.isPublished)  document.getElementById('toggle-et-publish').classList.add('on');
+  else                document.getElementById('toggle-et-publish').classList.remove('on');
+  if (t.showResults)  document.getElementById('toggle-et-results').classList.add('on');
+  else                document.getElementById('toggle-et-results').classList.remove('on');
 }
 
-/* ── CREATE TEST ── */
-function submitCreateTest(){
-  var title=document.getElementById('ct-title').value.trim();
-  var code=document.getElementById('ct-code').value.trim();
-  var desc=document.getElementById('ct-desc').value.trim();
-  var marks=document.getElementById('ct-marks').value;
-  var dur=document.getElementById('ct-duration').value;
-  var start=document.getElementById('ct-start').value;
-  var end=document.getElementById('ct-end').value;
-  if(!title||!code||!marks||!dur){showToast('Please fill in all required fields.','error');return;}
-  var newId=tests.length+1;
-  lastCreatedTestId=newId;
-  tests.push({id:newId,title:title,desc:desc||'No description',status:'draft',start:start||'TBD',end:end||'TBD',questions:0,marks:parseInt(marks)});
-  var body={
-    title:title,description:desc,examCode:code,
-    createdBy:document.getElementById('ct-creator').value||'teacher',
-    totalMarks:parseInt(marks),durationMinutes:parseInt(dur),
-    startTime:start,endTime:end,
-    negativeMarking:parseFloat(document.getElementById('ct-neg').value)||0,
-    isPublished:document.getElementById('toggle-publish').classList.contains('on'),
-    showResults:document.getElementById('toggle-results').classList.contains('on')
+/* ════════════════════════════════════════
+   CREATE TEST
+════════════════════════════════════════ */
+async function submitCreateTest() {
+  const title    = document.getElementById('ct-title').value.trim();
+  const code     = document.getElementById('ct-code').value.trim();
+  const desc     = document.getElementById('ct-desc').value.trim();
+  const marks    = document.getElementById('ct-marks').value;
+  const dur      = document.getElementById('ct-duration').value;
+  const creator  = document.getElementById('ct-creator').value.trim();
+
+  if (!title || !code || !marks || !dur || !creator) {
+    showToast('Please fill in all required (*) fields.', 'error'); return;
+  }
+
+  const body = {
+    title, description: desc, examCode: code, createdBy: creator,
+    totalMarks: parseInt(marks), durationMinutes: parseInt(dur),
+    startTime: document.getElementById('ct-start').value || null,
+    endTime:   document.getElementById('ct-end').value   || null,
+    negativeMarking: parseFloat(document.getElementById('ct-neg').value) || 0,
+    isPublished: document.getElementById('toggle-publish').classList.contains('on'),
+    showResults: document.getElementById('toggle-results').classList.contains('on')
   };
-  console.log('POST /tests/add',JSON.stringify(body,null,2));
-  showToast('Test "'+title+'" created! Add questions now.','success');
-  document.getElementById('qq-testid').value=newId;
-  switchTestTab('questions');
-  loadQPreview();
+
+  try {
+    const res = await fetch(`${BASE_URL}/tests/add`, {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)
+    });
+    const txt = await res.text();
+    if (res.ok) {
+      showToast('Test "' + title + '" created! Now add questions.', 'success');
+      await fetchAllTests();
+      // auto-select in question builder and switch tab
+      document.getElementById('qq-examCode').value = code;
+      switchTestTab('questions');
+      loadQPreview();
+      resetCreateForm();
+    } else {
+      showToast(txt || 'Failed to create test.', 'error');
+    }
+  } catch (err) {
+    console.error(err); showToast('Server error.', 'error');
+  }
 }
 
-function resetCreateForm(){
-  ['ct-title','ct-code','ct-desc','ct-marks','ct-duration','ct-start','ct-end','ct-neg','ct-creator'].forEach(id=>{
-    document.getElementById(id).value='';
-  });
+function resetCreateForm() {
+  ['ct-title','ct-code','ct-desc','ct-marks','ct-duration','ct-start','ct-end','ct-neg','ct-creator']
+    .forEach(id => document.getElementById(id).value = '');
   document.getElementById('toggle-publish').classList.remove('on');
   document.getElementById('toggle-results').classList.remove('on');
 }
 
-/* ── EDIT TEST ── */
-function submitEditTest(){
-  var id=document.getElementById('et-id').value;
-  if(!id){showToast('Please enter a Test ID.','error');return;}
-  var body={};
-  if(document.getElementById('et-title').value) body.title=document.getElementById('et-title').value;
-  if(document.getElementById('et-duration').value) body.durationMinutes=parseInt(document.getElementById('et-duration').value);
-  if(document.getElementById('et-marks').value) body.totalMarks=parseInt(document.getElementById('et-marks').value);
-  if(document.getElementById('et-start').value) body.startTime=document.getElementById('et-start').value;
-  if(document.getElementById('et-end').value) body.endTime=document.getElementById('et-end').value;
-  body.isPublished=document.getElementById('toggle-et-publish').classList.contains('on');
-  body.showResults=document.getElementById('toggle-et-results').classList.contains('on');
-  console.log('PUT /tests/update/'+id, JSON.stringify(body,null,2));
-  var t=tests.find(x=>x.id===parseInt(id));
-  if(t&&body.title) t.title=body.title;
-  showToast('Test #'+id+' updated successfully.','success');
+/* ════════════════════════════════════════
+   EDIT TEST
+   FIX #4: URL uses examCode (string), not numeric id
+════════════════════════════════════════ */
+async function submitEditTest() {
+  const examCode = document.getElementById('et-examCode').value;
+  if (!examCode) { showToast('Please select a test.', 'error'); return; }
+
+  const body = {};
+  const title = document.getElementById('et-title').value.trim();
+  const dur   = document.getElementById('et-duration').value;
+  const marks = document.getElementById('et-marks').value;
+  const neg   = document.getElementById('et-neg').value;
+  const start = document.getElementById('et-start').value;
+  const end   = document.getElementById('et-end').value;
+
+  if (title)  body.title           = title;
+  if (dur)    body.durationMinutes = parseInt(dur);
+  if (marks)  body.totalMarks      = parseInt(marks);
+  if (neg)    body.negativeMarking = parseFloat(neg);
+  if (start)  body.startTime       = start;
+  if (end)    body.endTime         = end;
+  body.isPublished = document.getElementById('toggle-et-publish').classList.contains('on');
+  body.showResults = document.getElementById('toggle-et-results').classList.contains('on');
+
+  try {
+    // FIX: backend route is /tests/update/{examCode} — send examCode string, not a numeric id
+    const res = await fetch(`${BASE_URL}/tests/update/${examCode}`, {
+      method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body)
+    });
+    const txt = await res.text();
+    if (res.ok) {
+      showToast('Test updated successfully.', 'success');
+      await fetchAllTests();
+    } else {
+      showToast(txt || 'Failed to update test.', 'error');
+    }
+  } catch (err) {
+    console.error(err); showToast('Server error.', 'error');
+  }
 }
 
-/* ── DELETE TEST ── */
-function submitDeleteTest(){
-  var id=document.getElementById('del-testid').value;
-  if(!id){showToast('Please enter a Test ID.','error');return;}
-  openModal('Delete Test','This will permanently delete Test #'+id+' and all its data. Proceed?',function(){
-    tests=tests.filter(t=>t.id!==parseInt(id));
-    console.log('DELETE /tests/delete/'+id);
-    showToast('Test #'+id+' deleted.','error');
-    document.getElementById('del-testid').value='';
+/* ════════════════════════════════════════
+   DELETE TEST
+   FIX #5: uses examCode dropdown
+════════════════════════════════════════ */
+async function submitDeleteTest() {
+  const examCode = document.getElementById('del-examCode').value;
+  if (!examCode) { showToast('Please select a test to delete.', 'error'); return; }
+
+  openModal('Delete Test',
+    `Permanently delete test "${examCode}" and all its questions?`, async () => {
+    try {
+      // FIX: backend is /tests/delete/{examCode}
+      const res = await fetch(`${BASE_URL}/tests/delete/${examCode}`, { method: 'DELETE' });
+      const txt = await res.text();
+      if (res.ok) {
+        showToast('Test deleted.', 'error');
+        await fetchAllTests();
+        document.getElementById('del-examCode').value = '';
+      } else {
+        showToast(txt || 'Delete failed.', 'error');
+      }
+    } catch (err) {
+      console.error(err); showToast('Server error.', 'error');
+    }
   });
 }
 
-/* ── QUESTIONS ── */
-function setQType(type){
-  selectedQType=type;
-  document.getElementById('qt-obj').classList.toggle('selected',type==='OBJECTIVE');
-  document.getElementById('qt-sub').classList.toggle('selected',type==='SUBJECTIVE');
-  document.getElementById('objOptions').style.display=type==='OBJECTIVE'?'block':'none';
+/* ════════════════════════════════════════
+   QUESTION TYPE TOGGLE
+════════════════════════════════════════ */
+function setQType(type) {
+  currentQType = type;
+  document.getElementById('qt-obj').classList.toggle('selected', type === 'OBJECTIVE');
+  document.getElementById('qt-sub').classList.toggle('selected', type === 'SUBJECTIVE');
+  document.getElementById('objOptions').style.display = (type === 'OBJECTIVE') ? 'block' : 'none';
 }
 
-function loadQPreview(){
-  var tid=parseInt(document.getElementById('qq-testid').value);
-  var list=document.getElementById('qPreviewList');
-  var qs=questionsByTest[tid]||[];
-  if(!qs.length){
-    list.innerHTML='<div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><h3>No questions yet</h3><p>Add your first question above.</p></div>';
+/* ════════════════════════════════════════
+   LOAD QUESTIONS PREVIEW
+   FIX #1: send examCode, fetch /questions/exam/{examCode}
+════════════════════════════════════════ */
+async function loadQPreview() {
+  const examCode = document.getElementById('qq-examCode').value;
+  const list     = document.getElementById('qPreviewList');
+  if (!examCode) {
+    list.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><h3>Select a test above</h3></div>';
     return;
   }
-  list.innerHTML=qs.map(function(q,i){
-    var badge=q.type==='OBJECTIVE'?'<span class="q-type-badge type-obj">Objective</span>':'<span class="q-type-badge type-sub">Subjective</span>';
-    var opts='';
-    if(q.type==='OBJECTIVE'&&q.options){
-      opts='<div class="q-opts">'+q.options.map(function(o,j){
-        return '<div class="q-opt'+(q.correct===j+1?' correct':'')+'"><span class="q-opt-num">'+(j+1)+'.</span>'+o+'</div>';
-      }).join('')+'</div>';
+  try {
+    // FIX: correct endpoint is /questions/exam/{examCode}
+    const res  = await fetch(`${BASE_URL}/questions/exam/${examCode}`);
+    if (!res.ok) { list.innerHTML = '<div class="empty-state"><h3>Could not load questions</h3></div>'; return; }
+    const data = await res.json();
+    if (!data.length) {
+      list.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><h3>No questions yet</h3><p>Add your first question above.</p></div>';
+      return;
     }
-    return '<div class="q-item"><div class="q-item-hd"><div class="q-num">'+(i+1)+'</div><div class="q-text">'+q.text+'</div><div class="q-meta">'+badge+'<span class="q-marks">'+q.marks+' pts</span></div><div class="q-row-actions"><button class="btn btn-delete" onclick="deleteQuestion('+tid+','+(i+1)+')">Del</button></div></div>'+opts+'</div>';
-  }).join('');
-}
-
-function submitAddQuestion(){
-  var tid=parseInt(document.getElementById('qq-testid').value);
-  var text=document.getElementById('qq-text').value.trim();
-  var marks=parseInt(document.getElementById('qq-marks').value);
-  if(!tid||!text||!marks){showToast('Fill in Test ID, question text and marks.','error');return;}
-  var q={text:text,type:selectedQType,marks:marks};
-  var body={testId:tid,questionText:text,questionType:selectedQType,marks:marks,option1:null,option2:null,option3:null,option4:null,correctOption:null};
-  if(selectedQType==='OBJECTIVE'){
-    q.options=[document.getElementById('opt1').value||'Option 1',document.getElementById('opt2').value||'Option 2',document.getElementById('opt3').value||'Option 3',document.getElementById('opt4').value||'Option 4'];
-    var checked=document.querySelector('input[name=correct]:checked');
-    q.correct=checked?parseInt(checked.value):1;
-    body.option1=q.options[0];body.option2=q.options[1];body.option3=q.options[2];body.option4=q.options[3];body.correctOption=q.correct;
+    list.innerHTML = data.map((q, i) => {
+      const typeBadge = q.questionType === 'OBJECTIVE'
+        ? '<span class="q-type-badge type-obj">Objective</span>'
+        : '<span class="q-type-badge type-sub">Subjective</span>';
+      let opts = '';
+      if (q.questionType === 'OBJECTIVE') {
+        const options = [q.option1, q.option2, q.option3, q.option4].filter(Boolean);
+        opts = '<div class="q-opts">' + options.map((o, j) =>
+          `<div class="q-opt${q.correctOption === j+1 ? ' correct' : ''}"><span class="q-opt-num">${j+1}.</span>${o}</div>`
+        ).join('') + '</div>';
+      }
+      return `
+      <div class="q-item">
+        <div class="q-item-hd">
+          <div class="q-num">${i+1}</div>
+          <div class="q-text">${q.questionText}</div>
+          <div class="q-meta">${typeBadge}<span class="q-marks">${q.marks} pts</span></div>
+          <div class="q-row-actions">
+            <button class="btn btn-delete" onclick="deleteQuestion('${examCode}',${q.questionNumber})">Del</button>
+          </div>
+        </div>${opts}
+      </div>`;
+    }).join('');
+  } catch (err) {
+    console.error(err);
+    list.innerHTML = '<div class="empty-state"><h3>Error loading questions</h3></div>';
   }
-  if(!questionsByTest[tid]) questionsByTest[tid]=[];
-  questionsByTest[tid].push(q);
-  var t=tests.find(x=>x.id===tid);
-  if(t) t.questions=questionsByTest[tid].length;
-  console.log('POST /questions/add',JSON.stringify(body,null,2));
-  showToast('Question #'+questionsByTest[tid].length+' added!','success');
-  resetQForm();
-  loadQPreview();
 }
 
-function deleteQuestion(tid,num){
-  openModal('Delete Question','Delete question #'+num+' from test #'+tid+'?',function(){
-    if(questionsByTest[tid]) questionsByTest[tid].splice(num-1,1);
-    console.log('DELETE /questions/delete/'+tid+'/'+num);
-    loadQPreview();
-    showToast('Question deleted.','error');
-  });
-}
-
-function resetQForm(){
-  document.getElementById('qq-text').value='';
-  document.getElementById('qq-marks').value='';
-  ['opt1','opt2','opt3','opt4'].forEach(id=>document.getElementById(id).value='');
-  document.querySelectorAll('input[name=correct]').forEach(r=>r.checked=false);
-}
-
-/* ── ADD USER ── */
-function setRole(r){
-  selectedRole=r;
-  document.getElementById('role-student').classList.toggle('selected',r==='STUDENT');
-  document.getElementById('role-teacher').classList.toggle('selected',r==='TEACHER');
-}
-function submitAddUser(){
-  var id=document.getElementById('au-id').value.trim();
-  var name=document.getElementById('au-name').value.trim();
-  var email=document.getElementById('au-email').value.trim();
-  var pass=document.getElementById('au-pass').value;
-  if(!id||!name||!email||!pass){showToast('All fields are required.','error');return;}
-  var body={id:id,name:name,email:email,password:pass,role:selectedRole};
-  console.log('POST /api/auth/add-user',JSON.stringify(body,null,2));
-  showToast(name+' added as '+selectedRole+'!','success');
-  resetUserForm();
-}
-function resetUserForm(){
-  ['au-id','au-name','au-email','au-pass'].forEach(id=>document.getElementById(id).value='');
-}
-
-/* ── STUDENT RESULTS ── */
-var mockResults=[
-  {name:"Priya Sharma",id:"s1",score:96,total:100,grade:"A",time:"47 min",status:"Submitted"},
-  {name:"Rohit Mehta",id:"s2",score:72,total:100,grade:"B",time:"58 min",status:"Submitted"},
-  {name:"Ankit Joshi",id:"s3",score:45,total:100,grade:"F",time:"60 min",status:"Submitted"},
-  {name:"Neha Patil",id:"s4",score:83,total:100,grade:"B",time:"52 min",status:"Submitted"},
-  {name:"Karan Shah",id:"s5",score:91,total:100,grade:"A",time:"44 min",status:"Submitted"},
-  {name:"Divya Singh",id:"s6",score:63,total:100,grade:"C",time:"55 min",status:"Submitted"},
-];
-function loadStudentResults(){
-  var sel=document.getElementById('studentTestSelect').value;
-  var area=document.getElementById('resultsArea');
-  if(!sel){area.innerHTML='<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><h3>Select a test</h3><p>Results will appear here.</p></div>';return;}
-  var rows=mockResults.map(function(r){
-    var sc=r.score>=75?'score-high':r.score>=50?'score-mid':'score-low';
-    var gc=r.grade==='A'?'grade-a':r.grade==='B'?'grade-b':r.grade==='C'?'grade-c':'grade-f';
-    return '<tr><td>'+r.name+'</td><td style="color:var(--text-muted)">'+r.id+'</td>'
-      +'<td><span class="score-pill '+sc+'">'+r.score+'/'+r.total+'</span></td>'
-      +'<td><div class="grade-pill '+gc+'" style="display:inline-flex">'+r.grade+'</div></td>'
-      +'<td>'+r.time+'</td><td>'+r.status+'</td>'
-      +'<td><button class="btn btn-edit" onclick="showToast(\'Viewing '+r.name+'\')\'" style="font-size:11px;padding:5px 10px">View</button></td></tr>';
-  }).join('');
-  area.innerHTML='<div class="result-table-wrap"><table class="result-table"><thead><tr><th>Student</th><th>ID</th><th>Score</th><th>Grade</th><th>Time Taken</th><th>Status</th><th>Action</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
-}
-
-/* ── GRADE SUBJECTIVE ── */
-var mockAnswers=[
-  {id:55,qnum:5,qtext:"Explain the concept of polymorphism with an example.",answer:"Polymorphism means an object can take many forms. For example, in Java, a parent class Animal can have a method sound(), and both Dog and Cat subclasses can override it to produce different sounds. This is runtime polymorphism via method overriding.",maxMarks:10,graded:false},
-  {id:56,qnum:8,qtext:"What is the difference between JDK, JRE, and JVM?",answer:"JVM runs bytecode. JRE includes JVM plus libraries. JDK includes JRE plus compiler tools for developers.",maxMarks:8,graded:true,awarded:6},
-];
-function loadGrading(){
-  var test=document.getElementById('gradeTestSelect').value;
-  var stu=document.getElementById('gradeStudentSelect').value;
-  var area=document.getElementById('gradingArea');
-  if(!test||!stu){showToast('Select both a test and a student.','error');return;}
-  var stuName=document.getElementById('gradeStudentSelect').options[document.getElementById('gradeStudentSelect').selectedIndex].text;
-  var initials=stuName.split(' ').map(w=>w[0]).join('');
-  area.innerHTML=mockAnswers.map(function(a){
-    var statusBadge=a.graded?'<div class="grading-status status-graded">Graded</div>':'<div class="grading-status status-pending">Pending</div>';
-    var marksRow=a.graded?'<div style="font-size:13px;color:var(--teal-dark);font-weight:600;margin-top:10px">Marks awarded: '+a.awarded+' / '+a.maxMarks+'</div>'
-      :'<div class="marks-input-row"><label>Marks Awarded</label><input class="marks-input" type="number" id="marks-'+a.id+'" min="0" max="'+a.maxMarks+'" placeholder="0"/><span class="max-marks">/ '+a.maxMarks+'</span><button class="btn-primary" style="font-size:12px;padding:8px 16px" onclick="submitGrade('+a.id+','+a.maxMarks+')">Save Grade</button></div>';
-    return '<div class="grading-card"><div class="grading-hd"><div class="student-info"><div class="stu-avatar">'+initials+'</div><div><div class="stu-name">'+stuName+'</div><div class="stu-sub">Question #'+a.qnum+'</div></div></div>'+statusBadge+'</div><div style="font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:6px">'+a.qtext+'</div><div class="q-answer-box">'+a.answer+'</div>'+marksRow+'</div>';
-  }).join('');
-}
-function submitGrade(answerId,max){
-  var val=parseInt(document.getElementById('marks-'+answerId).value);
-  if(isNaN(val)||val<0||val>max){showToast('Enter a valid mark (0–'+max+')','error');return;}
-  var body={marksAwarded:val,checkedBy:"vrunani@123"};
-  console.log('PUT /answers/grade/'+answerId,JSON.stringify(body));
-  var a=mockAnswers.find(x=>x.id===answerId);
-  if(a){a.graded=true;a.awarded=val;}
-  showToast('Marks saved: '+val+'/'+max,'success');
-  loadGrading();
-}
-
-/* ── NOTIFICATIONS ── */
-function submitNotification(){
-  var user=document.getElementById('notif-user').value.trim();
-  var title=document.getElementById('notif-title').value.trim();
-  var msg=document.getElementById('notif-msg').value.trim();
-  if(!title||!msg){showToast('Title and message are required.','error');return;}
-  var body={userId:user||'ALL',title:title,message:msg};
-  console.log('POST /notifications/send',JSON.stringify(body,null,2));
-  showToast('Notification sent!','success');
-  document.getElementById('notif-user').value='';
-  document.getElementById('notif-title').value='';
-  document.getElementById('notif-msg').value='';
-}
-
-/* ── LOGOUT ── */
-function confirmLogout(){
-  openModal('Logout','Are you sure you want to sign out?',function(){
-    showToast('Logging out…');
-    setTimeout(function(){window.location.href='#';},1000);
-  });
-}
-
-/* ── INIT ── */
-renderCards();
-
-const BASE_URL = "http://localhost:8080";
-
-/* =========================
-   TOAST MESSAGE
-========================= */
-function showToast(msg, type="success") {
-    alert(msg); // Replace later with custom toast if needed
-}
-
-/* =========================
-   CREATE TEST
-========================= */
-async function submitCreateTest() {
-    const body = {
-        title: document.getElementById("ct-title").value,
-        description: document.getElementById("ct-desc").value,
-        examCode: document.getElementById("ct-code").value,
-        createdBy: document.getElementById("ct-creator").value,
-        totalMarks: parseInt(document.getElementById("ct-marks").value),
-        durationMinutes: parseInt(document.getElementById("ct-duration").value),
-        startTime: document.getElementById("ct-start").value,
-        endTime: document.getElementById("ct-end").value,
-        negativeMarking: parseFloat(document.getElementById("ct-neg").value),
-        isPublished: document.getElementById("toggle-publish").classList.contains("on"),
-        showResults: document.getElementById("toggle-results").classList.contains("on")
-    };
-
-    try {
-        const res = await fetch(`${BASE_URL}/tests/add`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(body)
-        });
-
-        if(res.ok){
-            showToast("Test Created Successfully");
-        } else {
-            showToast("Failed To Create Test","error");
-        }
-    } catch(err){
-        console.error(err);
-        showToast("Server Error","error");
-    }
-}
-
-
-/* =========================
-   EDIT TEST
-========================= */
-async function submitEditTest() {
-    const testId = document.getElementById("et-id").value;
-
-    const body = {
-        title: document.getElementById("et-title").value,
-        durationMinutes: parseInt(document.getElementById("et-duration").value),
-        totalMarks: parseInt(document.getElementById("et-marks").value),
-        startTime: document.getElementById("et-start").value,
-        endTime: document.getElementById("et-end").value,
-        isPublished: document.getElementById("toggle-et-publish").classList.contains("on"),
-        showResults: document.getElementById("toggle-et-results").classList.contains("on")
-    };
-
-    try{
-        const res = await fetch(`${BASE_URL}/tests/update/${testId}`,{
-            method:"PUT",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(body)
-        });
-
-        if(res.ok){
-            showToast("Test Updated Successfully");
-        } else {
-            showToast("Failed To Update");
-        }
-
-    }catch(err){
-        console.error(err);
-    }
-}
-
-
-/* =========================
-   DELETE TEST
-========================= */
-async function submitDeleteTest() {
-    const testId = document.getElementById("del-testid").value;
-
-    try{
-        const res = await fetch(`${BASE_URL}/tests/delete/${testId}`,{
-            method:"DELETE"
-        });
-
-        if(res.ok){
-            showToast("Test Deleted");
-        } else {
-            showToast("Delete Failed");
-        }
-
-    }catch(err){
-        console.error(err);
-    }
-}
-
-
-/* =========================
+/* ════════════════════════════════════════
    ADD QUESTION
-========================= */
+   FIX #1: body uses examCode (not testId)
+════════════════════════════════════════ */
 async function submitAddQuestion() {
+  const examCode = document.getElementById('qq-examCode').value;
+  const text     = document.getElementById('qq-text').value.trim();
+  const marks    = parseInt(document.getElementById('qq-marks').value);
 
-    const selectedCorrect = document.querySelector('input[name="correct"]:checked');
+  if (!examCode) { showToast('Please select a test.', 'error'); return; }
+  if (!text)     { showToast('Question text is required.', 'error'); return; }
+  if (!marks)    { showToast('Marks are required.', 'error'); return; }
 
-    const body = {
-        testId: parseInt(document.getElementById("qq-testid").value),
-        questionText: document.getElementById("qq-text").value,
-        questionType: window.currentQType || "OBJECTIVE",
-        option1: document.getElementById("opt1").value,
-        option2: document.getElementById("opt2").value,
-        option3: document.getElementById("opt3").value,
-        option4: document.getElementById("opt4").value,
-        correctOption: selectedCorrect ? parseInt(selectedCorrect.value) : null,
-        marks: parseInt(document.getElementById("qq-marks").value)
-    };
+  const selectedCorrect = document.querySelector('input[name="correct"]:checked');
 
-    if(body.questionType==="SUBJECTIVE"){
-        body.option1=null;
-        body.option2=null;
-        body.option3=null;
-        body.option4=null;
-        body.correctOption=null;
+  const body = {
+    examCode,                       // FIX: was "testId" (number) — backend needs examCode string
+    questionText: text,
+    questionType: currentQType,
+    option1: document.getElementById('opt1').value || null,
+    option2: document.getElementById('opt2').value || null,
+    option3: document.getElementById('opt3').value || null,
+    option4: document.getElementById('opt4').value || null,
+    correctOption: selectedCorrect ? parseInt(selectedCorrect.value) : null,
+    marks
+  };
+
+  if (currentQType === 'SUBJECTIVE') {
+    body.option1 = body.option2 = body.option3 = body.option4 = null;
+    body.correctOption = null;
+  }
+
+  try {
+    const res = await fetch(`${BASE_URL}/questions/add`, {
+      method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body)
+    });
+    const txt = await res.text();
+    if (res.ok) {
+      showToast('Question added!', 'success');
+      resetQForm();
+      loadQPreview();
+    } else {
+      showToast(txt || 'Failed to add question.', 'error');
     }
-
-    try{
-        const res = await fetch(`${BASE_URL}/questions/add`,{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(body)
-        });
-
-        if(res.ok){
-            showToast("Question Added");
-            loadQPreview();
-        }else{
-            showToast("Failed To Add");
-        }
-
-    }catch(err){
-        console.error(err);
-    }
+  } catch (err) {
+    console.error(err); showToast('Server error.', 'error');
+  }
 }
 
-
-/* =========================
-   LOAD QUESTIONS PREVIEW
-========================= */
-async function loadQPreview() {
-
-    const testId = document.getElementById("qq-testid").value;
-
-    if(!testId) return;
-
-    try{
-        const res = await fetch(`${BASE_URL}/questions/test/${testId}`);
-        const data = await res.json();
-
-        let html = "";
-
-        data.forEach((q,index)=>{
-
-            html+=`
-            <div class="q-item">
-                <div class="q-item-hd">
-                    <div class="q-num">${index+1}</div>
-                    <div class="q-text">${q.questionText}</div>
-                </div>
-                <div>${q.questionType}</div>
-                <div>Marks: ${q.marks}</div>
-            </div>
-            `;
-        });
-
-        document.getElementById("qPreviewList").innerHTML = html;
-
-    }catch(err){
-        console.error(err);
-    }
+async function deleteQuestion(examCode, questionNumber) {
+  openModal('Delete Question', `Delete question #${questionNumber} from "${examCode}"?`, async () => {
+    try {
+      const res = await fetch(`${BASE_URL}/questions/delete/${examCode}/${questionNumber}`, { method: 'DELETE' });
+      if (res.ok) { showToast('Question deleted.'); loadQPreview(); }
+      else        { showToast('Failed to delete question.', 'error'); }
+    } catch (err) { showToast('Server error.', 'error'); }
+  });
 }
 
+function resetQForm() {
+  document.getElementById('qq-text').value  = '';
+  document.getElementById('qq-marks').value = '';
+  ['opt1','opt2','opt3','opt4'].forEach(id => document.getElementById(id).value = '');
+  document.querySelectorAll('input[name="correct"]').forEach(r => r.checked = false);
+}
 
-/* =========================
+/* ════════════════════════════════════════
    ADD USER
-========================= */
+════════════════════════════════════════ */
+function setRole(r) {
+  currentRole = r;
+  document.getElementById('role-student').classList.toggle('selected', r === 'STUDENT');
+  document.getElementById('role-teacher').classList.toggle('selected', r === 'TEACHER');
+}
+
 async function submitAddUser() {
+  const id    = document.getElementById('au-id').value.trim();
+  const name  = document.getElementById('au-name').value.trim();
+  const email = document.getElementById('au-email').value.trim();
+  const pass  = document.getElementById('au-pass').value;
+  if (!id || !name || !email || !pass) { showToast('All fields are required.', 'error'); return; }
 
-    const body = {
-        id: document.getElementById("au-id").value,
-        name: document.getElementById("au-name").value,
-        email: document.getElementById("au-email").value,
-        password: document.getElementById("au-pass").value,
-        role: window.currentRole || "STUDENT"
-    };
-
-    try{
-        const res = await fetch(`${BASE_URL}/api/auth/add-user`,{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(body)
-        });
-
-        if(res.ok){
-            showToast("User Added Successfully");
-        }else{
-            showToast("Failed To Add User");
-        }
-
-    }catch(err){
-        console.error(err);
-    }
+  try {
+    const res = await fetch(`${BASE_URL}/api/auth/add-user`, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ id, name, email, password: pass, role: currentRole })
+    });
+    if (res.ok) { showToast(name + ' added as ' + currentRole + '!', 'success'); resetUserForm(); }
+    else        { const t = await res.text(); showToast(t || 'Failed to add user.', 'error'); }
+  } catch (err) { showToast('Server error.', 'error'); }
 }
 
+function resetUserForm() {
+  ['au-id','au-name','au-email','au-pass'].forEach(id => document.getElementById(id).value = '');
+}
 
-/* =========================
-   LOAD STUDENT RESULTS
-========================= */
+/* ════════════════════════════════════════
+   STUDENT RESULTS
+════════════════════════════════════════ */
 async function loadStudentResults() {
+  const examCode = document.getElementById('studentTestSelect').value;
+  const area     = document.getElementById('resultsArea');
+  if (!examCode) {
+    area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><h3>Select a test</h3></div>';
+    return;
+  }
+  // Find the numeric testId from cached allTests
+  const test = allTests.find(t => t.examCode === examCode);
+  if (!test) { showToast('Test not found.', 'error'); return; }
+  try {
+    const res  = await fetch(`${BASE_URL}/submissions/matrix/${test.id}`);
+    const data = await res.json();
+    if (!data.length) { area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>No submissions yet</h3></div>'; return; }
+    const rows = data.map(r => {
+      const sc = r.score >= 75 ? 'score-high' : r.score >= 50 ? 'score-mid' : 'score-low';
+      return `<tr><td>${r.studentId}</td><td><span class="score-pill ${sc}">${r.score}</span></td></tr>`;
+    }).join('');
+    area.innerHTML = `<div class="result-table-wrap"><table class="result-table"><thead><tr><th>Student ID</th><th>Score</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  } catch (err) {
+    console.error(err); area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>Error loading results</h3></div>';
+  }
+}
 
-    const testId = document.getElementById("studentTestSelect").value;
+/* ════════════════════════════════════════
+   GRADE SUBJECTIVE
+════════════════════════════════════════ */
+async function loadGrading() {
+  const examCode = document.getElementById('gradeTestSelect').value;
+  const stuId    = document.getElementById('gradeStudentSelect').value;
+  const area     = document.getElementById('gradingArea');
+  if (!examCode || !stuId) { showToast('Select both a test and a student.', 'error'); return; }
+  const test = allTests.find(t => t.examCode === examCode);
+  if (!test) return;
+  try {
+    const res  = await fetch(`${BASE_URL}/submissions/test/${test.id}`);
+    const data = await res.json();
+    console.log('Grading data:', data);
+    area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>Loaded (see console)</h3><p>Connect your grading UI to the response.</p></div>';
+  } catch (err) {
+    console.error(err);
+  }
+}
 
-    try{
-        const res = await fetch(`${BASE_URL}/submissions/matrix/${testId}`);
-        const data = await res.json();
+/* ════════════════════════════════════════
+   NOTIFICATIONS
+   FIX #6: actually POST to /notifications/send
+   instead of calling a helper that did nothing
+════════════════════════════════════════ */
+async function submitNotification() {
+  const userId  = document.getElementById('notif-user').value.trim();
+  const title   = document.getElementById('notif-title').value.trim();
+  const message = document.getElementById('notif-msg').value.trim();
 
-        let html = `
-        <table class="result-table">
-            <tr>
-                <th>Student</th>
-                <th>Score</th>
-            </tr>
-        `;
+  if (!userId)  { showToast('Recipient User ID is required.', 'error'); return; }
+  if (!title)   { showToast('Title is required.', 'error'); return; }
+  if (!message) { showToast('Message is required.', 'error'); return; }
 
-        data.forEach(student=>{
-            html+=`
-            <tr>
-                <td>${student.studentId}</td>
-                <td>${student.score}</td>
-            </tr>
-            `;
-        });
-
-        html+="</table>";
-
-        document.getElementById("resultsArea").innerHTML=html;
-
-    }catch(err){
-        console.error(err);
+  // FIX #6: actually call the API — previous code called sendNotification() helper
+  // which was a separate async function that was never invoked from the button
+  try {
+    const res = await fetch(`${BASE_URL}/notifications/send`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, title, message })
+    });
+    if (res.ok) {
+      showToast('Notification sent!', 'success');
+      document.getElementById('notif-user').value  = '';
+      document.getElementById('notif-title').value = '';
+      document.getElementById('notif-msg').value   = '';
+      // reload notification list for that user
+      loadNotifications(userId);
+    } else {
+      const txt = await res.text();
+      showToast(txt || 'Failed to send notification.', 'error');
     }
+  } catch (err) {
+    console.error(err); showToast('Server error.', 'error');
+  }
 }
 
-
-/* =========================
-   LOAD ANALYTICS
-========================= */
-async function loadAnalytics(testId){
-
-    try{
-        const res = await fetch(`${BASE_URL}/analytics/test/${testId}`);
-        const data = await res.json();
-
-        console.log(data);
-
-    }catch(err){
-        console.error(err);
-    }
+async function loadNotifications(userId) {
+  if (!userId) return;
+  try {
+    const res  = await fetch(`${BASE_URL}/notifications/${userId}`);
+    const data = await res.json();
+    const list = document.getElementById('notifList');
+    if (!data.length) { list.innerHTML = '<div class="empty-state"><h3>No notifications</h3></div>'; return; }
+    list.innerHTML = data.map(n => `
+      <div class="notif-item ${n.isRead ? '' : 'notif-unread'}">
+        <div class="notif-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+        <div class="notif-body">
+          <div class="notif-title">${n.title}</div>
+          <div class="notif-msg">${n.message}</div>
+          <div class="notif-time">${new Date(n.createdAt).toLocaleString()}</div>
+        </div>
+      </div>`).join('');
+  } catch (err) { console.error(err); }
 }
 
-
-/* =========================
-   LOAD GRADING DATA
-========================= */
-async function loadGrading(){
-
-    const testId=document.getElementById("gradeTestSelect").value;
-
-    try{
-        const res=await fetch(`${BASE_URL}/submissions/test/${testId}`);
-        const data=await res.json();
-
-        console.log(data);
-
-    }catch(err){
-        console.error(err);
-    }
+/* ════════════════════════════════════════
+   LOGOUT
+════════════════════════════════════════ */
+function confirmLogout() {
+  openModal('Logout', 'Are you sure you want to sign out?', () => {
+    showToast('Logging out…');
+    setTimeout(() => window.location.href = 'login.html', 1000);
+  });
 }
 
-
-/* =========================
-   SEND NOTIFICATION
-========================= */
-async function sendNotification(userId,title,message){
-
-    const body={
-        userId,
-        title,
-        message
-    };
-
-    try{
-        await fetch(`${BASE_URL}/notifications/send`,{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(body)
-        });
-
-        showToast("Notification Sent");
-
-    }catch(err){
-        console.error(err);
-    }
-}
-
-
-/* =========================
-   TOGGLE BUTTON
-========================= */
-function toggleBtn(btn){
-    btn.classList.toggle("on");
-}
-
-
-/* =========================
-   QUESTION TYPE
-========================= */
-function setQType(type){
-
-    window.currentQType=type;
-
-    document.getElementById("qt-obj").classList.remove("selected");
-    document.getElementById("qt-sub").classList.remove("selected");
-
-    if(type==="OBJECTIVE"){
-        document.getElementById("qt-obj").classList.add("selected");
-        document.getElementById("objOptions").style.display="block";
-    }else{
-        document.getElementById("qt-sub").classList.add("selected");
-        document.getElementById("objOptions").style.display="none";
-    }
-}
-
-
-/* =========================
-   ROLE SELECT
-========================= */
-function setRole(role){
-
-    window.currentRole=role;
-
-    document.getElementById("role-student").classList.remove("selected");
-    document.getElementById("role-teacher").classList.remove("selected");
-
-    if(role==="STUDENT"){
-        document.getElementById("role-student").classList.add("selected");
-    }else{
-        document.getElementById("role-teacher").classList.add("selected");
-    }
-}
-
+/* ════════════════════════════════════════
+   INIT — load tests on page load
+════════════════════════════════════════ */
+fetchAllTests();
 </script>
 </body>
 </html>
