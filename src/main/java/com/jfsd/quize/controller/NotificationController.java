@@ -18,7 +18,6 @@ import com.jfsd.quize.repository.NotificationRepository;
 
 @RestController
 @RequestMapping("/notifications")
-@CrossOrigin
 public class NotificationController {
 
     @Autowired private NotificationRepository notificationRepository;

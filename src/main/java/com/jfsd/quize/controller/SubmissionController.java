@@ -20,7 +20,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/submissions")
-@CrossOrigin
 public class SubmissionController {
 
     @Autowired private SubmissionRepository submissionRepository;
@@ -250,7 +249,7 @@ public class SubmissionController {
     @PutMapping("/grade/{answerId}")
     @Transactional
     public ResponseEntity<String> gradeAnswer(@PathVariable Long answerId,
-                                               @RequestBody GradeAnswerRequest request) {
+                                            @RequestBody GradeAnswerRequest request) {
 
         Optional<Answer> ansOpt = answerRepository.findById(answerId);
         if (!ansOpt.isPresent())

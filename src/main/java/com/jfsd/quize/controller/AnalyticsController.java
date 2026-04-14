@@ -15,7 +15,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/analytics")
-@CrossOrigin
 public class AnalyticsController {
 
     @Autowired private SubmissionRepository submissionRepository;

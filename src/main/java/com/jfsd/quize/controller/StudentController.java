@@ -18,7 +18,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/student")
-@CrossOrigin
 public class StudentController {
 
     @Autowired private TestRepository testRepository;

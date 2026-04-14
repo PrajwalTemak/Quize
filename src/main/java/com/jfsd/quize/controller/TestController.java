@@ -16,7 +16,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/tests")
-@CrossOrigin
 public class TestController {
 
     @Autowired private TestRepository testRepository;
@@ -46,7 +45,7 @@ public class TestController {
     // ─────────────────────────────────────────────────────────────
     @PutMapping("/update/{examCode}")
     public ResponseEntity<String> updateTest(@PathVariable String examCode,
-                                              @RequestBody AddTestRequest request) {
+                                            @RequestBody AddTestRequest request) {
         Optional<Test> optional = testRepository.findByExamCode(examCode);
         if (!optional.isPresent())
             return ResponseEntity.badRequest().body("Test not found with examCode: " + examCode);
