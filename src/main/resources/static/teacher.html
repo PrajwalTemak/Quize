@@ -660,6 +660,14 @@ function prefillEditForm() {
   document.getElementById('et-title').value    = t.title    || '';
   document.getElementById('et-duration').value = t.durationMinutes || '';
   document.getElementById('et-marks').value    = t.totalMarks || '';
+  document.getElementById('et-neg').value      = t.negativeMarking != null ? t.negativeMarking : '';
+  // ✅ FIX: Convert ISO strings back to datetime-local format (YYYY-MM-DDTHH:mm)
+  if (t.startTime) {
+    document.getElementById('et-start').value = new Date(t.startTime).toISOString().slice(0,16);
+  }
+  if (t.endTime) {
+    document.getElementById('et-end').value = new Date(t.endTime).toISOString().slice(0,16);
+  }
   if (t.isPublished) document.getElementById('toggle-et-publish').classList.add('on');
   else               document.getElementById('toggle-et-publish').classList.remove('on');
   if (t.showResults) document.getElementById('toggle-et-results').classList.add('on');
@@ -720,19 +728,23 @@ async function submitEditTest() {
   if (title)  body.title           = title;
   if (dur)    body.durationMinutes = parseInt(dur);
   if (marks)  body.totalMarks      = parseInt(marks);
-  if (neg)    body.negativeMarking = parseFloat(neg);
-  if (start)  body.startTime       = start;
-  if (end)    body.endTime         = end;
+  if (neg !== '') body.negativeMarking = parseFloat(neg);
+  // ✅ FIX: Convert datetime-local string to proper ISO format
+  if (start)  body.startTime = new Date(start).toISOString();
+  if (end)    body.endTime   = new Date(end).toISOString();
   body.isPublished = document.getElementById('toggle-et-publish').classList.contains('on');
   body.showResults = document.getElementById('toggle-et-results').classList.contains('on');
   try {
-    const res = await fetch(`${BASE_URL}/tests/update/${examCode}`, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    const res = await fetch(`${BASE_URL}/tests/update/${examCode}`, {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(body)
+    });
     const txt = await res.text();
     if (res.ok) { showToast('Test updated successfully.', 'success'); await fetchAllTests(); }
     else { showToast(txt || 'Failed to update test.', 'error'); }
   } catch (err) { console.error(err); showToast('Server error.', 'error'); }
 }
-
 /* ════ DELETE TEST ════ */
 async function submitDeleteTest() {
   const examCode = document.getElementById('del-examCode').value;

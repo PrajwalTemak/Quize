@@ -560,20 +560,21 @@ function renderTestCards() {
   const active = [], upcoming = [];
 
   publishedTests.forEach(t => {
-    const start = new Date(t.startTime);
-    const end = new Date(t.endTime);
+    // ✅ FIX: Guard against missing times; treat missing endTime as far future
+    const start = t.startTime ? new Date(t.startTime) : new Date(0);
+    const end   = t.endTime   ? new Date(t.endTime)   : new Date(8640000000000000);
     if (now >= start && now <= end) active.push(t);
-    else if (now < start) upcoming.push(t);
+    else if (now < start)           upcoming.push(t);
+    // past tests (now > end) are silently dropped — they go to Review only
   });
 
-  document.getElementById('activeCount').textContent = `${active.length} test${active.length!==1?'s':''}`;
+  document.getElementById('activeCount').textContent   = `${active.length} test${active.length!==1?'s':''}`;
   document.getElementById('upcomingCount').textContent = `${upcoming.length} test${upcoming.length!==1?'s':''}`;
 
-  renderRow('activeTestsRow', active, 'active');
+  renderRow('activeTestsRow',   active,   'active');
   renderRow('upcomingTestsRow', upcoming, 'upcoming');
   fetchPerformanceGraph();
 }
-
 function renderRow(containerId, tests, type) {
   const row = document.getElementById(containerId);
   if (!tests.length) {
@@ -711,7 +712,6 @@ async function verifyCode() {
   const code = document.getElementById('examCodeInput').value.trim().toUpperCase();
   if (!code) { showToast('Enter an exam code', 'error'); return; }
   try {
-    // Step 1: fetch questions (validates code, published state, timing server-side)
     const qRes = await fetch(`${BASE_URL}/student/tests/${code}/questions`);
     if (!qRes.ok) {
       const errText = await qRes.text();
@@ -720,10 +720,7 @@ async function verifyCode() {
     }
     const questions = await qRes.json();
 
-    // Step 2: find test metadata — try both camelCase and snake_case field names
-    // because Jackson serialization may differ based on Spring config
     function getExamCode(t) { return t.examCode || t.exam_code || ''; }
-
     let test = publishedTests.find(t => getExamCode(t).toUpperCase() === code);
     if (!test) {
       const avRes = await fetch(`${BASE_URL}/student/tests/available`);
@@ -732,53 +729,58 @@ async function verifyCode() {
       if (test) publishedTests = [...publishedTests, ...avTests.filter(t2 => !publishedTests.find(p => p.id === t2.id))];
     }
 
-    // Step 3: if still not found, build a minimal test object from what we know
-    // The questions endpoint succeeded so the test definitely exists and is active
-    if (!test) {
-      test = {
-        examCode: code,
-        exam_code: code,
-        title: code,
-        description: '',
-        durationMinutes: 60,
-        totalMarks: questions.reduce((s, q) => s + (q.marks || 0), 0),
-        negativeMarking: 0,
-        showResults: false,
-        startTime: new Date(Date.now() - 1000).toISOString(),
-        endTime: new Date(Date.now() + 86400000).toISOString()
-      };
+    // ✅ FIX: Timing guard — check window before proceeding
+    if (test && test.startTime && test.endTime) {
+      const now   = new Date();
+      const start = new Date(test.startTime);
+      const end   = new Date(test.endTime);
+      if (now < start) {
+        showToast(`This exam hasn't started yet. Starts at ${start.toLocaleString()}`, 'error');
+        return;
+      }
+      if (now > end) {
+        showToast('This exam has already ended.', 'error');
+        return;
+      }
     }
 
-    // Always store the typed code directly so startExam() never loses it
+    if (!test) {
+      test = {
+        examCode: code, exam_code: code, title: code, description: '',
+        durationMinutes: 60,
+        totalMarks: questions.reduce((s, q) => s + (q.marks || 0), 0),
+        negativeMarking: 0, showResults: false,
+        startTime: new Date(Date.now() - 1000).toISOString(),
+        endTime:   new Date(Date.now() + 86400000).toISOString()
+      };
+    }
     test.examCode = code;
 
-    examState.test = test;
+    examState.test      = test;
     examState.questions = questions || [];
-    examState.answers = {};
+    examState.answers   = {};
     examState.submissionId = null;
 
-    // Show instructions
-    document.getElementById('instrTestName').textContent = test.title || code;
-    document.getElementById('instrTestDesc').textContent = test.description || '';
-    document.getElementById('instrDuration').textContent = `${test.durationMinutes || '?'} min`;
-    document.getElementById('instrMarks').textContent = `${test.totalMarks || '?'}`;
-    document.getElementById('instrQCount').textContent = `${questions.length}`;
-    document.getElementById('instrNeg').textContent = test.negativeMarking > 0 ? `-${test.negativeMarking}` : 'None';
+    document.getElementById('instrTestName').textContent  = test.title || code;
+    document.getElementById('instrTestDesc').textContent  = test.description || '';
+    document.getElementById('instrDuration').textContent  = `${test.durationMinutes || '?'} min`;
+    document.getElementById('instrMarks').textContent     = `${test.totalMarks || '?'}`;
+    document.getElementById('instrQCount').textContent    = `${questions.length}`;
+    document.getElementById('instrNeg').textContent       = test.negativeMarking > 0 ? `-${test.negativeMarking}` : 'None';
     if (test.negativeMarking > 0) {
-      document.getElementById('instrNegLi').style.display = 'flex';
-      document.getElementById('instrNegText').textContent = `Negative marking: ${test.negativeMarking} marks deducted per wrong answer.`;
+      document.getElementById('instrNegLi').style.display   = 'flex';
+      document.getElementById('instrNegText').textContent   = `Negative marking: ${test.negativeMarking} marks deducted per wrong answer.`;
     } else {
       document.getElementById('instrNegLi').style.display = 'none';
     }
 
-    document.getElementById('codeScreen').style.display = 'none';
+    document.getElementById('codeScreen').style.display  = 'none';
     document.getElementById('instrScreen').style.display = 'flex';
   } catch(e) {
     console.error(e);
     showToast('Failed to find exam. Check code or network.', 'error');
   }
 }
-
 async function startExam() {
   if (!currentUser) {
     showToast("Session expired. Please log in again.", "error");
