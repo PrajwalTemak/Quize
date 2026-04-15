@@ -678,8 +678,10 @@ async function submitCreateTest() {
   const body = {
     title, description: desc, examCode: code, createdBy: creator,
     totalMarks: parseInt(marks), durationMinutes: parseInt(dur),
-    startTime: document.getElementById('ct-start').value || null,
-    endTime:   document.getElementById('ct-end').value   || null,
+   startTime: document.getElementById('ct-start').value 
+  ? new Date(document.getElementById('ct-start').value).toISOString() : null,
+endTime: document.getElementById('ct-end').value 
+  ? new Date(document.getElementById('ct-end').value).toISOString() : null,
     negativeMarking: parseFloat(document.getElementById('ct-neg').value) || 0,
     isPublished: document.getElementById('toggle-publish').classList.contains('on'),
     showResults: document.getElementById('toggle-results').classList.contains('on')
