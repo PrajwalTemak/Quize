@@ -669,7 +669,7 @@ function prefillEditForm() {
 /* ════ CREATE TEST ════ */
 async function submitCreateTest() {
   const title   = document.getElementById('ct-title').value.trim();
-  const code    = document.getElementById('ct-code').value.trim();
+  const code = document.getElementById('ct-code').value.trim().toUpperCase();
   const desc    = document.getElementById('ct-desc').value.trim();
   const marks   = document.getElementById('ct-marks').value;
   const dur     = document.getElementById('ct-duration').value;
