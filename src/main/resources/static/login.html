@@ -384,65 +384,65 @@ function setRole(role) {
 
 /* ── Login with ripple + shake ── */
 async function handleLogin(e) {
+  if (e) e.preventDefault(); // IMPORTANT (prevents page refresh)
 
   const idField = document.getElementById("emailField");
   const pwField = document.getElementById("pwField");
 
-  let role =
+  const id = idField.value.trim();
+  const password = pwField.value.trim();
+
+  const role =
     document.getElementById("rStudent").classList.contains("active")
       ? "STUDENT"
       : "TEACHER";
 
-  try {
+  if (!id || !password) {
+    alert("Please enter ID and password");
+    return;
+  }
 
+  try {
     const response = await fetch("/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        id: idField.value,
-        password: pwField.value,
-        role: role
+        id,
+        password,
+        role
       })
     });
 
-    if (response.ok) {
-      const data = await response.json();
+    const data = await response.json().catch(() => ({}));
 
-      // Store full user object so student/teacher pages can read it
-      sessionStorage.setItem('quizely_user', JSON.stringify(data));
-
-      if (data.role === "TEACHER") {
-        window.location.href = "/teacher.html";
-      } else if (data.role === "STUDENT") {
-        window.location.href = "/student.html";
-      } else {
-        alert("Unknown role: " + data.role);
-      }
-    } else {
-      const errorText = await response.text();
-      alert(errorText);
+    if (!response.ok) {
+      alert(data.message || "Invalid login credentials");
+      return;
     }
 
-  }
+    // ✅ Store user session (important for teacher/student pages)
+    sessionStorage.setItem("quizely_user", JSON.stringify(data));
 
-  catch(error) {
-    console.error(error);
-    alert("Login Failed");
-  }
+    // OPTIONAL (if backend sends token)
+    if (data.token) {
+      localStorage.setItem("quizely_token", data.token);
+    }
 
-}/* ── Counter animation ── */
-function animateCount(el, target, suffix) {
-  var start = 0;
-  var dur = 1600;
-  var step = 16;
-  var inc = target / (dur / step);
-  var timer = setInterval(function() {
-    start += inc;
-    if (start >= target) { start = target; clearInterval(timer); }
-    el.textContent = Math.round(start) + suffix;
-  }, step);
+    // ✅ Role-based redirect
+    if (data.role === "TEACHER") {
+      window.location.href = "/teacher.html";
+    } else if (data.role === "STUDENT") {
+      window.location.href = "/student.html";
+    } else {
+      alert("Unknown role: " + data.role);
+    }
+
+  } catch (error) {
+    console.error("Login error:", error);
+    alert("Login failed. Please try again.");
+  }
 }
 
 setTimeout(function() {
