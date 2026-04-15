@@ -5,6 +5,7 @@ import com.jfsd.quize.dto.TeacherSubmissionResponse;
 import com.jfsd.quize.entity.Answer;
 import com.jfsd.quize.entity.Question;
 import com.jfsd.quize.entity.Submission;
+import com.jfsd.quize.entity.Submission.SubmissionStatus;
 import com.jfsd.quize.entity.Test;
 import com.jfsd.quize.entity.User;
 import com.jfsd.quize.repository.*;
@@ -119,33 +120,6 @@ public class SubmissionController {
     // SUBMIT TEST
     // PUT /submissions/submit/{submissionId}
     // ─────────────────────────────────────────────────────────────
-    @PutMapping("/submit/{submissionId}")
-    @Transactional
-    public ResponseEntity<String> submitTest(@PathVariable Long submissionId) {
-
-        Optional<Submission> subOpt = submissionRepository.findById(submissionId);
-        if (!subOpt.isPresent())
-            return ResponseEntity.badRequest().body("Submission not found");
-
-        Submission submission = subOpt.get();
-
-        if (submission.getStatus() != Submission.SubmissionStatus.IN_PROGRESS)
-            return ResponseEntity.badRequest().body("Test already submitted");
-
-        // Recalculate score from saved answers
-        List<Answer> answers = answerRepository.findBySubmissionId(submissionId);
-        BigDecimal total = answers.stream()
-            .filter(a -> a.getMarksAwarded() != null)
-            .map(Answer::getMarksAwarded)
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-        submission.setStatus(Submission.SubmissionStatus.SUBMITTED);
-        submission.setSubmittedAt(LocalDateTime.now());
-        submission.setTotalScore(total);
-        submissionRepository.save(submission);
-
-        return ResponseEntity.ok("Test submitted successfully. Objective score: " + total);
-    }
 
     // ─────────────────────────────────────────────────────────────
     // VIEW RESULT (Student)

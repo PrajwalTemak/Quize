@@ -18,13 +18,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/auth")
 public class LoginController {
-        @GetMapping("/api/auth/users/count")
-    public ResponseEntity<?> countStudents() {
-        long count = userRepository.findAll().stream()
-            .filter(u -> "STUDENT".equalsIgnoreCase(u.getRole()) && Boolean.TRUE.equals(u.getIsActive()))
-            .count();
-        return ResponseEntity.ok(Map.of("studentCount", count));
-    }
+
     @Autowired
     private UserRepository userRepository;
 
@@ -54,7 +48,13 @@ public class LoginController {
         userRepository.save(user);
         return ResponseEntity.ok("User added successfully");
     }
-
+        @GetMapping("/api/auth/users/count")
+    public ResponseEntity<?> countStudents() {
+        long count = userRepository.findAll().stream()
+            .filter(u -> "STUDENT".equalsIgnoreCase(u.getRole()) && Boolean.TRUE.equals(u.getIsActive()))
+            .count();
+        return ResponseEntity.ok(Map.of("studentCount", count));
+    }
     // ─────────────────────────────────────────────────────────────
     // LOGIN
     // POST /api/auth/login

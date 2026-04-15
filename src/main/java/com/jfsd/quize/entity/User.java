@@ -8,9 +8,12 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
+    @Column(name = "id", nullable = false, updatable = false)
     private String id;
 
     private String name;
+
+    @Column(unique = true)
     private String email;
 
     @Column(name = "password_hash")
@@ -23,8 +26,10 @@ public class User {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-public String getId() { return id; }
-public void setId(String id) { this.id = id; }
+
+    // getters & setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
