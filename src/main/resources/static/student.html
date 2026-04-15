@@ -259,7 +259,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <span class="sb-tip">Review Tests</span>
   </div>
   <div class="sb-divider"></div>
-  <div class="sb-icon" id="sb-notif" onclick="showView('notifications')">
+  <div class="sb-icon" id="sb-notifications" onclick="showView('notifications')">
     <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
     <span class="notif-dot-sb" id="sbNotifDot" style="display:none"></span>
     <span class="sb-tip">Notifications</span>
@@ -286,12 +286,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div class="avatar" id="avatarEl">S</div>
 </div>
 
-<!-- ═══════════════════════════════
-     VIEW: DASHBOARD
-═══════════════════════════════ -->
+<!-- DASHBOARD VIEW -->
 <div class="view active" id="view-dashboard">
-
-  <!-- Active / Available Tests -->
   <div class="section-hd">
     <div class="section-title">📋 Available Tests</div>
     <span class="badge-count" id="activeCount">0 tests</span>
@@ -304,7 +300,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
   </div>
 
-  <!-- Upcoming Tests -->
   <div class="section-hd" style="margin-top:26px">
     <div class="section-title">🕐 Upcoming Tests</div>
     <span class="badge-count" id="upcomingCount">0 tests</span>
@@ -317,7 +312,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
   </div>
 
-  <!-- Performance Graph -->
   <div class="graph-panel">
     <div class="section-hd" style="margin-bottom:18px">
       <div class="section-title">📊 My Performance</div>
@@ -326,12 +320,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="empty-state"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><h3>No results yet</h3><p>Complete tests to see your performance graph</p></div>
     </div>
   </div>
-
 </div>
 
-<!-- ═══════════════════════════════
-     VIEW: REVIEW
-═══════════════════════════════ -->
+<!-- REVIEW VIEW -->
 <div class="view" id="view-review">
   <div class="panel">
     <div class="panel-title">
@@ -354,9 +345,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 </div>
 
-<!-- ═══════════════════════════════
-     VIEW: NOTIFICATIONS
-═══════════════════════════════ -->
+<!-- NOTIFICATIONS VIEW -->
 <div class="view" id="view-notifications">
   <div class="section-hd">
     <div class="section-title">🔔 Notifications</div>
@@ -368,16 +357,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 </div><!-- end .main -->
 
-<!-- ══════════════════════════════════════════
-     EXAM OVERLAY (Code Entry → Instructions → Exam → Result)
-══════════════════════════════════════════ -->
+<!-- EXAM OVERLAY -->
 <div class="exam-overlay" id="examOverlay">
-
-  <!-- STEP 1: EXAM CODE -->
   <div style="background:#fff;border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;padding:0 20px;gap:12px;flex-shrink:0">
-    <button class="btn btn-secondary" onclick="closeExam()" style="padding:6px 14px;font-size:12px">✕ Cancel</button>
+    <button class="btn btn-secondary" onclick="closeExam()" style="padding:6px 14px;font-size:12px;background:#fff;color:var(--purple);border:1.5px solid var(--border);border-radius:8px;cursor:pointer;font-weight:600">✕ Cancel</button>
     <span style="font-size:15px;font-weight:700;color:var(--purple-dark)">Enter Exam</span>
   </div>
+
+  <!-- STEP 1: CODE -->
   <div class="code-screen" id="codeScreen">
     <div class="code-card">
       <div style="width:56px;height:56px;background:linear-gradient(135deg,var(--teal-light),var(--teal-dark));border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
@@ -425,7 +412,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         <span id="timerDisplay">00:00</span>
       </div>
-      <button class="btn-danger" onclick="confirmEndTest()" style="font-size:12px;padding:7px 14px">End Test</button>
+      <button class="btn-danger" onclick="confirmEndTest()" style="font-size:12px;padding:7px 14px;background:var(--red-bg);color:var(--red);border:1.5px solid var(--red-border);border-radius:8px;cursor:pointer;font-weight:600">End Test</button>
     </div>
     <div class="exam-layout">
       <div class="q-palette">
@@ -438,16 +425,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         </div>
       </div>
       <div class="q-main">
-        <div class="q-content" id="qContent">
-          <!-- question rendered here -->
-        </div>
+        <div class="q-content" id="qContent"></div>
         <div class="exam-bottombar">
           <div class="save-status" id="saveStatus">
             <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
             Auto-save enabled
           </div>
           <div class="eb-spacer"></div>
-          <button class="btn btn-secondary" id="prevBtn" onclick="navigateQ(-1)">← Prev</button>
+          <button class="btn btn-secondary" id="prevBtn" onclick="navigateQ(-1)" style="background:#fff;color:var(--purple);border:1.5px solid var(--border);border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer">← Prev</button>
           <button class="btn btn-start" id="saveNextBtn" onclick="saveAndNext()">Save &amp; Next →</button>
         </div>
       </div>
@@ -467,7 +452,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <button class="btn-primary" onclick="closeExam()" style="width:100%;margin-top:6px">Back to Dashboard</button>
     </div>
   </div>
-
 </div>
 
 <!-- MODAL -->
@@ -486,41 +470,34 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
-const BASE_URL = '';
+// ════ FIX #1: correct backend URL ════
+const BASE_URL = 'https://quize-586m.onrender.com';
 
-/* ════════════════════════════════════════
-   SESSION
-════════════════════════════════════════ */
+/* ════ SESSION ════ */
 let currentUser = null;
 
 function initSession() {
-  // Try sessionStorage first, then localStorage
   const raw = sessionStorage.getItem('quizely_user') || localStorage.getItem('quizely_user');
   if (raw) {
     try { currentUser = JSON.parse(raw); } catch(e) {}
   }
   if (!currentUser) {
-    // Attempt to parse from URL params as fallback
     const p = new URLSearchParams(location.search);
     const id = p.get('id'), name = p.get('name'), email = p.get('email');
     if (id) {
       currentUser = { id, name: name || id, email: email || '', role: 'STUDENT' };
     } else {
-      // If no session found, redirect to login
-      window.location.href = '/login.html';
+      window.location.href = 'login.html';
       return;
     }
   }
-  // Set UI
   const name = currentUser.name || currentUser.id || 'Student';
   document.getElementById('topbarName').textContent = `Hello, ${name} 👋`;
   document.getElementById('topbarSub').textContent = `${new Date().toLocaleDateString('en-IN', {weekday:'long',day:'numeric',month:'long'})}`;
   document.getElementById('avatarEl').textContent = name.charAt(0).toUpperCase();
 }
 
-/* ════════════════════════════════════════
-   VIEWS
-════════════════════════════════════════ */
+/* ════ VIEWS ════ */
 function showView(id) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.sb-icon').forEach(b => b.classList.remove('active'));
@@ -533,11 +510,8 @@ function showView(id) {
   if (id === 'notifications') fetchNotifications();
 }
 
-/* ════════════════════════════════════════
-   PUBLISHED TESTS
-════════════════════════════════════════ */
+/* ════ PUBLISHED TESTS ════ */
 let publishedTests = [];
-let completedSubmissions = {}; // testId → submissionId
 
 async function fetchPublishedTests() {
   try {
@@ -558,7 +532,6 @@ async function fetchPublishedTests() {
 function renderTestCards() {
   const now = new Date();
   const active = [], upcoming = [];
-
   publishedTests.forEach(t => {
     const start = new Date(t.startTime);
     const end = new Date(t.endTime);
@@ -582,7 +555,6 @@ function renderRow(containerId, tests, type) {
     return;
   }
   row.innerHTML = tests.map(t => buildTestCard(t, type)).join('');
-  // start countdowns
   tests.forEach(t => {
     if (type === 'active') startCountdown(`cd_${t.id}`, new Date(t.endTime), 'Ends in');
     else startCountdown(`cd_${t.id}`, new Date(t.startTime), 'Starts in');
@@ -594,11 +566,9 @@ function buildTestCard(t, type) {
   const end = new Date(t.endTime).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
   const chipClass = type === 'active' ? 'chip-active' : 'chip-upcoming';
   const chipLabel = type === 'active' ? '🟢 Live' : '🕐 Upcoming';
-  const cdLabel = type === 'active' ? 'Ends in' : 'Starts in';
   const btn = type === 'active'
     ? `<button class="btn btn-start" onclick="openExam('${t.examCode}')">▶ Start Test</button>`
     : `<button class="btn btn-disabled" disabled>Not started</button>`;
-
   return `
     <div class="test-card">
       <span class="chip ${chipClass}">${chipLabel}</span>
@@ -634,9 +604,7 @@ function startCountdown(elId, targetDate, label) {
   cdTimers[elId] = setInterval(update, 1000);
 }
 
-/* ════════════════════════════════════════
-   PERFORMANCE GRAPH
-════════════════════════════════════════ */
+/* ════ PERFORMANCE GRAPH ════ */
 async function fetchPerformanceGraph() {
   if (!currentUser) return;
   try {
@@ -659,14 +627,12 @@ function renderGraph(data) {
   const chartW = W - PAD.l - PAD.r;
   const chartH = H - PAD.t - PAD.b;
   const barW = Math.min(50, chartW / data.length - 12);
-
   let svg = `<svg class="chart-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
   [0,25,50,75,100].forEach(pct => {
     const y = PAD.t + chartH - (pct/100)*chartH;
     svg += `<line x1="${PAD.l}" y1="${y}" x2="${W-PAD.r}" y2="${y}" stroke="#e0d8ed" stroke-width="1" stroke-dasharray="4,3"/>`;
     svg += `<text x="${PAD.l-8}" y="${y+4}" text-anchor="end" font-size="10" fill="#b0a6c8">${pct}%</text>`;
   });
-
   data.forEach((item, i) => {
     const totalMarks = item.totalMarks || 0;
     const scoredMarks = parseFloat(item.scoredMarks) || 0;
@@ -681,14 +647,11 @@ function renderGraph(data) {
     svg += `<text x="${x+barW/2}" y="${H-PAD.b+14}" text-anchor="middle" font-size="10" fill="#83749f">${esc(label)}</text>`;
     svg += `<text x="${x+barW/2}" y="${H-PAD.b+26}" text-anchor="middle" font-size="9" fill="#b0a6c8">${Math.round(scoredMarks)}/${totalMarks}</text>`;
   });
-
   svg += `</svg>`;
   wrap.innerHTML = svg;
 }
 
-/* ════════════════════════════════════════
-   EXAM FLOW
-════════════════════════════════════════ */
+/* ════ EXAM FLOW ════ */
 let examState = {
   test: null, questions: [], submissionId: null,
   currentQ: 0, answers: {}, timer: null, timeLeft: 0
@@ -711,7 +674,6 @@ async function verifyCode() {
   const code = document.getElementById('examCodeInput').value.trim().toUpperCase();
   if (!code) { showToast('Enter an exam code', 'error'); return; }
   try {
-    // Step 1: fetch questions (validates code, published state, timing server-side)
     const qRes = await fetch(`${BASE_URL}/student/tests/${code}/questions`);
     if (!qRes.ok) {
       const errText = await qRes.text();
@@ -720,36 +682,26 @@ async function verifyCode() {
     }
     const questions = await qRes.json();
 
-    // Step 2: find test metadata — try both camelCase and snake_case field names
-    // because Jackson serialization may differ based on Spring config
-    function getExamCode(t) { return t.examCode || t.exam_code || ''; }
-
-    let test = publishedTests.find(t => getExamCode(t).toUpperCase() === code);
+    let test = publishedTests.find(t => (t.examCode||'').toUpperCase() === code);
     if (!test) {
-      const avRes = await fetch(`${BASE_URL}/student/tests/available`);
-      const avTests = avRes.ok ? await avRes.json() : [];
-      test = avTests.find(t => getExamCode(t).toUpperCase() === code);
-      if (test) publishedTests = [...publishedTests, ...avTests.filter(t2 => !publishedTests.find(p => p.id === t2.id))];
+      // Try fetching it directly
+      try {
+        const tRes = await fetch(`${BASE_URL}/tests/find/${code}`);
+        if (tRes.ok) test = await tRes.json();
+      } catch(e) {}
     }
-
-    // Step 3: if still not found, build a minimal test object from what we know
-    // The questions endpoint succeeded so the test definitely exists and is active
     if (!test) {
+      // Build minimal object — questions endpoint already validated the test exists
       test = {
         examCode: code,
-        exam_code: code,
         title: code,
         description: '',
         durationMinutes: 60,
         totalMarks: questions.reduce((s, q) => s + (q.marks || 0), 0),
         negativeMarking: 0,
-        showResults: false,
-        startTime: new Date(Date.now() - 1000).toISOString(),
-        endTime: new Date(Date.now() + 86400000).toISOString()
+        showResults: false
       };
     }
-
-    // Always store the typed code directly so startExam() never loses it
     test.examCode = code;
 
     examState.test = test;
@@ -757,7 +709,6 @@ async function verifyCode() {
     examState.answers = {};
     examState.submissionId = null;
 
-    // Show instructions
     document.getElementById('instrTestName').textContent = test.title || code;
     document.getElementById('instrTestDesc').textContent = test.description || '';
     document.getElementById('instrDuration').textContent = `${test.durationMinutes || '?'} min`;
@@ -780,45 +731,37 @@ async function verifyCode() {
 }
 
 async function startExam() {
-  if (!currentUser) {
-    showToast("Session expired. Please log in again.", "error");
-    setTimeout(() => window.location.href = "/login.html", 1500);
-    return;
-  }
-  if (!examState.test || !examState.test.examCode) {
-    showToast("Exam data missing. Please re-enter the exam code.", "error");
-    showCodeScreen();
-    return;
-  }
+  if (!currentUser) { showToast('Session expired. Please log in again.', 'error'); setTimeout(() => window.location.href = 'login.html', 1500); return; }
+  if (!examState.test || !examState.test.examCode) { showToast('Exam data missing. Please re-enter the exam code.', 'error'); showCodeScreen(); return; }
   try {
     const res = await fetch(`${BASE_URL}/student/tests/start`, {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ examCode: examState.test.examCode, studentId: currentUser.id })
     });
-    if (!res.ok) { const t = await res.text(); showToast(t || "Could not start exam", "error"); return; }
+    if (!res.ok) { const t = await res.text(); showToast(t || 'Could not start exam', 'error'); return; }
     const sub = await res.json();
     examState.submissionId = sub.id || sub.submissionId;
     examState.currentQ = 0;
-    examState.timeLeft = examState.test.durationMinutes * 60;
+    examState.timeLeft = (examState.test.durationMinutes || 60) * 60;
 
-    document.getElementById("instrScreen").style.display = "none";
-    document.getElementById("examBody").style.display = "flex";
-    document.getElementById("examTestName").textContent = examState.test.title;
+    document.getElementById('instrScreen').style.display = 'none';
+    document.getElementById('examBody').style.display = 'flex';
+    document.getElementById('examTestName').textContent = examState.test.title;
 
     buildPalette();
     renderQuestion(0);
     startTimer();
   } catch(e) {
     console.error(e);
-    showToast("Failed to start exam: " + e.message, "error");
+    showToast('Failed to start exam: ' + e.message, 'error');
   }
 }
 
 function buildPalette() {
   const grid = document.getElementById('paletteGrid');
-  grid.innerHTML = examState.questions.map((q,i) => `
-    <div class="p-slot ${i===0?'current':''}" id="ps_${i}" onclick="jumpToQ(${i})">${i+1}</div>`).join('');
+  grid.innerHTML = examState.questions.map((q,i) =>
+    `<div class="p-slot ${i===0?'current':''}" id="ps_${i}" onclick="jumpToQ(${i})">${i+1}</div>`).join('');
 }
 
 function renderQuestion(idx) {
@@ -826,10 +769,9 @@ function renderQuestion(idx) {
   if (idx < 0 || idx >= qs.length) return;
   examState.currentQ = idx;
 
-  // Update palette
   document.querySelectorAll('.p-slot').forEach((el,i) => {
     el.classList.toggle('current', i === idx);
-    el.classList.toggle('answered', !!examState.answers[i+1] || examState.answers[i+1] === 0);
+    el.classList.toggle('answered', examState.answers[i+1] !== undefined && examState.answers[i+1] !== null && examState.answers[i+1] !== '');
   });
 
   const q = qs[idx];
@@ -864,12 +806,11 @@ function selectOption(optNum) {
   examState.answers[examState.currentQ+1] = optNum;
 }
 
-// FIND THIS:
 async function saveAndNext() {
   await saveCurrentAnswer();
   const isLast = examState.currentQ === examState.questions.length - 1;
   if (isLast) {
-    confirmEndTest();  // ← this calls modal
+    confirmEndTest();
   } else {
     renderQuestion(examState.currentQ + 1);
   }
@@ -878,17 +819,16 @@ async function saveAndNext() {
 async function saveCurrentAnswer() {
   const q = examState.questions[examState.currentQ];
   const qNum = examState.currentQ + 1;
- // AFTER (fixed)
-let body = {
+  let body = {
     submissionId: examState.submissionId,
-    examCode: examState.test.examCode,  // ← backend needs this, not testId
+    examCode: examState.test.examCode,
     questionNumber: qNum,
     selectedOption: null,
     textAnswer: null
-};
+  };
   if (q.questionType === 'OBJECTIVE') {
     const sel = examState.answers[qNum];
-    if (!sel) return; // nothing to save
+    if (!sel) return;
     body.selectedOption = sel;
   } else {
     const ta = document.getElementById('subjectiveAns');
@@ -906,8 +846,10 @@ let body = {
     const ss = document.getElementById('saveStatus');
     ss.className = 'save-status saved';
     ss.innerHTML = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Saved`;
-    setTimeout(() => { ss.className='save-status'; ss.innerHTML=`<svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Auto-save enabled`; }, 2000);
-    // update palette
+    setTimeout(() => {
+      ss.className='save-status';
+      ss.innerHTML=`<svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Auto-save enabled`;
+    }, 2000);
     document.getElementById(`ps_${examState.currentQ}`)?.classList.add('answered');
   } catch(e) { console.error('Save error', e); }
 }
@@ -944,20 +886,26 @@ function startTimer() {
   examState.timer = setInterval(tick, 1000);
 }
 
+// ════ FIX #6: proper confirmation modal before submitting ════
 function confirmEndTest() {
-  submitTest(false);  // skip modal for now
+  const answered = Object.keys(examState.answers).length;
+  const total = examState.questions.length;
+  const unanswered = total - answered;
+  openModal(
+    'Submit Test',
+    `You have answered ${answered} of ${total} questions. ${unanswered > 0 ? unanswered + ' question(s) are unanswered. ' : ''}Are you sure you want to submit?`,
+    () => submitTest(false),
+    true
+  );
 }
 
 async function submitTest(auto) {
   if (examState.timer) clearInterval(examState.timer);
-  try {
-    await saveCurrentAnswer();
-  } catch(e) { /* ignore save errors, still try to submit */ }
+  try { await saveCurrentAnswer(); } catch(e) {}
   try {
     const res = await fetch(`${BASE_URL}/student/tests/${examState.test.examCode}/submit/${currentUser.id}`, { method: 'PUT' });
-    if (!res.ok) { const t=await res.text(); showToast(t||'Submission failed','error'); return; }
+    if (!res.ok) { const t = await res.text(); showToast(t || 'Submission failed', 'error'); return; }
 
-    // Always show the "submitted" screen first
     document.getElementById('examBody').style.display = 'none';
     document.getElementById('resultScreen').style.display = 'flex';
     document.getElementById('resultScore').textContent = '✓';
@@ -966,7 +914,6 @@ async function submitTest(auto) {
     document.getElementById('resultStats').innerHTML = '';
     document.getElementById('resultIcon').className = 'result-icon submitted';
 
-    // Then try to also show score if results are enabled
     if (examState.test.showResults) {
       await showResult();
     }
@@ -975,19 +922,15 @@ async function submitTest(auto) {
     showToast('Submission error. Please contact your teacher.', 'error');
   }
 }
+
 async function showResult() {
   try {
     const res = await fetch(`${BASE_URL}/student/tests/${examState.test.examCode}/result/${currentUser.id}`);
-    if (!res.ok) { throw new Error(); }
+    if (!res.ok) throw new Error();
     const data = await res.json();
-    document.getElementById('examBody').style.display = 'none';
-    document.getElementById('resultScreen').style.display = 'flex';
-
     const scored = parseFloat(data.totalScore) || 0;
     const total = data.totalMarks || 0;
     const pct = total > 0 ? Math.round((scored / total) * 100) : 0;
-
-    // Count correct/wrong from questions array
     const questions = data.questions || [];
     let correct = 0, wrong = 0;
     questions.forEach(q => {
@@ -996,7 +939,6 @@ async function showResult() {
         else if (q.selectedOption) wrong++;
       }
     });
-
     document.getElementById('resultScore').innerHTML = `${Math.round(scored)}<span>/${total}</span>`;
     document.getElementById('resultTitle').textContent = pct >= 40 ? '🎉 Congratulations!' : 'Test Completed';
     document.getElementById('resultSub').textContent = `You scored ${pct}% in ${examState.test.title}`;
@@ -1005,18 +947,8 @@ async function showResult() {
       <div class="rs-item"><div class="rs-num" style="color:var(--teal-dark)">${pct}%</div><div class="rs-lbl">Score</div></div>
       <div class="rs-item"><div class="rs-num">${correct}</div><div class="rs-lbl">Correct</div></div>
       <div class="rs-item"><div class="rs-num" style="color:var(--red)">${wrong}</div><div class="rs-lbl">Wrong</div></div>`;
-
-    // Store exam code for review
-    if (!completedSubmissions[examState.test.id]) {
-      completedSubmissions[examState.test.id] = examState.test.examCode;
-    }
   } catch(e) {
-    document.getElementById('examBody').style.display = 'none';
-    document.getElementById('resultScreen').style.display = 'flex';
-    document.getElementById('resultScore').textContent = '✓';
-    document.getElementById('resultTitle').textContent = 'Submitted Successfully';
     document.getElementById('resultSub').textContent = 'Results will be shown when published by your teacher.';
-    document.getElementById('resultStats').innerHTML = '';
   }
 }
 
@@ -1026,9 +958,7 @@ function closeExam() {
   fetchPublishedTests();
 }
 
-/* ════════════════════════════════════════
-   REVIEW
-════════════════════════════════════════ */
+/* ════ REVIEW ════ */
 let allReviewTests = [];
 
 async function populateReviewSelect() {
@@ -1040,7 +970,6 @@ async function populateReviewSelect() {
     ]);
     const avTests = avRes.ok ? await avRes.json() : [];
     const schTests = schRes.ok ? await schRes.json() : [];
-    // Combine and deduplicate by id
     const seen = new Set();
     allReviewTests = [...(avTests||[]), ...(schTests||[])].filter(t => {
       if (seen.has(t.id)) return false;
@@ -1048,38 +977,30 @@ async function populateReviewSelect() {
     });
     sel.innerHTML = `<option value="">— Choose a completed test —</option>` +
       allReviewTests.map(t => `<option value="${t.id}">${esc(t.title)}</option>`).join('');
-  } catch(e) {
-    console.error(e);
-  }
+  } catch(e) { console.error(e); }
 }
 
 async function loadReviewQuestions() {
   const testId = document.getElementById('reviewTestSelect').value;
   const area = document.getElementById('reviewArea');
   if (!testId) {
-    area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><h3>Select a test to review</h3><p>See your answers vs correct answers</p></div>`;
+    area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><h3>Select a test to review</h3></div>`;
     return;
   }
-
   const test = allReviewTests.find(t => String(t.id)===String(testId));
   if (!test || !test.showResults) {
     area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><h3>Results not published</h3><p>Your teacher hasn't published results for this test yet.</p></div>`;
     return;
   }
-
   area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><h3>Loading review…</h3></div>`;
-
   try {
-    // Use the student result endpoint: GET /student/tests/{examCode}/result/{studentId}
     const resultRes = await fetch(`${BASE_URL}/student/tests/${test.examCode}/result/${currentUser.id}`);
     if (!resultRes.ok) {
       const errText = await resultRes.text();
       area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><h3>No submission found</h3><p>${esc(errText) || 'You may not have taken this test.'}</p></div>`;
       return;
     }
-
     const result = await resultRes.json();
-    // ResultResponse fields: totalScore, totalMarks, questions (array of QuestionResult)
     const scored = parseFloat(result.totalScore) || 0;
     const total = result.totalMarks || 0;
     const pct = total > 0 ? Math.round((scored / total) * 100) : 0;
@@ -1094,19 +1015,14 @@ async function loadReviewQuestions() {
     questions.forEach((q, i) => {
       const qNum = q.questionNumber || (i + 1);
       let ansBlock = '';
-
       if (q.questionType === 'OBJECTIVE') {
         const correct = q.correctOption;
         const selected = q.selectedOption;
         const isCorrect = selected && selected === correct;
-        // Option texts are not in ResultResponse, so show option numbers
         ansBlock = `
           <div class="review-ans">
             <div class="ans-row ${isCorrect ? 'ans-correct' : (selected ? 'ans-wrong' : '')}">
-              <div>
-                <div class="ans-label">Your Answer</div>
-                ${selected ? `Option ${selected}` : '<em>Not answered</em>'}
-              </div>
+              <div><div class="ans-label">Your Answer</div>${selected ? `Option ${selected}` : '<em>Not answered</em>'}</div>
             </div>
             ${!isCorrect ? `<div class="ans-row ans-correct"><div><div class="ans-label">Correct Answer</div>Option ${correct}</div></div>` : ''}
           </div>`;
@@ -1114,18 +1030,10 @@ async function loadReviewQuestions() {
         const marksAwarded = q.marksAwarded !== null && q.marksAwarded !== undefined ? parseFloat(q.marksAwarded) : null;
         ansBlock = `
           <div class="review-ans">
-            <div class="ans-row ans-subjective">
-              <div>
-                <div class="ans-label">Your Answer</div>
-                ${esc(q.textAnswer || 'Not answered')}
-              </div>
-            </div>
-            ${marksAwarded !== null
-              ? `<div class="marks-awarded">Marks awarded: ${marksAwarded} / ${q.maxMarks}</div>`
-              : '<div class="marks-awarded">Pending review by teacher</div>'}
+            <div class="ans-row ans-subjective"><div><div class="ans-label">Your Answer</div>${esc(q.textAnswer || 'Not answered')}</div></div>
+            ${marksAwarded !== null ? `<div class="marks-awarded">Marks awarded: ${marksAwarded} / ${q.maxMarks}</div>` : '<div class="marks-awarded">Pending review by teacher</div>'}
           </div>`;
       }
-
       html += `
         <div class="review-q">
           <div class="review-q-hd">
@@ -1136,17 +1044,14 @@ async function loadReviewQuestions() {
           ${ansBlock}
         </div>`;
     });
-
     area.innerHTML = html;
   } catch(e) {
     console.error(e);
-    area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><h3>Failed to load review</h3><p>Please try again later.</p></div>`;
+    area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><h3>Failed to load review</h3></div>`;
   }
 }
 
-/* ════════════════════════════════════════
-   NOTIFICATIONS
-════════════════════════════════════════ */
+/* ════ NOTIFICATIONS ════ */
 async function fetchNotifications() {
   if (!currentUser) return;
   try {
@@ -1154,13 +1059,10 @@ async function fetchNotifications() {
     const data = await res.json();
     const list = document.getElementById('notifList');
     const unread = data.filter(n => !n.isRead).length;
-    const dotSb = document.getElementById('sbNotifDot');
-    const dotTop = document.getElementById('topNotifDot');
-    dotSb.style.display = unread > 0 ? 'block' : 'none';
-    dotTop.style.display = unread > 0 ? 'block' : 'none';
-
+    document.getElementById('sbNotifDot').style.display = unread > 0 ? 'block' : 'none';
+    document.getElementById('topNotifDot').style.display = unread > 0 ? 'block' : 'none';
     if (!data.length) {
-      list.innerHTML = `<div class="empty-state" style="padding:48px"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><h3>No notifications</h3><p>You're all caught up!</p></div>`;
+      list.innerHTML = `<div class="empty-state" style="padding:48px"><h3>No notifications</h3><p>You're all caught up!</p></div>`;
       return;
     }
     list.innerHTML = data.map(n => `
@@ -1182,50 +1084,35 @@ async function markRead(notifId, el) {
   if (dot) dot.remove();
   try {
     await fetch(`${BASE_URL}/student/notifications/${notifId}/read`, { method: 'PUT' });
-    fetchNotifications(); // refresh dot counts
+    fetchNotifications();
   } catch(e) { console.error(e); }
 }
 
-/* ════════════════════════════════════════
-   MODAL
-════════════════════════════════════════ */
-let _modalCb = null;
+/* ════ MODAL ════ */
 function openModal(title, sub, cb, danger) {
   document.getElementById('modalTitle').textContent = title;
   document.getElementById('modalSub').textContent = sub;
-  document.getElementById('modalConfirmBtn').className = danger ? 'btn-danger' : 'btn-primary';
-  document.getElementById('modalConfirmBtn').textContent = 'Confirm';
-  // SET ONCLICK DIRECTLY HERE - this is the fix
-  document.getElementById('modalConfirmBtn').onclick = function() {
-    closeModal();
-    if (cb) cb();
-  };
+  const btn = document.getElementById('modalConfirmBtn');
+  btn.className = danger ? 'btn-danger' : 'btn-primary';
+  btn.textContent = 'Confirm';
+  btn.onclick = function() { closeModal(); if (cb) cb(); };
   document.getElementById('modalOverlay').classList.add('open');
 }
 function closeModal() {
   document.getElementById('modalOverlay').classList.remove('open');
-  _modalCb = null;
 }
-document.getElementById('modalConfirmBtn').onclick = function() {
-  closeModal();
-  if (_modalCb) _modalCb();
-};
 
-/* ════════════════════════════════════════
-   LOGOUT
-════════════════════════════════════════ */
+/* ════ LOGOUT ════ */
 function confirmLogout() {
   openModal('Sign Out', 'Are you sure you want to sign out of Quizely?', () => {
     sessionStorage.removeItem('quizely_user');
     localStorage.removeItem('quizely_user');
     showToast('Signing out…');
-    setTimeout(() => window.location.href = 'login.html', 900); // no leading slash
+    setTimeout(() => window.location.href = 'login.html', 900);
   }, true);
 }
 
-/* ════════════════════════════════════════
-   TOAST
-════════════════════════════════════════ */
+/* ════ TOAST ════ */
 function showToast(msg, type='') {
   const wrap = document.getElementById('toastWrap');
   const el = document.createElement('div');
@@ -1235,17 +1122,13 @@ function showToast(msg, type='') {
   setTimeout(() => el.remove(), 3200);
 }
 
-/* ════════════════════════════════════════
-   UTILS
-════════════════════════════════════════ */
+/* ════ UTILS ════ */
 function esc(str) {
   if (!str) return '';
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-/* ════════════════════════════════════════
-   INIT
-════════════════════════════════════════ */
+/* ════ INIT ════ */
 initSession();
 fetchPublishedTests();
 fetchNotifications();

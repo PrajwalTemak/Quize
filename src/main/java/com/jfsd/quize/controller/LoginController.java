@@ -48,7 +48,7 @@ public class LoginController {
         userRepository.save(user);
         return ResponseEntity.ok("User added successfully");
     }
-        @GetMapping("/api/auth/users/count")
+        @GetMapping("/users/count")
     public ResponseEntity<?> countStudents() {
         long count = userRepository.findAll().stream()
             .filter(u -> "STUDENT".equalsIgnoreCase(u.getRole()) && Boolean.TRUE.equals(u.getIsActive()))

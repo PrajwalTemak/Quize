@@ -18,7 +18,6 @@
 }
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;overflow:hidden}
 
-/* SIDEBAR */
 .sidebar{width:72px;background:linear-gradient(180deg,#5a4d7a 0%,#3b3157 100%);display:flex;flex-direction:column;align-items:center;padding:18px 0;gap:4px;flex-shrink:0;height:100vh;position:fixed;left:0;top:0;z-index:50}
 .sb-logo{width:42px;height:42px;background:rgba(255,255,255,0.18);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;border:1px solid rgba(255,255,255,0.25);flex-shrink:0}
 .sb-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;position:relative;border:none;background:none}
@@ -32,7 +31,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .sb-spacer{flex:1}
 .notif-dot-sb{position:absolute;top:8px;right:9px;width:7px;height:7px;background:#03969d;border-radius:50%;border:1.5px solid #3b3157}
 
-/* MAIN */
 .main{margin-left:72px;flex:1;display:flex;flex-direction:column;height:100vh;min-width:0}
 .topbar{height:62px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:14px;flex-shrink:0}
 .topbar-greeting{flex:1}
@@ -45,11 +43,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .notif-dot{position:absolute;top:7px;right:8px;width:7px;height:7px;background:var(--teal);border-radius:50%;border:2px solid #fff}
 .avatar{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--purple-light),var(--purple));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;cursor:pointer}
 
-/* VIEWS */
 .view{display:none;flex:1;overflow-y:auto;padding:26px 28px}
 .view.active{display:block}
 
-/* DASHBOARD */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;margin-bottom:24px}
 .stat-card{background:#fff;border-radius:12px;padding:14px 16px;border:1px solid var(--border)}
 .stat-num{font-size:24px;font-weight:600;line-height:1}
@@ -110,12 +106,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .btn-delete:hover{background:#fee2e2}
 .btn-published{background:var(--teal-pale);color:var(--teal-dark);border:1px solid var(--green-border);cursor:default}
 
-/* FORMS / PANELS */
 .panel{background:#fff;border-radius:16px;border:1px solid var(--border);padding:24px;margin-bottom:20px}
 .panel-title{font-size:15px;font-weight:600;color:var(--purple-dark);margin-bottom:18px;display:flex;align-items:center;gap:8px}
 .panel-title svg{width:18px;height:18px;stroke:var(--purple);stroke-width:1.9;fill:none}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.form-grid.full{grid-template-columns:1fr}
 .field{display:flex;flex-direction:column;gap:5px}
 .field label{font-size:11.5px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em}
 .field input,.field select,.field textarea{padding:10px 13px;border-radius:9px;border:1.5px solid var(--border);font-size:13.5px;color:var(--text);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;font-family:inherit}
@@ -136,7 +130,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .btn-danger{padding:10px 20px;border-radius:10px;background:var(--red-bg);color:var(--red);font-size:13px;font-weight:600;border:1.5px solid var(--red-border);cursor:pointer;transition:all .2s}
 .btn-danger:hover{background:#fee2e2}
 
-/* QUESTION BUILDER */
 .q-list{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
 .q-item{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px;position:relative}
 .q-item-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
@@ -153,7 +146,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .q-opt-num{font-weight:700;flex-shrink:0}
 .q-row-actions{display:flex;gap:6px;flex-shrink:0}
 
-/* STUDENTS */
 .student-select-wrap{background:#fff;border-radius:14px;border:1px solid var(--border);padding:18px;margin-bottom:20px}
 .select-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .select-row label{font-size:12.5px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em}
@@ -170,36 +162,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .score-mid{background:var(--amber-bg);color:var(--amber)}
 .score-low{background:var(--red-bg);color:var(--red)}
 
-/* ANALYTICS */
-.analytics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:22px}
-.analytics-card{background:#fff;border-radius:14px;border:1px solid var(--border);padding:18px}
-.ana-title{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
-.ana-big{font-size:28px;font-weight:700;color:var(--purple-dark);line-height:1}
-.ana-sub{font-size:12px;color:var(--text-muted);margin-top:4px}
-.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:7px}
-.bar-label{font-size:12px;color:var(--text-muted);width:80px;text-align:right;flex-shrink:0}
-.bar-track{flex:1;height:10px;background:var(--bg);border-radius:5px;overflow:hidden}
-.bar-fill{height:100%;border-radius:5px;transition:width .6s ease}
-.bar-val{font-size:12px;font-weight:600;color:var(--text-mid);width:32px;text-align:right;flex-shrink:0}
-
-/* GRADING */
-.grading-card{background:#fff;border-radius:14px;border:1px solid var(--border);padding:18px;margin-bottom:14px}
-.grading-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.student-info{display:flex;align-items:center;gap:10px}
-.stu-avatar{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--purple-light),var(--purple));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
-.stu-name{font-size:13.5px;font-weight:600;color:var(--text)}
-.stu-sub{font-size:11.5px;color:var(--text-muted)}
-.grading-status{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
-.status-pending{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
-.status-graded{background:var(--teal-pale);color:var(--teal-dark);border:1px solid var(--green-border)}
-.q-answer-box{background:var(--bg);border-radius:9px;padding:12px 14px;font-size:13px;color:var(--text-mid);line-height:1.6;margin:10px 0;border:1px solid var(--border-light)}
-.marks-input-row{display:flex;align-items:center;gap:12px;margin-top:10px}
-.marks-input-row label{font-size:12.5px;font-weight:600;color:var(--text-muted);white-space:nowrap}
-.marks-input{width:80px;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);font-size:14px;font-weight:600;color:var(--text);text-align:center;outline:none;transition:border-color .2s}
-.marks-input:focus{border-color:var(--purple-mid)}
-.max-marks{font-size:12px;color:var(--text-muted)}
-
-/* NOTIFICATIONS */
 .notif-compose{background:#fff;border-radius:14px;border:1px solid var(--border);padding:20px;margin-bottom:18px}
 .notif-list{display:flex;flex-direction:column;gap:10px}
 .notif-item{background:#fff;border-radius:12px;border:1px solid var(--border);padding:14px;display:flex;gap:12px;align-items:flex-start;transition:all .18s}
@@ -210,17 +172,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .notif-title{font-size:13.5px;font-weight:600;color:var(--text)}
 .notif-msg{font-size:12.5px;color:var(--text-muted);margin-top:2px;line-height:1.45}
 .notif-time{font-size:11px;color:var(--text-hint);margin-top:4px}
-.notif-unread .notif-icon{background:var(--teal-pale)}
-.notif-unread .notif-icon svg{stroke:var(--teal-dark)}
-.notif-unread .notif-title{color:var(--teal-dark)}
 
-/* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;background:var(--purple-dark);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:500;z-index:999;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none;box-shadow:0 6px 20px rgba(0,0,0,0.25)}
 .toast.show{opacity:1;transform:translateY(0)}
 .toast.success{background:var(--teal-dark)}
 .toast.error{background:var(--red)}
 
-/* MODAL */
 .modal-bg{position:fixed;inset:0;background:rgba(45,37,64,.5);z-index:300;display:none;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
 .modal-bg.open{display:flex}
 .modal{background:#fff;border-radius:18px;padding:26px;width:90%;max-width:520px;max-height:85vh;overflow-y:auto;position:relative}
@@ -229,7 +186,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .modal-close{position:absolute;top:18px;right:18px;width:28px;height:28px;border-radius:7px;border:1px solid var(--border);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:16px;transition:all .15s}
 .modal-close:hover{background:var(--purple-pale);border-color:var(--purple-light)}
 
-/* RADIO OPTIONS */
 .radio-group{display:flex;gap:10px;margin-top:6px}
 .radio-opt{flex:1;padding:10px 14px;border-radius:9px;border:1.5px solid var(--border);cursor:pointer;font-size:13px;font-weight:500;color:var(--text-mid);text-align:center;transition:all .18s;user-select:none}
 .radio-opt.selected{border-color:var(--purple);background:var(--purple-pale);color:var(--purple);font-weight:600}
@@ -242,14 +198,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .opt-radio input[type=radio]{accent-color:var(--teal-dark);width:14px;height:14px;flex-shrink:0}
 .opt-radio label{font-size:13px;color:var(--text-mid);cursor:pointer}
 
-/* EMPTY STATE */
 .empty-state{text-align:center;padding:40px 20px}
 .empty-state svg{width:48px;height:48px;stroke:var(--text-hint);stroke-width:1.5;fill:none;margin:0 auto 14px}
 .empty-state h3{font-size:15px;font-weight:600;color:var(--text-mid);margin-bottom:6px}
 .empty-state p{font-size:13px;color:var(--text-hint)}
-
-/* info box */
-.info-box{background:var(--teal-pale);border:1px solid var(--green-border);border-radius:9px;padding:10px 14px;font-size:12.5px;color:var(--teal-dark);margin-bottom:14px}
 
 @media(max-width:640px){
   .form-grid{grid-template-columns:1fr}
@@ -261,7 +213,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
   <div class="sb-logo">
     <svg width="22" height="22" fill="none" stroke="#fff" stroke-width="2.2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
@@ -278,10 +229,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
     <span class="sb-tip">Students</span>
   </div>
-  <!-- <div class="sb-icon" onclick="showView('analytics')">
-    <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-    <span class="sb-tip">Analytics</span>
-  </div> -->
   <div class="sb-icon" onclick="showView('grade')">
     <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg>
     <span class="sb-tip">Grade Subjective</span>
@@ -290,7 +237,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div class="sb-spacer"></div>
   <div class="sb-icon" onclick="showView('notifications')" id="sbNotifBtn">
     <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-    <span class="notif-dot-sb" id="notifDotSb"></span>
+    <span class="notif-dot-sb" id="notifDotSb" style="display:none"></span>
     <span class="sb-tip">Notifications</span>
   </div>
   <div class="sb-icon" onclick="confirmLogout()">
@@ -299,7 +246,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 <div class="topbar">
   <div class="topbar-greeting">
@@ -310,21 +256,18 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div style="flex:1"></div>
   <div class="icon-btn" onclick="showView('notifications')">
     <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-    <div class="notif-dot" id="notifDotTop"></div>
+    <div class="notif-dot" id="notifDotTop" style="display:none"></div>
   </div>
-  <div class="avatar">MS</div>
+  <div class="avatar">T</div>
 </div>
 
-<!-- ═══════════ DASHBOARD ═══════════ -->
+<!-- DASHBOARD -->
 <div class="view active" id="view-dashboard">
   <div class="stats-grid">
     <div class="stat-card teal"><div class="stat-num" id="stat-total">—</div><div class="stat-lbl">Total Tests</div></div>
-    <!-- Change line 322 to: -->
-<!-- <div class="stat-card purple"><div class="stat-num" id="stat-students">—</div><div class="stat-lbl">Students</div></div> -->
     <div class="stat-card default"><div class="stat-num" id="stat-live">—</div><div class="stat-lbl">Published</div></div>
     <div class="stat-card amber"><div class="stat-num" id="stat-draft">—</div><div class="stat-lbl">Drafts</div></div>
   </div>
-
   <div class="actions-row">
     <div class="action-card primary" onclick="showView('add-test');switchTestTab('create')">
       <div class="ac-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
@@ -339,39 +282,38 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div><div class="ac-label">Add User</div><div class="ac-sub">Enroll new students</div></div>
     </div>
   </div>
-
   <div class="section-hd">
     <div class="section-title">All Tests</div>
     <div class="badge-count" id="draftCount">loading…</div>
   </div>
   <div class="scroll-row" id="testCardContainer">
-    <div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><h3>Loading tests…</h3></div>
+    <div class="empty-state"><h3>Loading tests…</h3></div>
   </div>
 </div>
 
-<!-- ═══════════ ADD TEST / EDIT / QUESTIONS ═══════════ -->
+<!-- ADD / EDIT / QUESTIONS / DELETE TEST -->
 <div class="view" id="view-add-test">
   <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
-    <button class="btn btn-primary" id="tabCreate" onclick="switchTestTab('create')">Create Test</button>
-    <button class="btn btn-edit"    id="tabEdit"     onclick="switchTestTab('edit')">Edit Test</button>
-    <button class="btn btn-edit"    id="tabQuestions" onclick="switchTestTab('questions')">Add Questions</button>
-    <button class="btn btn-delete"  id="tabDelete"   onclick="switchTestTab('delete')">Delete Test</button>
+    <button class="btn btn-publish" id="tabCreate" onclick="switchTestTab('create')">Create Test</button>
+    <button class="btn btn-edit" id="tabEdit" onclick="switchTestTab('edit')">Edit Test</button>
+    <button class="btn btn-edit" id="tabQuestions" onclick="switchTestTab('questions')">Add Questions</button>
+    <button class="btn btn-delete" id="tabDelete" onclick="switchTestTab('delete')">Delete Test</button>
   </div>
 
-  <!-- ── CREATE TEST ── -->
+  <!-- CREATE -->
   <div id="tabPane-create">
     <div class="panel">
       <div class="panel-title"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Test Details</div>
       <div class="form-grid">
         <div class="field"><label>Test Title *</label><input type="text" id="ct-title" placeholder="e.g. Java Midterm 2025"/></div>
-        <div class="field"><label>Exam Code * <span style="font-size:10px;text-transform:none;color:var(--teal-dark)">(unique key — used everywhere)</span></label><input type="text" id="ct-code" placeholder="e.g. JAVA-MID-01"/></div>
+        <div class="field"><label>Exam Code *</label><input type="text" id="ct-code" placeholder="e.g. JAVA-MID-01"/></div>
         <div class="field" style="grid-column:span 2"><label>Description</label><textarea id="ct-desc" placeholder="What topics does this test cover?"></textarea></div>
         <div class="field"><label>Total Marks *</label><input type="number" id="ct-marks" placeholder="100" min="1"/></div>
         <div class="field"><label>Duration (minutes) *</label><input type="number" id="ct-duration" placeholder="60" min="1"/></div>
         <div class="field"><label>Start Time</label><input type="datetime-local" id="ct-start"/></div>
         <div class="field"><label>End Time</label><input type="datetime-local" id="ct-end"/></div>
         <div class="field"><label>Negative Marking</label><input type="number" id="ct-neg" placeholder="0.25" step="0.25" min="0"/></div>
-        <div class="field"><label>Created By (User ID) *</label><input type="text" id="ct-creator" placeholder="vrunani@123"/></div>
+        <div class="field"><label>Created By (User ID) *</label><input type="text" id="ct-creator" placeholder="teacher@123"/></div>
       </div>
       <div class="toggle-row"><span class="toggle-label">Publish Immediately</span><button class="toggle" id="toggle-publish" onclick="toggleBtn(this)"></button></div>
       <div class="toggle-row"><span class="toggle-label">Show Results to Students</span><button class="toggle" id="toggle-results" onclick="toggleBtn(this)"></button></div>
@@ -382,19 +324,16 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
   </div>
 
-  <!-- ── EDIT TEST ── -->
+  <!-- EDIT -->
   <div id="tabPane-edit" style="display:none">
     <div class="panel">
       <div class="panel-title"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit Test</div>
-
-      <!-- FIX #2 & #4: dropdown to select test by examCode -->
       <div class="field" style="margin-bottom:16px">
-        <label>Select Test (by Exam Code) *</label>
+        <label>Select Test *</label>
         <select id="et-examCode" class="styled-select" style="width:100%" onchange="prefillEditForm()">
           <option value="">— Choose a test —</option>
         </select>
       </div>
-
       <div class="form-grid">
         <div class="field"><label>Updated Title</label><input type="text" id="et-title" placeholder="Leave blank to keep current"/></div>
         <div class="field"><label>Duration (minutes)</label><input type="number" id="et-duration" placeholder="90"/></div>
@@ -405,30 +344,24 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       </div>
       <div class="toggle-row"><span class="toggle-label">Publish Test</span><button class="toggle" id="toggle-et-publish" onclick="toggleBtn(this)"></button></div>
       <div class="toggle-row"><span class="toggle-label">Show Results</span><button class="toggle" id="toggle-et-results" onclick="toggleBtn(this)"></button></div>
-      <div class="form-actions">
-        <button class="btn-primary" onclick="submitEditTest()">Save Changes</button>
-      </div>
+      <div class="form-actions"><button class="btn-primary" onclick="submitEditTest()">Save Changes</button></div>
     </div>
   </div>
 
-  <!-- ── ADD QUESTIONS ── -->
+  <!-- QUESTIONS -->
   <div id="tabPane-questions" style="display:none">
     <div class="panel">
       <div class="panel-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Question Builder</div>
-
-      <!-- FIX #1 & #2: dropdown to pick test by examCode -->
       <div class="field" style="margin-bottom:14px">
-        <label>Select Test (by Exam Code) *</label>
+        <label>Select Test *</label>
         <select id="qq-examCode" class="styled-select" style="width:100%" onchange="loadQPreview()">
           <option value="">— Choose a test —</option>
         </select>
       </div>
-
       <div class="form-grid">
         <div class="field"><label>Marks for this Question *</label><input type="number" id="qq-marks" placeholder="2" min="1"/></div>
         <div class="field" style="grid-column:span 2"><label>Question Text *</label><textarea id="qq-text" placeholder="Type your question here…" rows="3"></textarea></div>
       </div>
-
       <div class="field" style="margin-top:10px"><label>Question Type</label>
         <div class="radio-group">
           <div class="radio-opt selected" id="qt-obj" onclick="setQType('OBJECTIVE')">Objective (MCQ)</div>
@@ -457,39 +390,33 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <button class="btn-primary" onclick="submitAddQuestion()">Add Question</button>
       </div>
     </div>
-
     <div class="panel">
       <div class="panel-title"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Questions in this Test</div>
       <div class="q-list" id="qPreviewList">
-        <div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><h3>No questions yet</h3><p>Select a test above and add your first question.</p></div>
+        <div class="empty-state"><h3>No questions yet</h3><p>Select a test above and add your first question.</p></div>
       </div>
     </div>
   </div>
 
-  <!-- ── DELETE TEST ── -->
+  <!-- DELETE -->
   <div id="tabPane-delete" style="display:none">
     <div class="panel" style="max-width:480px">
       <div class="panel-title" style="color:var(--red)"><svg viewBox="0 0 24 24" style="stroke:var(--red)"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Delete Test</div>
-
-      <!-- FIX #5: dropdown to select test by examCode -->
       <div class="field">
         <label>Select Test to Delete *</label>
         <select id="del-examCode" class="styled-select" style="width:100%">
           <option value="">— Choose a test —</option>
         </select>
       </div>
-
       <div style="background:var(--red-bg);border:1px solid var(--red-border);border-radius:9px;padding:12px 14px;margin-top:14px;font-size:13px;color:var(--red)">
         ⚠️ This action is permanent. All questions for this test will also be removed.
       </div>
-      <div class="form-actions">
-        <button class="btn-danger" onclick="submitDeleteTest()">Delete Test Permanently</button>
-      </div>
+      <div class="form-actions"><button class="btn-danger" onclick="submitDeleteTest()">Delete Test Permanently</button></div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════ ADD USER ═══════════ -->
+<!-- ADD USER -->
 <div class="view" id="view-add-user">
   <div class="panel" style="max-width:560px">
     <div class="panel-title"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg>Add New User</div>
@@ -512,7 +439,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 </div>
 
-<!-- ═══════════ STUDENTS / RESULTS ═══════════ -->
+<!-- STUDENTS / RESULTS -->
 <div class="view" id="view-students">
   <div class="student-select-wrap">
     <div class="select-row">
@@ -527,44 +454,22 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)">
       <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
       <h3>Select a test to view results</h3>
-      <p>Student scores will appear here.</p>
     </div>
   </div>
 </div>
 
-<!-- ═══════════ ANALYTICS ═══════════ -->
-<!-- <div class="view" id="view-analytics">
-  <div class="analytics-grid">
-    <div class="analytics-card"><div class="ana-title">Average Score</div><div class="ana-big">72.4%</div><div class="ana-sub">Java Midterm 2025 · 42 students</div></div>
-    <div class="analytics-card"><div class="ana-title">Highest Score</div><div class="ana-big" style="color:var(--teal-dark)">96%</div><div class="ana-sub">Priya Sharma — 96/100</div></div>
-    <div class="analytics-card"><div class="ana-title">Pass Rate</div><div class="ana-big" style="color:var(--purple)">81%</div><div class="ana-sub">34 of 42 passed</div></div>
-    <div class="analytics-card"><div class="ana-title">Avg Duration</div><div class="ana-big">48 min</div><div class="ana-sub">Out of 60 min allowed</div></div>
-  </div>
-  <div class="panel">
-    <div class="panel-title"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Score Distribution</div>
-    <div style="margin-top:6px">
-      <div class="bar-row"><span class="bar-label">90–100%</span><div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--teal)"></div></div><span class="bar-val">6</span></div>
-      <div class="bar-row"><span class="bar-label">75–89%</span><div class="bar-track"><div class="bar-fill" style="width:45%;background:var(--teal-light)"></div></div><span class="bar-val">19</span></div>
-      <div class="bar-row"><span class="bar-label">50–74%</span><div class="bar-track"><div class="bar-fill" style="width:22%;background:var(--purple-light)"></div></div><span class="bar-val">10</span></div>
-      <div class="bar-row"><span class="bar-label">Below 50%</span><div class="bar-track"><div class="bar-fill" style="width:10%;background:#f09595"></div></div><span class="bar-val">5</span></div>
-    </div>
-  </div>
-</div> -->
-
-<!-- ═══════════ GRADE SUBJECTIVE ═══════════ -->
+<!-- GRADE SUBJECTIVE -->
 <div class="view" id="view-grade">
+  <!-- FIX #4 & #5: student dropdown is now dynamic, populated after test selection -->
   <div class="student-select-wrap" style="margin-bottom:18px">
     <div class="select-row">
       <label>Test</label>
-      <select class="styled-select" id="gradeTestSelect">
+      <select class="styled-select" id="gradeTestSelect" onchange="populateGradeStudents()">
         <option value="">— Choose test —</option>
       </select>
       <label>Student</label>
       <select class="styled-select" id="gradeStudentSelect">
         <option value="">— Choose student —</option>
-        <option value="s1">Rohit Mehta</option>
-        <option value="s2">Priya Sharma</option>
-        <option value="s3">Ankit Joshi</option>
       </select>
       <button class="btn-primary" onclick="loadGrading()" style="font-size:13px;padding:9px 18px">Load Answers</button>
     </div>
@@ -577,7 +482,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 </div>
 
-<!-- ═══════════ NOTIFICATIONS ═══════════ -->
+<!-- NOTIFICATIONS -->
 <div class="view" id="view-notifications">
   <div class="notif-compose panel">
     <div class="panel-title"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.44 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.72 16z"/></svg>Send Announcement</div>
@@ -586,25 +491,18 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="field"><label>Title *</label><input type="text" id="notif-title" placeholder="Exam Tomorrow!"/></div>
       <div class="field" style="grid-column:span 2"><label>Message *</label><textarea id="notif-msg" placeholder="Write your announcement…" rows="3"></textarea></div>
     </div>
-    <div class="form-actions">
-      <button class="btn-primary" onclick="submitNotification()">Send Notification</button>
-    </div>
+    <div class="form-actions"><button class="btn-primary" onclick="submitNotification()">Send Notification</button></div>
   </div>
-
   <div class="section-hd" style="margin-bottom:12px">
     <div class="section-title">Recent Notifications</div>
   </div>
-  <div class="notif-list" id="notifList">
-    <!-- loaded from server -->
-  </div>
+  <div class="notif-list" id="notifList"></div>
 </div>
 
 </div><!-- end .main -->
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- CONFIRM MODAL -->
 <div class="modal-bg" id="confirmModal">
   <div class="modal" style="max-width:380px">
     <div class="modal-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span id="modalTitle">Confirm</span></div>
@@ -618,30 +516,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 </div>
 
 <script>
-/* ════════════════════════════════════════
-   CONFIG
-════════════════════════════════════════ */
 const BASE_URL = "https://quize-586m.onrender.com";
 
-// In-memory cache of all tests fetched from server
-// Each test: { id, title, examCode, isPublished, ... }
 let allTests = [];
 let currentQType = "OBJECTIVE";
 let currentRole  = "STUDENT";
 
-async function updateStats() {
-  document.getElementById('stat-total').textContent = allTests.length;
-  document.getElementById('stat-live').textContent  = allTests.filter(t => t.isPublished).length;
-  document.getElementById('stat-draft').textContent = allTests.filter(t => !t.isPublished).length;
-  try {
-    const res = await fetch(`${BASE_URL}/api/auth/users/count`);
-    const data = await res.json();
-    document.getElementById('stat-students').textContent = data.studentCount;
-  } catch(e) { document.getElementById('stat-students').textContent = '?'; }
-}
-/* ════════════════════════════════════════
-   TOAST
-════════════════════════════════════════ */
+/* ════ TOAST ════ */
 function showToast(msg, type) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -650,9 +531,7 @@ function showToast(msg, type) {
   setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-/* ════════════════════════════════════════
-   MODAL
-════════════════════════════════════════ */
+/* ════ MODAL ════ */
 function openModal(title, msg, cb) {
   document.getElementById('modalTitle').textContent = title;
   document.getElementById('modalMsg').textContent   = msg;
@@ -663,19 +542,12 @@ function closeModal() {
   document.getElementById('confirmModal').classList.remove('open');
 }
 
-/* ════════════════════════════════════════
-   NAVIGATION
-════════════════════════════════════════ */
+/* ════ NAV ════ */
 function showView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.sb-icon').forEach(i => i.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
-  const titles = {
-    dashboard: 'Dashboard', 'add-test': 'Test Management',
-    'add-user': 'Add User', students: 'Student Results',
-    analytics: 'Analytics', grade: 'Grade Subjective',
-    notifications: 'Notifications'
-  };
+  const titles = {dashboard:'Dashboard','add-test':'Test Management','add-user':'Add User',students:'Student Results',grade:'Grade Subjective',notifications:'Notifications'};
   document.getElementById('topbarTitle').textContent = titles[name] || name;
   if (name === 'dashboard') renderCards();
 }
@@ -688,14 +560,10 @@ function switchTestTab(tab) {
 
 function toggleBtn(el) { el.classList.toggle('on'); }
 
-/* ════════════════════════════════════════
-   FETCH ALL TESTS — populates dropdowns
-   FIX for issues #1 #2 #4 #5: all selects
-   use examCode, not numeric id
-════════════════════════════════════════ */
+/* ════ FETCH ALL TESTS ════ */
 async function fetchAllTests() {
   try {
-    const res  = await fetch(`${BASE_URL}/tests/all`);
+    const res = await fetch(`${BASE_URL}/tests/all`);
     allTests   = await res.json();
     populateTestDropdowns();
     renderCards();
@@ -707,8 +575,7 @@ async function fetchAllTests() {
 }
 
 function populateTestDropdowns() {
-  const dropdownIds = ['et-examCode', 'qq-examCode', 'del-examCode',
-                       'studentTestSelect', 'gradeTestSelect'];
+  const dropdownIds = ['et-examCode','qq-examCode','del-examCode','studentTestSelect','gradeTestSelect'];
   dropdownIds.forEach(id => {
     const sel = document.getElementById(id);
     if (!sel) return;
@@ -730,20 +597,15 @@ function updateStats() {
   document.getElementById('stat-draft').textContent = allTests.filter(t => !t.isPublished).length;
 }
 
-/* ════════════════════════════════════════
-   RENDER TEST CARDS (dashboard)
-════════════════════════════════════════ */
+/* ════ RENDER CARDS ════ */
 function renderCards() {
   const c = document.getElementById('testCardContainer');
   if (!allTests.length) {
-    c.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><h3>No tests yet</h3><p>Create your first test.</p></div>';
+    c.innerHTML = '<div class="empty-state"><h3>No tests yet</h3><p>Create your first test.</p></div>';
     document.getElementById('draftCount').textContent = '0 drafts';
     return;
   }
-
-  document.getElementById('draftCount').textContent =
-    allTests.filter(t => !t.isPublished).length + ' drafts';
-
+  document.getElementById('draftCount').textContent = allTests.filter(t => !t.isPublished).length + ' drafts';
   c.innerHTML = allTests.map(t => {
     const chipClass = t.isPublished ? 'chip-active' : 'chip-draft';
     const chipText  = t.isPublished ? 'Published'   : 'Draft';
@@ -753,8 +615,8 @@ function renderCards() {
     return `
     <div class="test-card">
       <div class="chip ${chipClass}">${chipText}</div>
-      <div class="card-title">${t.title}</div>
-      <div class="card-desc">${t.description || ''}</div>
+      <div class="card-title">${esc(t.title)}</div>
+      <div class="card-desc">${esc(t.description||'')}</div>
       <div class="card-meta">
         <div class="meta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Code: ${t.examCode}</div>
         <div class="meta-row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Duration: ${t.durationMinutes} min</div>
@@ -770,22 +632,19 @@ function renderCards() {
   }).join('');
 }
 
-/* publish from card */
 async function publishTest(examCode) {
   openModal('Publish Test', 'Publish this test so students can see it?', async () => {
     try {
       const res = await fetch(`${BASE_URL}/tests/update/${examCode}`, {
-        method: 'PUT',
-        headers: {'Content-Type':'application/json'},
+        method: 'PUT', headers: {'Content-Type':'application/json'},
         body: JSON.stringify({ isPublished: true })
       });
       if (res.ok) { showToast('Test published!', 'success'); await fetchAllTests(); }
-      else        { showToast('Failed to publish.', 'error'); }
+      else { showToast('Failed to publish.', 'error'); }
     } catch (e) { showToast('Server error.', 'error'); }
   });
 }
 
-/* pre-fill edit form when clicking Edit on a card */
 function editFromCard(examCode) {
   showView('add-test');
   switchTestTab('edit');
@@ -793,7 +652,6 @@ function editFromCard(examCode) {
   prefillEditForm();
 }
 
-/* pre-fill edit fields from cached data */
 function prefillEditForm() {
   const examCode = document.getElementById('et-examCode').value;
   if (!examCode) return;
@@ -802,28 +660,21 @@ function prefillEditForm() {
   document.getElementById('et-title').value    = t.title    || '';
   document.getElementById('et-duration').value = t.durationMinutes || '';
   document.getElementById('et-marks').value    = t.totalMarks || '';
-  // set toggles
-  if (t.isPublished)  document.getElementById('toggle-et-publish').classList.add('on');
-  else                document.getElementById('toggle-et-publish').classList.remove('on');
-  if (t.showResults)  document.getElementById('toggle-et-results').classList.add('on');
-  else                document.getElementById('toggle-et-results').classList.remove('on');
+  if (t.isPublished) document.getElementById('toggle-et-publish').classList.add('on');
+  else               document.getElementById('toggle-et-publish').classList.remove('on');
+  if (t.showResults) document.getElementById('toggle-et-results').classList.add('on');
+  else               document.getElementById('toggle-et-results').classList.remove('on');
 }
 
-/* ════════════════════════════════════════
-   CREATE TEST
-════════════════════════════════════════ */
+/* ════ CREATE TEST ════ */
 async function submitCreateTest() {
-  const title    = document.getElementById('ct-title').value.trim();
-  const code     = document.getElementById('ct-code').value.trim();
-  const desc     = document.getElementById('ct-desc').value.trim();
-  const marks    = document.getElementById('ct-marks').value;
-  const dur      = document.getElementById('ct-duration').value;
-  const creator  = document.getElementById('ct-creator').value.trim();
-
-  if (!title || !code || !marks || !dur || !creator) {
-    showToast('Please fill in all required (*) fields.', 'error'); return;
-  }
-
+  const title   = document.getElementById('ct-title').value.trim();
+  const code    = document.getElementById('ct-code').value.trim();
+  const desc    = document.getElementById('ct-desc').value.trim();
+  const marks   = document.getElementById('ct-marks').value;
+  const dur     = document.getElementById('ct-duration').value;
+  const creator = document.getElementById('ct-creator').value.trim();
+  if (!title || !code || !marks || !dur || !creator) { showToast('Please fill in all required (*) fields.', 'error'); return; }
   const body = {
     title, description: desc, examCode: code, createdBy: creator,
     totalMarks: parseInt(marks), durationMinutes: parseInt(dur),
@@ -833,43 +684,30 @@ async function submitCreateTest() {
     isPublished: document.getElementById('toggle-publish').classList.contains('on'),
     showResults: document.getElementById('toggle-results').classList.contains('on')
   };
-
   try {
-    const res = await fetch(`${BASE_URL}/tests/add`, {
-      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)
-    });
+    const res = await fetch(`${BASE_URL}/tests/add`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
     const txt = await res.text();
     if (res.ok) {
-      showToast('Test "' + title + '" created! Now add questions.', 'success');
+      showToast(`Test "${title}" created! Now add questions.`, 'success');
       await fetchAllTests();
-      // auto-select in question builder and switch tab
       document.getElementById('qq-examCode').value = code;
       switchTestTab('questions');
       loadQPreview();
       resetCreateForm();
-    } else {
-      showToast(txt || 'Failed to create test.', 'error');
-    }
-  } catch (err) {
-    console.error(err); showToast('Server error.', 'error');
-  }
+    } else { showToast(txt || 'Failed to create test.', 'error'); }
+  } catch (err) { console.error(err); showToast('Server error.', 'error'); }
 }
 
 function resetCreateForm() {
-  ['ct-title','ct-code','ct-desc','ct-marks','ct-duration','ct-start','ct-end','ct-neg','ct-creator']
-    .forEach(id => document.getElementById(id).value = '');
+  ['ct-title','ct-code','ct-desc','ct-marks','ct-duration','ct-start','ct-end','ct-neg','ct-creator'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('toggle-publish').classList.remove('on');
   document.getElementById('toggle-results').classList.remove('on');
 }
 
-/* ════════════════════════════════════════
-   EDIT TEST
-   FIX #4: URL uses examCode (string), not numeric id
-════════════════════════════════════════ */
+/* ════ EDIT TEST ════ */
 async function submitEditTest() {
   const examCode = document.getElementById('et-examCode').value;
   if (!examCode) { showToast('Please select a test.', 'error'); return; }
-
   const body = {};
   const title = document.getElementById('et-title').value.trim();
   const dur   = document.getElementById('et-duration').value;
@@ -877,7 +715,6 @@ async function submitEditTest() {
   const neg   = document.getElementById('et-neg').value;
   const start = document.getElementById('et-start').value;
   const end   = document.getElementById('et-end').value;
-
   if (title)  body.title           = title;
   if (dur)    body.durationMinutes = parseInt(dur);
   if (marks)  body.totalMarks      = parseInt(marks);
@@ -886,54 +723,29 @@ async function submitEditTest() {
   if (end)    body.endTime         = end;
   body.isPublished = document.getElementById('toggle-et-publish').classList.contains('on');
   body.showResults = document.getElementById('toggle-et-results').classList.contains('on');
-
   try {
-    // FIX: backend route is /tests/update/{examCode} — send examCode string, not a numeric id
-    const res = await fetch(`${BASE_URL}/tests/update/${examCode}`, {
-      method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body)
-    });
+    const res = await fetch(`${BASE_URL}/tests/update/${examCode}`, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
     const txt = await res.text();
-    if (res.ok) {
-      showToast('Test updated successfully.', 'success');
-      await fetchAllTests();
-    } else {
-      showToast(txt || 'Failed to update test.', 'error');
-    }
-  } catch (err) {
-    console.error(err); showToast('Server error.', 'error');
-  }
+    if (res.ok) { showToast('Test updated successfully.', 'success'); await fetchAllTests(); }
+    else { showToast(txt || 'Failed to update test.', 'error'); }
+  } catch (err) { console.error(err); showToast('Server error.', 'error'); }
 }
 
-/* ════════════════════════════════════════
-   DELETE TEST
-   FIX #5: uses examCode dropdown
-════════════════════════════════════════ */
+/* ════ DELETE TEST ════ */
 async function submitDeleteTest() {
   const examCode = document.getElementById('del-examCode').value;
   if (!examCode) { showToast('Please select a test to delete.', 'error'); return; }
-
-  openModal('Delete Test',
-    `Permanently delete test "${examCode}" and all its questions?`, async () => {
+  openModal('Delete Test', `Permanently delete test "${examCode}" and all its questions?`, async () => {
     try {
-      // FIX: backend is /tests/delete/{examCode}
       const res = await fetch(`${BASE_URL}/tests/delete/${examCode}`, { method: 'DELETE' });
       const txt = await res.text();
-      if (res.ok) {
-        showToast('Test deleted.', 'error');
-        await fetchAllTests();
-        document.getElementById('del-examCode').value = '';
-      } else {
-        showToast(txt || 'Delete failed.', 'error');
-      }
-    } catch (err) {
-      console.error(err); showToast('Server error.', 'error');
-    }
+      if (res.ok) { showToast('Test deleted.', 'error'); await fetchAllTests(); document.getElementById('del-examCode').value = ''; }
+      else { showToast(txt || 'Delete failed.', 'error'); }
+    } catch (err) { console.error(err); showToast('Server error.', 'error'); }
   });
 }
 
-/* ════════════════════════════════════════
-   QUESTION TYPE TOGGLE
-════════════════════════════════════════ */
+/* ════ QUESTION TYPE ════ */
 function setQType(type) {
   currentQType = type;
   document.getElementById('qt-obj').classList.toggle('selected', type === 'OBJECTIVE');
@@ -941,74 +753,42 @@ function setQType(type) {
   document.getElementById('objOptions').style.display = (type === 'OBJECTIVE') ? 'block' : 'none';
 }
 
-/* ════════════════════════════════════════
-   LOAD QUESTIONS PREVIEW
-   FIX #1: send examCode, fetch /questions/exam/{examCode}
-════════════════════════════════════════ */
+/* ════ LOAD QUESTIONS ════ */
 async function loadQPreview() {
   const examCode = document.getElementById('qq-examCode').value;
   const list     = document.getElementById('qPreviewList');
-  if (!examCode) {
-    list.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><h3>Select a test above</h3></div>';
-    return;
-  }
+  if (!examCode) { list.innerHTML = '<div class="empty-state"><h3>Select a test above</h3></div>'; return; }
   try {
-    // FIX: correct endpoint is /questions/exam/{examCode}
     const res  = await fetch(`${BASE_URL}/questions/exam/${examCode}`);
     if (!res.ok) { list.innerHTML = '<div class="empty-state"><h3>Could not load questions</h3></div>'; return; }
     const data = await res.json();
-    if (!data.length) {
-      list.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><h3>No questions yet</h3><p>Add your first question above.</p></div>';
-      return;
-    }
+    if (!data.length) { list.innerHTML = '<div class="empty-state"><h3>No questions yet</h3><p>Add your first question above.</p></div>'; return; }
     list.innerHTML = data.map((q, i) => {
       const typeBadge = q.questionType === 'OBJECTIVE'
         ? '<span class="q-type-badge type-obj">Objective</span>'
         : '<span class="q-type-badge type-sub">Subjective</span>';
       let opts = '';
       if (q.questionType === 'OBJECTIVE') {
-        const options = [q.option1, q.option2, q.option3, q.option4].filter(Boolean);
-        opts = '<div class="q-opts">' + options.map((o, j) =>
-          `<div class="q-opt${q.correctOption === j+1 ? ' correct' : ''}"><span class="q-opt-num">${j+1}.</span>${o}</div>`
-        ).join('') + '</div>';
+        opts = '<div class="q-opts">' + [q.option1,q.option2,q.option3,q.option4].filter(Boolean).map((o,j) =>
+          `<div class="q-opt${q.correctOption===j+1?' correct':''}"><span class="q-opt-num">${j+1}.</span>${esc(o)}</div>`).join('') + '</div>';
       }
-      return `
-      <div class="q-item">
-        <div class="q-item-hd">
-          <div class="q-num">${i+1}</div>
-          <div class="q-text">${q.questionText}</div>
-          <div class="q-meta">${typeBadge}<span class="q-marks">${q.marks} pts</span></div>
-          <div class="q-row-actions">
-            <button class="btn btn-delete" onclick="deleteQuestion('${examCode}',${q.questionNumber})">Del</button>
-          </div>
-        </div>${opts}
-      </div>`;
+      return `<div class="q-item"><div class="q-item-hd"><div class="q-num">${i+1}</div><div class="q-text">${esc(q.questionText)}</div><div class="q-meta">${typeBadge}<span class="q-marks">${q.marks} pts</span></div><div class="q-row-actions"><button class="btn btn-delete" onclick="deleteQuestion('${examCode}',${q.questionNumber})">Del</button></div></div>${opts}</div>`;
     }).join('');
-  } catch (err) {
-    console.error(err);
-    list.innerHTML = '<div class="empty-state"><h3>Error loading questions</h3></div>';
-  }
+  } catch (err) { console.error(err); list.innerHTML = '<div class="empty-state"><h3>Error loading questions</h3></div>'; }
 }
 
-/* ════════════════════════════════════════
-   ADD QUESTION
-   FIX #1: body uses examCode (not testId)
-════════════════════════════════════════ */
+/* ════ ADD QUESTION ════ */
 async function submitAddQuestion() {
   const examCode = document.getElementById('qq-examCode').value;
   const text     = document.getElementById('qq-text').value.trim();
   const marks    = parseInt(document.getElementById('qq-marks').value);
-
   if (!examCode) { showToast('Please select a test.', 'error'); return; }
   if (!text)     { showToast('Question text is required.', 'error'); return; }
   if (!marks)    { showToast('Marks are required.', 'error'); return; }
-
   const selectedCorrect = document.querySelector('input[name="correct"]:checked');
-
+  if (currentQType === 'OBJECTIVE' && !selectedCorrect) { showToast('Please select the correct answer.', 'error'); return; }
   const body = {
-    examCode,                       // FIX: was "testId" (number) — backend needs examCode string
-    questionText: text,
-    questionType: currentQType,
+    examCode, questionText: text, questionType: currentQType,
     option1: document.getElementById('opt1').value || null,
     option2: document.getElementById('opt2').value || null,
     option3: document.getElementById('opt3').value || null,
@@ -1016,27 +796,13 @@ async function submitAddQuestion() {
     correctOption: selectedCorrect ? parseInt(selectedCorrect.value) : null,
     marks
   };
-
-  if (currentQType === 'SUBJECTIVE') {
-    body.option1 = body.option2 = body.option3 = body.option4 = null;
-    body.correctOption = null;
-  }
-
+  if (currentQType === 'SUBJECTIVE') { body.option1=body.option2=body.option3=body.option4=null; body.correctOption=null; }
   try {
-    const res = await fetch(`${BASE_URL}/questions/add`, {
-      method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body)
-    });
+    const res = await fetch(`${BASE_URL}/questions/add`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
     const txt = await res.text();
-    if (res.ok) {
-      showToast('Question added!', 'success');
-      resetQForm();
-      loadQPreview();
-    } else {
-      showToast(txt || 'Failed to add question.', 'error');
-    }
-  } catch (err) {
-    console.error(err); showToast('Server error.', 'error');
-  }
+    if (res.ok) { showToast('Question added!', 'success'); resetQForm(); loadQPreview(); }
+    else { showToast(txt || 'Failed to add question.', 'error'); }
+  } catch (err) { console.error(err); showToast('Server error.', 'error'); }
 }
 
 async function deleteQuestion(examCode, questionNumber) {
@@ -1044,7 +810,7 @@ async function deleteQuestion(examCode, questionNumber) {
     try {
       const res = await fetch(`${BASE_URL}/questions/delete/${examCode}/${questionNumber}`, { method: 'DELETE' });
       if (res.ok) { showToast('Question deleted.'); loadQPreview(); }
-      else        { showToast('Failed to delete question.', 'error'); }
+      else { showToast('Failed to delete question.', 'error'); }
     } catch (err) { showToast('Server error.', 'error'); }
   });
 }
@@ -1056,9 +822,7 @@ function resetQForm() {
   document.querySelectorAll('input[name="correct"]').forEach(r => r.checked = false);
 }
 
-/* ════════════════════════════════════════
-   ADD USER
-════════════════════════════════════════ */
+/* ════ ADD USER ════ */
 function setRole(r) {
   currentRole = r;
   document.getElementById('role-student').classList.toggle('selected', r === 'STUDENT');
@@ -1071,14 +835,13 @@ async function submitAddUser() {
   const email = document.getElementById('au-email').value.trim();
   const pass  = document.getElementById('au-pass').value;
   if (!id || !name || !email || !pass) { showToast('All fields are required.', 'error'); return; }
-
   try {
     const res = await fetch(`${BASE_URL}/api/auth/add-user`, {
       method: 'POST', headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ id, name, email, password: pass, role: currentRole })
     });
     if (res.ok) { showToast(name + ' added as ' + currentRole + '!', 'success'); resetUserForm(); }
-    else        { const t = await res.text(); showToast(t || 'Failed to add user.', 'error'); }
+    else { const t = await res.text(); showToast(t || 'Failed to add user.', 'error'); }
   } catch (err) { showToast('Server error.', 'error'); }
 }
 
@@ -1086,51 +849,52 @@ function resetUserForm() {
   ['au-id','au-name','au-email','au-pass'].forEach(id => document.getElementById(id).value = '');
 }
 
-/* ════════════════════════════════════════
-   STUDENT RESULTS
-════════════════════════════════════════ */
-// FIND AND REPLACE the entire loadStudentResults function:
+/* ════ STUDENT RESULTS ════ */
 async function loadStudentResults() {
   const examCode = document.getElementById('studentTestSelect').value;
   const area = document.getElementById('resultsArea');
-  if (!examCode) {
-    area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>Select a test</h3></div>';
-    return;
-  }
+  if (!examCode) { area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>Select a test</h3></div>'; return; }
   const test = allTests.find(t => t.examCode === examCode);
   if (!test) { showToast('Test not found.', 'error'); return; }
   try {
     const res = await fetch(`${BASE_URL}/submissions/matrix/${test.id}`);
     const data = await res.json();
-    if (!data.length) {
-      area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>No submissions yet</h3></div>';
-      return;
-    }
+    if (!data.length) { area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>No submissions yet</h3></div>'; return; }
     const rows = data.map(r => {
       const sc = r.percentage >= 75 ? 'score-high' : r.percentage >= 40 ? 'score-mid' : 'score-low';
-      return `<tr>
-        <td>${r.studentName || r.studentId}</td>
-        <td><span class="score-pill ${sc}">${r.totalScore} / ${r.totalMarks}</span></td>
-        <td>${r.percentage}%</td>
-        <td>${r.status}</td>
-        <td>${r.submittedAt ? new Date(r.submittedAt).toLocaleString() : '—'}</td>
-      </tr>`;
+      return `<tr><td>${esc(r.studentName || r.studentId)}</td><td><span class="score-pill ${sc}">${r.totalScore} / ${r.totalMarks}</span></td><td>${r.percentage}%</td><td>${r.status}</td><td>${r.submittedAt ? new Date(r.submittedAt).toLocaleString() : '—'}</td></tr>`;
     }).join('');
-    area.innerHTML = `
-      <div class="result-table-wrap">
-        <table class="result-table">
-          <thead><tr><th>Student</th><th>Score</th><th>Percentage</th><th>Status</th><th>Submitted At</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>`;
-  } catch (err) {
-    console.error(err);
-    area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>Error loading results</h3></div>';
+    area.innerHTML = `<div class="result-table-wrap"><table class="result-table"><thead><tr><th>Student</th><th>Score</th><th>Percentage</th><th>Status</th><th>Submitted At</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  } catch (err) { console.error(err); area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>Error loading results</h3></div>'; }
+}
+
+/* ════ GRADE SUBJECTIVE — FIX #4 & #5 ════ */
+
+// Called when teacher selects a test in the grade panel
+// Fetches who submitted it and populates the student dropdown dynamically
+async function populateGradeStudents() {
+  const examCode = document.getElementById('gradeTestSelect').value;
+  const stuSel   = document.getElementById('gradeStudentSelect');
+  stuSel.innerHTML = '<option value="">— Loading students… —</option>';
+  document.getElementById('gradingArea').innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>Select a student above</h3></div>';
+
+  if (!examCode) { stuSel.innerHTML = '<option value="">— Choose student —</option>'; return; }
+  const test = allTests.find(t => t.examCode === examCode);
+  if (!test) { stuSel.innerHTML = '<option value="">— Choose student —</option>'; return; }
+
+  try {
+    const res  = await fetch(`${BASE_URL}/submissions/matrix/${test.id}`);
+    if (!res.ok) { stuSel.innerHTML = '<option value="">— No submissions —</option>'; return; }
+    const data = await res.json();
+    if (!data.length) { stuSel.innerHTML = '<option value="">— No submissions —</option>'; return; }
+    stuSel.innerHTML = '<option value="">— All students —</option>' +
+      data.map(r => `<option value="${esc(r.studentId)}">${esc(r.studentName || r.studentId)}</option>`).join('');
+  } catch(e) {
+    console.error(e);
+    stuSel.innerHTML = '<option value="">— Error loading students —</option>';
   }
 }
-/* ════════════════════════════════════════
-   GRADE SUBJECTIVE
-════════════════════════════════════════ */
+
 async function loadGrading() {
   const examCode = document.getElementById('gradeTestSelect').value;
   const stuId    = document.getElementById('gradeStudentSelect').value;
@@ -1139,91 +903,99 @@ async function loadGrading() {
   const test = allTests.find(t => t.examCode === examCode);
   if (!test) return;
 
+  area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>Loading…</h3></div>';
+
   try {
     const res  = await fetch(`${BASE_URL}/submissions/test/${test.id}`);
+    if (!res.ok) { area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>Error loading submissions</h3></div>'; return; }
     const data = await res.json();
-    
-    // Filter to the selected student if chosen
+
+    // Filter by selected student if one is chosen
     const submissions = stuId ? data.filter(s => s.studentId === stuId) : data;
     if (!submissions.length) {
-      area.innerHTML = '<div class="empty-state"><h3>No submissions found</h3></div>';
+      area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>No submissions found</h3></div>';
       return;
     }
 
     let html = '';
-    for (const sub of submissions) {
-      const subjAnswers = sub.answers.filter(a => a.questionType === 'SUBJECTIVE');
-      if (!subjAnswers.length) continue;
+    let hasSubjective = false;
 
-      html += `<div style="background:#fff;border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid var(--border)">
-        <div style="font-weight:600;margin-bottom:12px">Student: ${sub.studentName} (${sub.studentId})</div>`;
+    for (const sub of submissions) {
+      // answers array comes from TeacherSubmissionResponse
+      const subjAnswers = (sub.answers || []).filter(a => a.questionType === 'SUBJECTIVE');
+      if (!subjAnswers.length) continue;
+      hasSubjective = true;
+
+      html += `<div style="background:#fff;border-radius:12px;padding:18px;margin-bottom:16px;border:1px solid var(--border)">
+        <div style="font-weight:600;font-size:14px;color:var(--purple-dark);margin-bottom:14px">
+          ${esc(sub.studentName || sub.studentId)}
+          <span style="font-size:11px;font-weight:400;color:var(--text-muted);margin-left:8px">${esc(sub.studentId)}</span>
+          <span style="font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;margin-left:8px;background:var(--purple-pale);color:var(--purple)">${sub.status}</span>
+        </div>`;
 
       for (const ans of subjAnswers) {
-        const graded = ans.answerStatus === 'MANUAL' || ans.answerStatus === 'CHECKED';
-        html += `<div style="margin-bottom:12px;padding:12px;background:var(--bg);border-radius:8px">
-          <div style="font-size:13px;font-weight:500;margin-bottom:4px">Q${ans.questionNumber}: ${ans.questionText}</div>
-          <div style="font-size:12px;color:var(--text-hint);margin-bottom:8px">Max marks: ${ans.maxMarks}</div>
-          <div style="background:#f9f9f9;border-radius:6px;padding:10px;margin-bottom:8px;font-size:13px">
-            <b>Student Answer:</b> ${ans.textAnswer || '<i style="color:#aaa">No answer</i>'}
+        const isGraded = ans.marksAwarded !== null && ans.marksAwarded !== undefined;
+        html += `<div style="margin-bottom:14px;padding:14px;background:var(--bg);border-radius:10px;border:1px solid var(--border-light)">
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Q${ans.questionNumber}: ${esc(ans.questionText)}</div>
+          <div style="font-size:11px;color:var(--text-hint);margin-bottom:8px">Max marks: ${ans.maxMarks}</div>
+          <div style="background:#fff;border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:13px;color:var(--text-mid);border:1px solid var(--border-light);line-height:1.6">
+            ${esc(ans.textAnswer) || '<em style="color:var(--text-hint)">No answer submitted</em>'}
           </div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <input type="number" id="marks-${ans.answerId}" 
-              placeholder="Marks" min="0" max="${ans.maxMarks}" 
-              value="${graded ? ans.marksAwarded : ''}"
-              style="width:90px;padding:7px 10px;border-radius:8px;border:1.5px solid var(--border);font-size:13px"/>
-            <button onclick="submitGrade(${ans.answerId}, ${ans.maxMarks})" 
-              style="padding:7px 14px;border-radius:8px;border:none;background:var(--teal-dark);color:#fff;cursor:pointer;font-size:13px">
-              ${graded ? 'Update' : 'Submit Grade'}
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <input type="number" id="marks-${ans.answerId}"
+              placeholder="Marks" min="0" max="${ans.maxMarks}" step="0.5"
+              value="${isGraded ? ans.marksAwarded : ''}"
+              style="width:100px;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);font-size:14px;font-weight:600;color:var(--text);outline:none"/>
+            <span style="font-size:13px;color:var(--text-muted)">/ ${ans.maxMarks}</span>
+            <button onclick="submitGrade(${ans.answerId}, ${ans.maxMarks})"
+              style="padding:8px 16px;border-radius:8px;border:none;background:var(--teal-dark);color:#fff;cursor:pointer;font-size:13px;font-weight:600">
+              ${isGraded ? 'Update' : 'Submit Grade'}
             </button>
-            ${graded ? `<span style="color:green;font-size:12px">✓ Graded: ${ans.marksAwarded}/${ans.maxMarks}</span>` : ''}
+            ${isGraded ? `<span style="color:var(--teal-dark);font-size:12px;font-weight:600">✓ Graded: ${ans.marksAwarded}/${ans.maxMarks}</span>` : ''}
           </div>
         </div>`;
       }
       html += '</div>';
     }
 
-    area.innerHTML = html || '<div class="empty-state"><h3>No subjective questions</h3></div>';
+    if (!hasSubjective) {
+      area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>No subjective questions in this test</h3><p>All questions are objective and auto-graded.</p></div>';
+      return;
+    }
+    area.innerHTML = html;
   } catch (err) {
-    console.error(err); showToast('Error loading grading data.', 'error');
+    console.error(err);
+    area.innerHTML = '<div class="empty-state" style="background:#fff;border-radius:14px;border:1px solid var(--border)"><h3>Failed to load grading data</h3></div>';
   }
 }
 
 async function submitGrade(answerId, maxMarks) {
   const input = document.getElementById(`marks-${answerId}`);
+  if (!input) return;
   const marks = parseFloat(input.value);
-  if (isNaN(marks) || marks < 0 || marks > maxMarks) {
-    showToast(`Enter marks between 0 and ${maxMarks}`, 'error'); return;
-  }
+  if (isNaN(marks) || marks < 0 || marks > maxMarks) { showToast(`Enter marks between 0 and ${maxMarks}`, 'error'); return; }
   try {
     const res = await fetch(`${BASE_URL}/submissions/grade/${answerId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ marksAwarded: marks, checkedBy: currentUser?.id || 'teacher' })
+      body: JSON.stringify({ marksAwarded: marks, checkedBy: 'teacher' })
     });
     if (res.ok) { showToast('Grade saved!', 'success'); loadGrading(); }
     else { const t = await res.text(); showToast(t || 'Grade failed', 'error'); }
   } catch(e) { showToast('Server error.', 'error'); }
 }
-/* ════════════════════════════════════════
-   NOTIFICATIONS
-   FIX #6: actually POST to /notifications/send
-   instead of calling a helper that did nothing
-════════════════════════════════════════ */
+
+/* ════ NOTIFICATIONS ════ */
 async function submitNotification() {
   const userId  = document.getElementById('notif-user').value.trim();
   const title   = document.getElementById('notif-title').value.trim();
   const message = document.getElementById('notif-msg').value.trim();
-
   if (!userId)  { showToast('Recipient User ID is required.', 'error'); return; }
   if (!title)   { showToast('Title is required.', 'error'); return; }
   if (!message) { showToast('Message is required.', 'error'); return; }
-
-  // FIX #6: actually call the API — previous code called sendNotification() helper
-  // which was a separate async function that was never invoked from the button
   try {
     const res = await fetch(`${BASE_URL}/notifications/send`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId, title, message })
     });
     if (res.ok) {
@@ -1231,15 +1003,9 @@ async function submitNotification() {
       document.getElementById('notif-user').value  = '';
       document.getElementById('notif-title').value = '';
       document.getElementById('notif-msg').value   = '';
-      // reload notification list for that user
       loadNotifications(userId);
-    } else {
-      const txt = await res.text();
-      showToast(txt || 'Failed to send notification.', 'error');
-    }
-  } catch (err) {
-    console.error(err); showToast('Server error.', 'error');
-  }
+    } else { const txt = await res.text(); showToast(txt || 'Failed to send notification.', 'error'); }
+  } catch (err) { console.error(err); showToast('Server error.', 'error'); }
 }
 
 async function loadNotifications(userId) {
@@ -1250,20 +1016,18 @@ async function loadNotifications(userId) {
     const list = document.getElementById('notifList');
     if (!data.length) { list.innerHTML = '<div class="empty-state"><h3>No notifications</h3></div>'; return; }
     list.innerHTML = data.map(n => `
-      <div class="notif-item ${n.isRead ? '' : 'notif-unread'}">
+      <div class="notif-item">
         <div class="notif-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
         <div class="notif-body">
-          <div class="notif-title">${n.title}</div>
-          <div class="notif-msg">${n.message}</div>
+          <div class="notif-title">${esc(n.title)}</div>
+          <div class="notif-msg">${esc(n.message)}</div>
           <div class="notif-time">${new Date(n.createdAt).toLocaleString()}</div>
         </div>
       </div>`).join('');
   } catch (err) { console.error(err); }
 }
 
-/* ════════════════════════════════════════
-   LOGOUT
-════════════════════════════════════════ */
+/* ════ LOGOUT ════ */
 function confirmLogout() {
   openModal('Logout', 'Are you sure you want to sign out?', () => {
     showToast('Logging out…');
@@ -1271,9 +1035,13 @@ function confirmLogout() {
   });
 }
 
-/* ════════════════════════════════════════
-   INIT — load tests on page load
-════════════════════════════════════════ */
+/* ════ UTILS ════ */
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ════ INIT ════ */
 fetchAllTests();
 </script>
 </body>
