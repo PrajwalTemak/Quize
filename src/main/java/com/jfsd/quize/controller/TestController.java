@@ -30,7 +30,7 @@ public class TestController {
         if (request.getExamCode() == null || request.getExamCode().isBlank())
             return ResponseEntity.badRequest().body("examCode is required");
 
-        if (testRepository.findByExamCode(request.getExamCode()).isPresent())
+        if (testRepository.findByExamCodeIgnoreCase(request.getExamCode()).isPresent())
             return ResponseEntity.badRequest().body(
                 "Test with examCode '" + request.getExamCode() + "' already exists");
 
@@ -46,7 +46,7 @@ public class TestController {
     @PutMapping("/update/{examCode}")
     public ResponseEntity<String> updateTest(@PathVariable String examCode,
                                             @RequestBody AddTestRequest request) {
-        Optional<Test> optional = testRepository.findByExamCode(examCode);
+        Optional<Test> optional = testRepository.findByExamCodeIgnoreCase(examCode);
         if (!optional.isPresent())
             return ResponseEntity.badRequest().body("Test not found with examCode: " + examCode);
 
@@ -73,7 +73,7 @@ public class TestController {
     @DeleteMapping("/delete/{examCode}")
     @Transactional
     public ResponseEntity<String> deleteTest(@PathVariable String examCode) {
-        Optional<Test> optional = testRepository.findByExamCode(examCode);
+        Optional<Test> optional = testRepository.findByExamCodeIgnoreCase(examCode);
         if (!optional.isPresent())
             return ResponseEntity.badRequest().body("Test not found with examCode: " + examCode);
 
@@ -89,7 +89,7 @@ public class TestController {
     // ─────────────────────────────────────────────────────────────
     @GetMapping("/find/{examCode}")
     public ResponseEntity<?> getTest(@PathVariable String examCode) {
-        return testRepository.findByExamCode(examCode)
+        return testRepository.findByExamCodeIgnoreCase(examCode)
                 .<ResponseEntity<?>>map(ResponseEntity::ok)
                 .orElse(ResponseEntity.badRequest().body("Test not found with examCode: " + examCode));
     }

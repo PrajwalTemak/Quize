@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.List;
 @Repository
 public interface TestRepository extends JpaRepository<Test, Long> {
-    Optional<Test> findByExamCode(String examCode);
+    Optional<Test> findByExamCodeIgnoreCase(String examCode);
 
     // for views
     List<Test> findByIsPublished(Boolean isPublished);

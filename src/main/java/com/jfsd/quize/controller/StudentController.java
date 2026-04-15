@@ -233,7 +233,7 @@ public class StudentController {
     public ResponseEntity<?> getSubmissionStatus(@PathVariable String examCode,
                                                   @PathVariable String studentId) {
 
-        Optional<Test> testOpt = testRepository.findByExamCode(examCode);
+        Optional<Test> testOpt = testRepository.findByExamCodeIgnoreCase
         if (!testOpt.isPresent())
             return ResponseEntity.badRequest().body("Test not found with exam code: " + examCode);
 
@@ -259,7 +259,7 @@ public class StudentController {
     public ResponseEntity<?> viewResult(@PathVariable String examCode,
                                          @PathVariable String studentId) {
 
-        Optional<Test> testOpt = testRepository.findByExamCode(examCode);
+        Optional<Test> testOpt = testRepository.findByExamCodeIgnoreCase(examCode);
         if (!testOpt.isPresent())
             return ResponseEntity.badRequest().body("Test not found with exam code: " + examCode);
 

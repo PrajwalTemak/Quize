@@ -29,7 +29,8 @@ public class QuestionController {
     @PostMapping("/add")
     @Transactional
     public ResponseEntity<String> addQuestion(@RequestBody QuestionRequest req) {
-        Optional<Test> testOpt = testRepository.findByExamCode(req.getExamCode());
+        Optional<Test> testOpt = testRepository.findByExamCodeIgnoreCase(req.getExamCode());
+
         if (!testOpt.isPresent())
             return ResponseEntity.badRequest().body("Test not found: " + req.getExamCode());
 
@@ -50,7 +51,8 @@ public class QuestionController {
     public ResponseEntity<String> updateQuestion(@PathVariable String examCode,
                                                   @PathVariable Integer questionNumber,
                                                   @RequestBody QuestionRequest req) {
-        Optional<Test> testOpt = testRepository.findByExamCode(examCode);
+        Optional<Test> testOpt = testRepository.findByExamCodeIgnoreCase(examCode);
+
         if (!testOpt.isPresent())
             return ResponseEntity.badRequest().body("Test not found: " + examCode);
 
@@ -81,7 +83,7 @@ public class QuestionController {
     @Transactional
     public ResponseEntity<String> deleteQuestion(@PathVariable String examCode,
                                                   @PathVariable Integer questionNumber) {
-        Optional<Test> testOpt = testRepository.findByExamCode(examCode);
+        Optional<Test> testOpt = testRepository.findByExamCodeIgnoreCase(examCode);
         if (!testOpt.isPresent())
             return ResponseEntity.badRequest().body("Test not found: " + examCode);
 
@@ -113,7 +115,7 @@ public class QuestionController {
     // ─────────────────────────────────────────────────────────────
     @GetMapping("/exam/{examCode}")
     public ResponseEntity<?> getByExamCode(@PathVariable String examCode) {
-        Optional<Test> testOpt = testRepository.findByExamCode(examCode);
+        Optional<Test> testOpt = testRepository.findByExamCodeIgnoreCase(examCode);
         if (!testOpt.isPresent())
             return ResponseEntity.badRequest().body("Test not found: " + examCode);
 
