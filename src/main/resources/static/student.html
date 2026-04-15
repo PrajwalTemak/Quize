@@ -17,8 +17,6 @@
   --green:#07585b;--green-bg:#e6f9f9;--green-border:#b0e8e8;
 }
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;overflow:hidden}
-
-/* SIDEBAR */
 .sidebar{width:72px;background:linear-gradient(180deg,#5a4d7a 0%,#3b3157 100%);display:flex;flex-direction:column;align-items:center;padding:18px 0;gap:4px;flex-shrink:0;height:100vh;position:fixed;left:0;top:0;z-index:50}
 .sb-logo{width:42px;height:42px;background:rgba(255,255,255,0.18);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;border:1px solid rgba(255,255,255,0.25);flex-shrink:0}
 .sb-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;position:relative;border:none;background:none}
@@ -31,8 +29,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .sb-divider{width:30px;height:1px;background:rgba(255,255,255,0.12);margin:6px 0}
 .sb-spacer{flex:1}
 .notif-dot-sb{position:absolute;top:8px;right:9px;width:7px;height:7px;background:#03969d;border-radius:50%;border:1.5px solid #3b3157}
-
-/* MAIN */
 .main{margin-left:72px;flex:1;display:flex;flex-direction:column;height:100vh;min-width:0}
 .topbar{height:62px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:14px;flex-shrink:0}
 .topbar-greeting{flex:1}
@@ -47,17 +43,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .logout-btn{padding:7px 14px;border-radius:8px;background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.18s;display:flex;align-items:center;gap:5px}
 .logout-btn:hover{background:#fee2e2}
 .logout-btn svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none}
-
-/* VIEWS */
 .view{display:none;flex:1;overflow-y:auto;padding:26px 28px}
 .view.active{display:block}
-
-/* SECTION HEADERS */
 .section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.section-title{font-size:14px;font-weight:600;color:var(--purple-dark)}
+.section-title{font-size:14px;font-weight:600;color:var(--purple-dark);display:flex;align-items:center;gap:7px}
+.section-title svg{width:15px;height:15px;stroke:var(--purple);stroke-width:1.9;fill:none;flex-shrink:0}
 .badge-count{font-size:11.5px;color:var(--text-muted);background:var(--purple-pale);padding:3px 10px;border-radius:20px}
-
-/* TEST CARDS */
 .scroll-row{display:flex;gap:14px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory;-ms-overflow-style:none;scrollbar-width:none}
 .scroll-row::-webkit-scrollbar{display:none}
 .test-card{min-width:290px;max-width:310px;background:#fff;border-radius:16px;border:1px solid var(--border);padding:18px;display:flex;flex-direction:column;gap:12px;flex-shrink:0;scroll-snap-align:start;transition:all 0.2s;position:relative}
@@ -82,13 +73,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .btn-disabled{background:var(--bg);color:var(--text-hint);border:1px solid var(--border);cursor:default}
 .btn-review{background:var(--purple-pale);color:var(--purple);border:1px solid var(--border)}
 .btn-review:hover{background:#e8e0f5}
-
-/* GRAPH SECTION */
 .graph-panel{background:#fff;border-radius:16px;border:1px solid var(--border);padding:22px;margin-top:24px}
 .chart-wrap{overflow-x:auto;padding-bottom:8px}
 .chart-svg{min-width:100%}
-
-/* REVIEW SECTION */
 .panel{background:#fff;border-radius:16px;border:1px solid var(--border);padding:24px;margin-bottom:20px}
 .panel-title{font-size:15px;font-weight:600;color:var(--purple-dark);margin-bottom:18px;display:flex;align-items:center;gap:8px}
 .panel-title svg{width:18px;height:18px;stroke:var(--purple);stroke-width:1.9;fill:none}
@@ -105,8 +92,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .ans-subjective{background:var(--purple-pale);border:1px solid var(--border);color:var(--purple-dark)}
 .ans-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
 .marks-awarded{margin-top:6px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;display:inline-block;background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
-
-/* NOTIFICATIONS */
 .notif-panel{background:#fff;border-radius:16px;border:1px solid var(--border);overflow:hidden}
 .notif-item{display:flex;align-items:flex-start;gap:12px;padding:14px 18px;border-bottom:1px solid var(--border-light);transition:background .15s;cursor:pointer}
 .notif-item:last-child{border-bottom:none}
@@ -119,8 +104,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .notif-msg{font-size:12px;color:var(--text-muted);margin-top:2px;line-height:1.4}
 .notif-time{font-size:11px;color:var(--text-hint);margin-top:4px}
 .notif-dot-badge{width:8px;height:8px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:6px}
-
-/* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(43,32,77,0.45);z-index:1000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
 .modal-overlay.open{display:flex}
 .modal{background:#fff;border-radius:18px;padding:28px;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(43,32,77,0.2);animation:modalIn .2s ease}
@@ -134,20 +117,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .btn-secondary:hover{border-color:var(--purple-light);background:var(--purple-pale)}
 .btn-danger{padding:10px 20px;border-radius:10px;background:var(--red-bg);color:var(--red);font-size:13px;font-weight:600;border:1.5px solid var(--red-border);cursor:pointer;transition:all .2s}
 .btn-danger:hover{background:#fee2e2}
-
-/* EXAM INTERFACE */
 .exam-overlay{position:fixed;inset:0;background:var(--bg);z-index:500;display:none;flex-direction:column}
 .exam-overlay.open{display:flex}
-
-/* CODE ENTRY SCREEN */
 .code-screen{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem}
 .code-card{background:#fff;border-radius:22px;border:1px solid var(--border);padding:42px;max-width:460px;width:100%;text-align:center;box-shadow:0 12px 40px rgba(43,32,77,0.1)}
 .code-card h2{font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:8px}
 .code-card p{font-size:13.5px;color:var(--text-muted);margin-bottom:28px;line-height:1.6}
 .code-input{width:100%;padding:14px 18px;border-radius:12px;border:2px solid var(--border);font-size:18px;font-weight:700;text-align:center;letter-spacing:.1em;color:var(--purple-dark);outline:none;transition:border-color .2s;text-transform:uppercase;font-family:inherit}
 .code-input:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(3,150,157,0.1)}
-
-/* INSTRUCTIONS SCREEN */
 .instr-screen{flex:1;display:none;align-items:center;justify-content:center;padding:2rem;overflow-y:auto}
 .instr-card{background:#fff;border-radius:22px;border:1px solid var(--border);padding:38px;max-width:580px;width:100%;box-shadow:0 12px 40px rgba(43,32,77,0.1)}
 .instr-card h2{font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:6px}
@@ -160,8 +137,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .instr-meta-card{background:var(--bg);border-radius:10px;padding:12px 14px;border:1px solid var(--border-light)}
 .imc-label{font-size:10.5px;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
 .imc-val{font-size:15px;font-weight:700;color:var(--purple-dark)}
-
-/* EXAM BODY */
 .exam-body{flex:1;display:none;flex-direction:column;height:100vh}
 .exam-topbar{height:56px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:14px;flex-shrink:0}
 .exam-test-name{font-size:14px;font-weight:700;color:var(--purple-dark);flex:1}
@@ -169,8 +144,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .exam-timer svg{width:14px;height:14px;stroke:var(--teal-dark);stroke-width:2;fill:none}
 .exam-timer.urgent{background:var(--red-bg);color:var(--red);border-color:var(--red-border)}
 .exam-layout{flex:1;display:flex;overflow:hidden}
-
-/* QUESTION PALETTE */
 .q-palette{width:220px;background:#fff;border-right:1px solid var(--border);padding:16px;overflow-y:auto;flex-shrink:0}
 .q-palette-title{font-size:11px;font-weight:700;color:var(--text-hint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
 .palette-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
@@ -184,8 +157,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .ld-ans{background:var(--teal-pale);border:1.5px solid var(--teal)}
 .ld-cur{background:var(--purple-pale);border:1.5px solid var(--purple)}
 .ld-unan{background:var(--bg);border:1.5px solid var(--border)}
-
-/* QUESTION BODY */
 .q-main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .q-content{flex:1;overflow-y:auto;padding:28px}
 .q-progress{font-size:12px;color:var(--text-muted);margin-bottom:6px;font-weight:500}
@@ -199,15 +170,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .q-option-text{font-size:14px;color:var(--text-mid);line-height:1.5;padding-top:2px}
 .q-subjective textarea{width:100%;min-height:150px;padding:14px;border-radius:12px;border:1.5px solid var(--border);font-size:14px;color:var(--text);outline:none;resize:vertical;font-family:inherit;transition:border-color .2s;line-height:1.6}
 .q-subjective textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(3,150,157,0.1)}
-
-/* EXAM BOTTOM BAR */
 .exam-bottombar{height:62px;background:#fff;border-top:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:10px;flex-shrink:0}
 .eb-spacer{flex:1}
 .save-status{font-size:12px;color:var(--text-hint);display:flex;align-items:center;gap:5px}
 .save-status svg{width:13px;height:13px;stroke:currentColor;stroke-width:2;fill:none}
 .save-status.saved{color:var(--teal-dark)}
-
-/* RESULT SCREEN */
 .result-screen{flex:1;display:none;align-items:center;justify-content:center;padding:2rem;overflow-y:auto}
 .result-card{background:#fff;border-radius:22px;border:1px solid var(--border);padding:42px;max-width:520px;width:100%;text-align:center;box-shadow:0 12px 40px rgba(43,32,77,0.1)}
 .result-icon{width:72px;height:72px;border-radius:20px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center}
@@ -222,21 +189,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .rs-item{background:var(--bg);border-radius:12px;padding:14px;border:1px solid var(--border-light)}
 .rs-num{font-size:22px;font-weight:700;color:var(--purple-dark)}
 .rs-lbl{font-size:11px;color:var(--text-hint);margin-top:3px;text-transform:uppercase;letter-spacing:.05em}
-
-/* TOAST */
 .toast-wrap{position:fixed;bottom:24px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:8px;pointer-events:none}
 .toast{background:var(--purple-dark);color:#fff;font-size:13px;padding:11px 18px;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.2);animation:toastIn .25s ease;pointer-events:none;display:flex;align-items:center;gap:8px;max-width:320px}
 .toast.success{background:var(--teal-dark)}
 .toast.error{background:var(--red)}
 @keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-/* EMPTY STATE */
 .empty-state{text-align:center;padding:48px 24px;color:var(--text-muted)}
 .empty-state svg{width:40px;height:40px;stroke:var(--text-hint);stroke-width:1.5;fill:none;margin-bottom:12px}
 .empty-state h3{font-size:15px;font-weight:600;color:var(--text-mid);margin-bottom:6px}
 .empty-state p{font-size:13px}
-
-/* FIELD STYLES */
 .field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
 .field label{font-size:11.5px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em}
 .field input,.field select,.field textarea{padding:10px 13px;border-radius:9px;border:1.5px solid var(--border);font-size:13.5px;color:var(--text);background:#fff;outline:none;transition:border-color .2s;font-family:inherit}
@@ -245,7 +206,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
   <div class="sb-logo">
     <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2.2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
@@ -259,7 +219,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <span class="sb-tip">Review Tests</span>
   </div>
   <div class="sb-divider"></div>
-  <div class="sb-icon" id="sb-notif" onclick="showView('notifications')">
+  <div class="sb-icon" id="sb-notifications" onclick="showView('notifications')">
     <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
     <span class="notif-dot-sb" id="sbNotifDot" style="display:none"></span>
     <span class="sb-tip">Notifications</span>
@@ -267,11 +227,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div class="sb-spacer"></div>
 </div>
 
-<!-- TOPBAR -->
 <div class="main">
 <div class="topbar">
   <div class="topbar-greeting">
-    <h1 id="topbarName">Hello, Student 👋</h1>
+    <h1 id="topbarName">Hello, Student</h1>
     <p id="topbarSub">Here's what's happening today</p>
   </div>
   <span class="tb-badge">Student</span>
@@ -286,52 +245,48 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div class="avatar" id="avatarEl">S</div>
 </div>
 
-<!-- ═══════════════════════════════
-     VIEW: DASHBOARD
-═══════════════════════════════ -->
+<!-- DASHBOARD -->
 <div class="view active" id="view-dashboard">
-
-  <!-- Active / Available Tests -->
   <div class="section-hd">
-    <div class="section-title">📋 Available Tests</div>
+    <div class="section-title">
+      <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+      Available Tests
+    </div>
     <span class="badge-count" id="activeCount">0 tests</span>
   </div>
   <div class="scroll-row" id="activeTestsRow">
     <div class="empty-state" style="min-width:100%">
       <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/></svg>
-      <h3>No active tests</h3>
-      <p>Published tests will appear here</p>
+      <h3>No active tests</h3><p>Published tests will appear here</p>
     </div>
   </div>
-
-  <!-- Upcoming Tests -->
   <div class="section-hd" style="margin-top:26px">
-    <div class="section-title">🕐 Upcoming Tests</div>
+    <div class="section-title">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Upcoming Tests
+    </div>
     <span class="badge-count" id="upcomingCount">0 tests</span>
   </div>
   <div class="scroll-row" id="upcomingTestsRow">
     <div class="empty-state" style="min-width:100%">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <h3>No upcoming tests</h3>
-      <p>Scheduled tests will appear here</p>
+      <h3>No upcoming tests</h3><p>Scheduled tests will appear here</p>
     </div>
   </div>
-
-  <!-- Performance Graph -->
   <div class="graph-panel">
     <div class="section-hd" style="margin-bottom:18px">
-      <div class="section-title">📊 My Performance</div>
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        My Performance
+      </div>
     </div>
     <div class="chart-wrap" id="chartWrap">
       <div class="empty-state"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><h3>No results yet</h3><p>Complete tests to see your performance graph</p></div>
     </div>
   </div>
-
 </div>
 
-<!-- ═══════════════════════════════
-     VIEW: REVIEW
-═══════════════════════════════ -->
+<!-- REVIEW -->
 <div class="view" id="view-review">
   <div class="panel">
     <div class="panel-title">
@@ -354,12 +309,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 </div>
 
-<!-- ═══════════════════════════════
-     VIEW: NOTIFICATIONS
-═══════════════════════════════ -->
+<!-- NOTIFICATIONS -->
 <div class="view" id="view-notifications">
   <div class="section-hd">
-    <div class="section-title">🔔 Notifications</div>
+    <div class="section-title">
+      <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      Notifications
+    </div>
   </div>
   <div class="notif-panel" id="notifList">
     <div class="empty-state" style="padding:48px"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><h3>No notifications</h3><p>You're all caught up!</p></div>
@@ -368,14 +324,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 </div><!-- end .main -->
 
-<!-- ══════════════════════════════════════════
-     EXAM OVERLAY (Code Entry → Instructions → Exam → Result)
-══════════════════════════════════════════ -->
+<!-- EXAM OVERLAY -->
 <div class="exam-overlay" id="examOverlay">
-
-  <!-- STEP 1: EXAM CODE -->
   <div style="background:#fff;border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;padding:0 20px;gap:12px;flex-shrink:0">
-    <button class="btn btn-secondary" onclick="closeExam()" style="padding:6px 14px;font-size:12px">✕ Cancel</button>
+    <button class="btn btn-secondary" onclick="closeExam()" style="padding:6px 14px;font-size:12px">
+      <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      Cancel
+    </button>
     <span style="font-size:15px;font-weight:700;color:var(--purple-dark)">Enter Exam</span>
   </div>
   <div class="code-screen" id="codeScreen">
@@ -387,11 +342,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <p>Ask your teacher for the exam code.<br/>Codes are case-insensitive.</p>
       <input class="code-input" id="examCodeInput" placeholder="e.g. JAVA-MID-01" maxlength="30"
         oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')verifyCode()"/>
-      <button class="btn-primary" onclick="verifyCode()" style="width:100%;margin-top:18px;padding:13px">Continue →</button>
+      <button class="btn-primary" onclick="verifyCode()" style="width:100%;margin-top:18px;padding:13px">Continue</button>
     </div>
   </div>
-
-  <!-- STEP 2: INSTRUCTIONS -->
   <div class="instr-screen" id="instrScreen">
     <div class="instr-card">
       <h2 id="instrTestName">Test Instructions</h2>
@@ -411,13 +364,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <li id="instrNegLi" style="display:none"><div class="instr-icon" style="background:var(--amber-bg)"><svg viewBox="0 0 24 24" stroke="#9a6000"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><circle cx="12" cy="12" r="10"/></svg></div><span id="instrNegText"></span></li>
       </ul>
       <div style="display:flex;gap:10px">
-        <button class="btn-secondary" onclick="showCodeScreen()" style="flex:1">← Back</button>
-        <button class="btn-primary" onclick="startExam()" style="flex:2">I'm Ready — Start Exam →</button>
+        <button class="btn-secondary" onclick="showCodeScreen()" style="flex:1">Back</button>
+        <button class="btn-primary" onclick="startExam()" style="flex:2">Start Exam</button>
       </div>
     </div>
   </div>
-
-  <!-- STEP 3: EXAM BODY -->
   <div class="exam-body" id="examBody">
     <div class="exam-topbar">
       <div class="exam-test-name" id="examTestName">Test Name</div>
@@ -438,23 +389,19 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         </div>
       </div>
       <div class="q-main">
-        <div class="q-content" id="qContent">
-          <!-- question rendered here -->
-        </div>
+        <div class="q-content" id="qContent"></div>
         <div class="exam-bottombar">
           <div class="save-status" id="saveStatus">
             <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
             Auto-save enabled
           </div>
           <div class="eb-spacer"></div>
-          <button class="btn btn-secondary" id="prevBtn" onclick="navigateQ(-1)">← Prev</button>
-          <button class="btn btn-start" id="saveNextBtn" onclick="saveAndNext()">Save &amp; Next →</button>
+          <button class="btn btn-secondary" id="prevBtn" onclick="navigateQ(-1)">Prev</button>
+          <button class="btn btn-start" id="saveNextBtn" onclick="saveAndNext()">Save &amp; Next</button>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- STEP 4: RESULT -->
   <div class="result-screen" id="resultScreen">
     <div class="result-card">
       <div class="result-icon submitted" id="resultIcon">
@@ -467,7 +414,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <button class="btn-primary" onclick="closeExam()" style="width:100%;margin-top:6px">Back to Dashboard</button>
     </div>
   </div>
-
 </div>
 
 <!-- MODAL -->
@@ -482,62 +428,40 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
 const BASE_URL = '';
-
-/* ════════════════════════════════════════
-   SESSION
-════════════════════════════════════════ */
 let currentUser = null;
 
 function initSession() {
-  // Try sessionStorage first, then localStorage
   const raw = sessionStorage.getItem('quizely_user') || localStorage.getItem('quizely_user');
-  if (raw) {
-    try { currentUser = JSON.parse(raw); } catch(e) {}
-  }
+  if (raw) { try { currentUser = JSON.parse(raw); } catch(e) {} }
   if (!currentUser) {
-    // Attempt to parse from URL params as fallback
     const p = new URLSearchParams(location.search);
     const id = p.get('id'), name = p.get('name'), email = p.get('email');
-    if (id) {
-      currentUser = { id, name: name || id, email: email || '', role: 'STUDENT' };
-    } else {
-      // If no session found, redirect to login
-      window.location.href = '/login.html';
-      return;
-    }
+    if (id) { currentUser = { id, name: name || id, email: email || '', role: 'STUDENT' }; }
+    else { window.location.href = '/login.html'; return; }
   }
-  // Set UI
   const name = currentUser.name || currentUser.id || 'Student';
-  document.getElementById('topbarName').textContent = `Hello, ${name} 👋`;
-  document.getElementById('topbarSub').textContent = `${new Date().toLocaleDateString('en-IN', {weekday:'long',day:'numeric',month:'long'})}`;
+  document.getElementById('topbarName').textContent = `Hello, ${name}`;
+  document.getElementById('topbarSub').textContent = new Date().toLocaleDateString('en-IN', {weekday:'long',day:'numeric',month:'long'});
   document.getElementById('avatarEl').textContent = name.charAt(0).toUpperCase();
 }
 
-/* ════════════════════════════════════════
-   VIEWS
-════════════════════════════════════════ */
 function showView(id) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.sb-icon').forEach(b => b.classList.remove('active'));
   document.getElementById('view-' + id).classList.add('active');
   const sb = document.getElementById('sb-' + id);
   if (sb) sb.classList.add('active');
-
   if (id === 'dashboard') fetchPublishedTests();
   if (id === 'review') populateReviewSelect();
   if (id === 'notifications') fetchNotifications();
 }
 
-/* ════════════════════════════════════════
-   PUBLISHED TESTS
-════════════════════════════════════════ */
 let publishedTests = [];
-let completedSubmissions = {}; // testId → submissionId
+let completedSubmissions = {};
 
 async function fetchPublishedTests() {
   try {
@@ -549,32 +473,25 @@ async function fetchPublishedTests() {
     const scheduledTests = scheduledRes.ok ? await scheduledRes.json() : [];
     publishedTests = [...(activeTests || []), ...(scheduledTests || [])];
     renderTestCards();
-  } catch(e) {
-    console.error(e);
-    showToast('Failed to load tests', 'error');
-  }
+  } catch(e) { console.error(e); showToast('Failed to load tests', 'error'); }
 }
 
 function renderTestCards() {
   const now = new Date();
   const active = [], upcoming = [];
-
   publishedTests.forEach(t => {
-    // ✅ FIX: Guard against missing times; treat missing endTime as far future
     const start = t.startTime ? new Date(t.startTime) : new Date(0);
     const end   = t.endTime   ? new Date(t.endTime)   : new Date(8640000000000000);
     if (now >= start && now <= end) active.push(t);
     else if (now < start)           upcoming.push(t);
-    // past tests (now > end) are silently dropped — they go to Review only
   });
-
   document.getElementById('activeCount').textContent   = `${active.length} test${active.length!==1?'s':''}`;
   document.getElementById('upcomingCount').textContent = `${upcoming.length} test${upcoming.length!==1?'s':''}`;
-
   renderRow('activeTestsRow',   active,   'active');
   renderRow('upcomingTestsRow', upcoming, 'upcoming');
   fetchPerformanceGraph();
 }
+
 function renderRow(containerId, tests, type) {
   const row = document.getElementById(containerId);
   if (!tests.length) {
@@ -583,7 +500,6 @@ function renderRow(containerId, tests, type) {
     return;
   }
   row.innerHTML = tests.map(t => buildTestCard(t, type)).join('');
-  // start countdowns
   tests.forEach(t => {
     if (type === 'active') startCountdown(`cd_${t.id}`, new Date(t.endTime), 'Ends in');
     else startCountdown(`cd_${t.id}`, new Date(t.startTime), 'Starts in');
@@ -592,14 +508,12 @@ function renderRow(containerId, tests, type) {
 
 function buildTestCard(t, type) {
   const start = new Date(t.startTime).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
-  const end = new Date(t.endTime).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  const end   = new Date(t.endTime).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
   const chipClass = type === 'active' ? 'chip-active' : 'chip-upcoming';
-  const chipLabel = type === 'active' ? '🟢 Live' : '🕐 Upcoming';
-  const cdLabel = type === 'active' ? 'Ends in' : 'Starts in';
+  const chipLabel = type === 'active' ? 'Live' : 'Upcoming';
   const btn = type === 'active'
-    ? `<button class="btn btn-start" onclick="openExam('${t.examCode}')">▶ Start Test</button>`
+    ? `<button class="btn btn-start" onclick="openExam('${t.examCode}')">Start Test</button>`
     : `<button class="btn btn-disabled" disabled>Not started</button>`;
-
   return `
     <div class="test-card">
       <span class="chip ${chipClass}">${chipLabel}</span>
@@ -635,9 +549,6 @@ function startCountdown(elId, targetDate, label) {
   cdTimers[elId] = setInterval(update, 1000);
 }
 
-/* ════════════════════════════════════════
-   PERFORMANCE GRAPH
-════════════════════════════════════════ */
 async function fetchPerformanceGraph() {
   if (!currentUser) return;
   try {
@@ -655,26 +566,21 @@ function renderGraph(data) {
     return;
   }
   const W = Math.max(data.length * 90, 400);
-  const H = 220;
-  const PAD = {t:20,r:20,b:60,l:54};
-  const chartW = W - PAD.l - PAD.r;
-  const chartH = H - PAD.t - PAD.b;
+  const H = 220, PAD = {t:20,r:20,b:60,l:54};
+  const chartW = W - PAD.l - PAD.r, chartH = H - PAD.t - PAD.b;
   const barW = Math.min(50, chartW / data.length - 12);
-
   let svg = `<svg class="chart-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
   [0,25,50,75,100].forEach(pct => {
     const y = PAD.t + chartH - (pct/100)*chartH;
     svg += `<line x1="${PAD.l}" y1="${y}" x2="${W-PAD.r}" y2="${y}" stroke="#e0d8ed" stroke-width="1" stroke-dasharray="4,3"/>`;
     svg += `<text x="${PAD.l-8}" y="${y+4}" text-anchor="end" font-size="10" fill="#b0a6c8">${pct}%</text>`;
   });
-
   data.forEach((item, i) => {
     const totalMarks = item.totalMarks || 0;
     const scoredMarks = parseFloat(item.scoredMarks) || 0;
     const pct = totalMarks > 0 ? Math.min(100, Math.max(0, (scoredMarks / totalMarks) * 100)) : 0;
     const x = PAD.l + i*(chartW/data.length) + (chartW/data.length - barW)/2;
-    const barH = (pct/100)*chartH;
-    const y = PAD.t + chartH - barH;
+    const barH = (pct/100)*chartH, y = PAD.t + chartH - barH;
     const color = pct >= 70 ? '#03969d' : pct >= 40 ? '#9a6000' : '#b91c1c';
     svg += `<rect x="${x}" y="${y}" width="${barW}" height="${barH}" rx="5" fill="${color}" opacity="0.85"/>`;
     svg += `<text x="${x+barW/2}" y="${y-5}" text-anchor="middle" font-size="10" font-weight="700" fill="${color}">${Math.round(pct)}%</text>`;
@@ -682,18 +588,11 @@ function renderGraph(data) {
     svg += `<text x="${x+barW/2}" y="${H-PAD.b+14}" text-anchor="middle" font-size="10" fill="#83749f">${esc(label)}</text>`;
     svg += `<text x="${x+barW/2}" y="${H-PAD.b+26}" text-anchor="middle" font-size="9" fill="#b0a6c8">${Math.round(scoredMarks)}/${totalMarks}</text>`;
   });
-
   svg += `</svg>`;
   wrap.innerHTML = svg;
 }
 
-/* ════════════════════════════════════════
-   EXAM FLOW
-════════════════════════════════════════ */
-let examState = {
-  test: null, questions: [], submissionId: null,
-  currentQ: 0, answers: {}, timer: null, timeLeft: 0
-};
+let examState = { test:null, questions:[], submissionId:null, currentQ:0, answers:{}, timer:null, timeLeft:0 };
 
 function openExam(examCode) {
   document.getElementById('examCodeInput').value = examCode || '';
@@ -713,13 +612,8 @@ async function verifyCode() {
   if (!code) { showToast('Enter an exam code', 'error'); return; }
   try {
     const qRes = await fetch(`${BASE_URL}/student/tests/${code}/questions`);
-    if (!qRes.ok) {
-      const errText = await qRes.text();
-      showToast(errText || 'Invalid exam code. Please check and retry.', 'error');
-      return;
-    }
+    if (!qRes.ok) { const errText = await qRes.text(); showToast(errText || 'Invalid exam code. Please check and retry.', 'error'); return; }
     const questions = await qRes.json();
-
     function getExamCode(t) { return t.examCode || t.exam_code || ''; }
     let test = publishedTests.find(t => getExamCode(t).toUpperCase() === code);
     if (!test) {
@@ -728,39 +622,18 @@ async function verifyCode() {
       test = avTests.find(t => getExamCode(t).toUpperCase() === code);
       if (test) publishedTests = [...publishedTests, ...avTests.filter(t2 => !publishedTests.find(p => p.id === t2.id))];
     }
-
-    // ✅ FIX: Timing guard — check window before proceeding
     if (test && test.startTime && test.endTime) {
-      const now   = new Date();
-      const start = new Date(test.startTime);
-      const end   = new Date(test.endTime);
-      if (now < start) {
-        showToast(`This exam hasn't started yet. Starts at ${start.toLocaleString()}`, 'error');
-        return;
-      }
-      if (now > end) {
-        showToast('This exam has already ended.', 'error');
-        return;
-      }
+      const now = new Date(), start = new Date(test.startTime), end = new Date(test.endTime);
+      if (now < start) { showToast(`This exam hasn't started yet. Starts at ${start.toLocaleString()}`, 'error'); return; }
+      if (now > end)   { showToast('This exam has already ended.', 'error'); return; }
     }
-
     if (!test) {
-      test = {
-        examCode: code, exam_code: code, title: code, description: '',
-        durationMinutes: 60,
-        totalMarks: questions.reduce((s, q) => s + (q.marks || 0), 0),
-        negativeMarking: 0, showResults: false,
-        startTime: new Date(Date.now() - 1000).toISOString(),
-        endTime:   new Date(Date.now() + 86400000).toISOString()
-      };
+      test = { examCode: code, exam_code: code, title: code, description:'', durationMinutes: 60,
+        totalMarks: questions.reduce((s, q) => s + (q.marks || 0), 0), negativeMarking: 0, showResults: false,
+        startTime: new Date(Date.now() - 1000).toISOString(), endTime: new Date(Date.now() + 86400000).toISOString() };
     }
     test.examCode = code;
-
-    examState.test      = test;
-    examState.questions = questions || [];
-    examState.answers   = {};
-    examState.submissionId = null;
-
+    examState.test = test; examState.questions = questions || []; examState.answers = {}; examState.submissionId = null;
     document.getElementById('instrTestName').textContent  = test.title || code;
     document.getElementById('instrTestDesc').textContent  = test.description || '';
     document.getElementById('instrDuration').textContent  = `${test.durationMinutes || '?'} min`;
@@ -768,76 +641,50 @@ async function verifyCode() {
     document.getElementById('instrQCount').textContent    = `${questions.length}`;
     document.getElementById('instrNeg').textContent       = test.negativeMarking > 0 ? `-${test.negativeMarking}` : 'None';
     if (test.negativeMarking > 0) {
-      document.getElementById('instrNegLi').style.display   = 'flex';
-      document.getElementById('instrNegText').textContent   = `Negative marking: ${test.negativeMarking} marks deducted per wrong answer.`;
-    } else {
-      document.getElementById('instrNegLi').style.display = 'none';
-    }
-
+      document.getElementById('instrNegLi').style.display = 'flex';
+      document.getElementById('instrNegText').textContent = `Negative marking: ${test.negativeMarking} marks deducted per wrong answer.`;
+    } else { document.getElementById('instrNegLi').style.display = 'none'; }
     document.getElementById('codeScreen').style.display  = 'none';
     document.getElementById('instrScreen').style.display = 'flex';
-  } catch(e) {
-    console.error(e);
-    showToast('Failed to find exam. Check code or network.', 'error');
-  }
+  } catch(e) { console.error(e); showToast('Failed to find exam. Check code or network.', 'error'); }
 }
+
 async function startExam() {
-  if (!currentUser) {
-    showToast("Session expired. Please log in again.", "error");
-    setTimeout(() => window.location.href = "/login.html", 1500);
-    return;
-  }
-  if (!examState.test || !examState.test.examCode) {
-    showToast("Exam data missing. Please re-enter the exam code.", "error");
-    showCodeScreen();
-    return;
-  }
+  if (!currentUser) { showToast("Session expired. Please log in again.", "error"); setTimeout(() => window.location.href = "/login.html", 1500); return; }
+  if (!examState.test || !examState.test.examCode) { showToast("Exam data missing. Please re-enter the exam code.", "error"); showCodeScreen(); return; }
   try {
     const res = await fetch(`${BASE_URL}/student/tests/start`, {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
+      method: "POST", headers: {"Content-Type":"application/json"},
       body: JSON.stringify({ examCode: examState.test.examCode, studentId: currentUser.id })
     });
     if (!res.ok) { const t = await res.text(); showToast(t || "Could not start exam", "error"); return; }
     const sub = await res.json();
     examState.submissionId = sub.id || sub.submissionId;
-    examState.currentQ = 0;
-    examState.timeLeft = examState.test.durationMinutes * 60;
-
+    examState.currentQ = 0; examState.timeLeft = examState.test.durationMinutes * 60;
     document.getElementById("instrScreen").style.display = "none";
     document.getElementById("examBody").style.display = "flex";
     document.getElementById("examTestName").textContent = examState.test.title;
-
-    buildPalette();
-    renderQuestion(0);
-    startTimer();
-  } catch(e) {
-    console.error(e);
-    showToast("Failed to start exam: " + e.message, "error");
-  }
+    buildPalette(); renderQuestion(0); startTimer();
+  } catch(e) { console.error(e); showToast("Failed to start exam: " + e.message, "error"); }
 }
 
 function buildPalette() {
   const grid = document.getElementById('paletteGrid');
-  grid.innerHTML = examState.questions.map((q,i) => `
-    <div class="p-slot ${i===0?'current':''}" id="ps_${i}" onclick="jumpToQ(${i})">${i+1}</div>`).join('');
+  grid.innerHTML = examState.questions.map((q,i) =>
+    `<div class="p-slot ${i===0?'current':''}" id="ps_${i}" onclick="jumpToQ(${i})">${i+1}</div>`).join('');
 }
 
 function renderQuestion(idx) {
   const qs = examState.questions;
   if (idx < 0 || idx >= qs.length) return;
   examState.currentQ = idx;
-
-  // Update palette
   document.querySelectorAll('.p-slot').forEach((el,i) => {
     el.classList.toggle('current', i === idx);
     el.classList.toggle('answered', !!examState.answers[i+1] || examState.answers[i+1] === 0);
   });
-
   const q = qs[idx];
   const saved = examState.answers[idx+1];
   const isLast = idx === qs.length - 1;
-
   let optHTML = '';
   if (q.questionType === 'OBJECTIVE') {
     const opts = [q.option1, q.option2, q.option3, q.option4].filter(Boolean);
@@ -850,14 +697,12 @@ function renderQuestion(idx) {
   } else {
     optHTML = `<div class="q-subjective"><textarea id="subjectiveAns" placeholder="Type your answer here…" rows="6">${saved||''}</textarea></div>`;
   }
-
   document.getElementById('qContent').innerHTML = `
     <div class="q-progress">Question ${idx+1} of ${qs.length} &nbsp;·&nbsp; ${q.marks} mark${q.marks!==1?'s':''} &nbsp;·&nbsp; <span style="font-size:11px;background:${q.questionType==='OBJECTIVE'?'var(--teal-pale)':'var(--amber-bg)'};color:${q.questionType==='OBJECTIVE'?'var(--teal-dark)':'var(--amber)'};padding:2px 8px;border-radius:10px;font-weight:600">${q.questionType}</span></div>
     <div class="q-question-text">${esc(q.questionText)}</div>
     ${optHTML}`;
-
   document.getElementById('prevBtn').disabled = idx === 0;
-  document.getElementById('saveNextBtn').textContent = isLast ? '✓ Save & Submit' : 'Save & Next →';
+  document.getElementById('saveNextBtn').textContent = isLast ? 'Save & Submit' : 'Save & Next';
 }
 
 function selectOption(optNum) {
@@ -866,74 +711,44 @@ function selectOption(optNum) {
   examState.answers[examState.currentQ+1] = optNum;
 }
 
-// FIND THIS:
 async function saveAndNext() {
   await saveCurrentAnswer();
   const isLast = examState.currentQ === examState.questions.length - 1;
-  if (isLast) {
-    confirmEndTest();  // ← this calls modal
-  } else {
-    renderQuestion(examState.currentQ + 1);
-  }
+  if (isLast) { confirmEndTest(); } else { renderQuestion(examState.currentQ + 1); }
 }
 
 async function saveCurrentAnswer() {
   const q = examState.questions[examState.currentQ];
   const qNum = examState.currentQ + 1;
- // AFTER (fixed)
-let body = {
-    submissionId: examState.submissionId,
-    examCode: examState.test.examCode,  // ← backend needs this, not testId
-    questionNumber: qNum,
-    selectedOption: null,
-    textAnswer: null
-};
+  let body = { submissionId: examState.submissionId, examCode: examState.test.examCode, questionNumber: qNum, selectedOption: null, textAnswer: null };
   if (q.questionType === 'OBJECTIVE') {
     const sel = examState.answers[qNum];
-    if (!sel) return; // nothing to save
+    if (!sel) return;
     body.selectedOption = sel;
   } else {
     const ta = document.getElementById('subjectiveAns');
     const txt = ta ? ta.value.trim() : '';
     if (!txt) return;
-    examState.answers[qNum] = txt;
-    body.textAnswer = txt;
+    examState.answers[qNum] = txt; body.textAnswer = txt;
   }
   try {
-    await fetch(`${BASE_URL}/student/answers/save`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(body)
-    });
+    await fetch(`${BASE_URL}/student/answers/save`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
     const ss = document.getElementById('saveStatus');
     ss.className = 'save-status saved';
     ss.innerHTML = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Saved`;
     setTimeout(() => { ss.className='save-status'; ss.innerHTML=`<svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Auto-save enabled`; }, 2000);
-    // update palette
     document.getElementById(`ps_${examState.currentQ}`)?.classList.add('answered');
   } catch(e) { console.error('Save error', e); }
 }
 
-function navigateQ(dir) {
-  saveCurrentAnswer();
-  renderQuestion(examState.currentQ + dir);
-}
-
-function jumpToQ(idx) {
-  saveCurrentAnswer();
-  renderQuestion(idx);
-}
+function navigateQ(dir) { saveCurrentAnswer(); renderQuestion(examState.currentQ + dir); }
+function jumpToQ(idx)   { saveCurrentAnswer(); renderQuestion(idx); }
 
 function startTimer() {
   if (examState.timer) clearInterval(examState.timer);
   function tick() {
     examState.timeLeft--;
-    if (examState.timeLeft <= 0) {
-      clearInterval(examState.timer);
-      showToast('Time up! Submitting your test…', 'error');
-      submitTest(true);
-      return;
-    }
+    if (examState.timeLeft <= 0) { clearInterval(examState.timer); showToast('Time up! Submitting…', 'error'); submitTest(true); return; }
     const h = Math.floor(examState.timeLeft/3600);
     const m = Math.floor((examState.timeLeft%3600)/60);
     const s = examState.timeLeft%60;
@@ -942,41 +757,28 @@ function startTimer() {
     if (examState.timeLeft <= 300) el.classList.add('urgent');
     else el.classList.remove('urgent');
   }
-  tick();
-  examState.timer = setInterval(tick, 1000);
+  tick(); examState.timer = setInterval(tick, 1000);
 }
 
-function confirmEndTest() {
-  submitTest(false);  // skip modal for now
-}
+function confirmEndTest() { submitTest(false); }
 
 async function submitTest(auto) {
   if (examState.timer) clearInterval(examState.timer);
-  try {
-    await saveCurrentAnswer();
-  } catch(e) { /* ignore save errors, still try to submit */ }
+  try { await saveCurrentAnswer(); } catch(e) {}
   try {
     const res = await fetch(`${BASE_URL}/student/tests/${examState.test.examCode}/submit/${currentUser.id}`, { method: 'PUT' });
     if (!res.ok) { const t=await res.text(); showToast(t||'Submission failed','error'); return; }
-
-    // Always show the "submitted" screen first
     document.getElementById('examBody').style.display = 'none';
     document.getElementById('resultScreen').style.display = 'flex';
-    document.getElementById('resultScore').textContent = '✓';
+    document.getElementById('resultScore').textContent = 'Submitted';
     document.getElementById('resultTitle').textContent = 'Test Submitted!';
     document.getElementById('resultSub').textContent = 'Your answers have been recorded.';
     document.getElementById('resultStats').innerHTML = '';
     document.getElementById('resultIcon').className = 'result-icon submitted';
-
-    // Then try to also show score if results are enabled
-    if (examState.test.showResults) {
-      await showResult();
-    }
-  } catch(e) {
-    console.error(e);
-    showToast('Submission error. Please contact your teacher.', 'error');
-  }
+    if (examState.test.showResults) { await showResult(); }
+  } catch(e) { console.error(e); showToast('Submission error. Please contact your teacher.', 'error'); }
 }
+
 async function showResult() {
   try {
     const res = await fetch(`${BASE_URL}/student/tests/${examState.test.examCode}/result/${currentUser.id}`);
@@ -984,38 +786,22 @@ async function showResult() {
     const data = await res.json();
     document.getElementById('examBody').style.display = 'none';
     document.getElementById('resultScreen').style.display = 'flex';
-
-    const scored = parseFloat(data.totalScore) || 0;
-    const total = data.totalMarks || 0;
+    const scored = parseFloat(data.totalScore) || 0, total = data.totalMarks || 0;
     const pct = total > 0 ? Math.round((scored / total) * 100) : 0;
-
-    // Count correct/wrong from questions array
     const questions = data.questions || [];
     let correct = 0, wrong = 0;
-    questions.forEach(q => {
-      if (q.questionType === 'OBJECTIVE') {
-        if (q.selectedOption && q.selectedOption === q.correctOption) correct++;
-        else if (q.selectedOption) wrong++;
-      }
-    });
-
+    questions.forEach(q => { if (q.questionType === 'OBJECTIVE') { if (q.selectedOption && q.selectedOption === q.correctOption) correct++; else if (q.selectedOption) wrong++; } });
     document.getElementById('resultScore').innerHTML = `${Math.round(scored)}<span>/${total}</span>`;
-    document.getElementById('resultTitle').textContent = pct >= 40 ? '🎉 Congratulations!' : 'Test Completed';
+    document.getElementById('resultTitle').textContent = pct >= 40 ? 'Congratulations!' : 'Test Completed';
     document.getElementById('resultSub').textContent = `You scored ${pct}% in ${examState.test.title}`;
     document.getElementById('resultIcon').className = `result-icon ${pct>=40?'pass':'submitted'}`;
     document.getElementById('resultStats').innerHTML = `
       <div class="rs-item"><div class="rs-num" style="color:var(--teal-dark)">${pct}%</div><div class="rs-lbl">Score</div></div>
       <div class="rs-item"><div class="rs-num">${correct}</div><div class="rs-lbl">Correct</div></div>
       <div class="rs-item"><div class="rs-num" style="color:var(--red)">${wrong}</div><div class="rs-lbl">Wrong</div></div>`;
-
-    // Store exam code for review
-    if (!completedSubmissions[examState.test.id]) {
-      completedSubmissions[examState.test.id] = examState.test.examCode;
-    }
+    if (!completedSubmissions[examState.test.id]) completedSubmissions[examState.test.id] = examState.test.examCode;
   } catch(e) {
-    document.getElementById('examBody').style.display = 'none';
-    document.getElementById('resultScreen').style.display = 'flex';
-    document.getElementById('resultScore').textContent = '✓';
+    document.getElementById('resultScore').textContent = 'Done';
     document.getElementById('resultTitle').textContent = 'Submitted Successfully';
     document.getElementById('resultSub').textContent = 'Results will be shown when published by your teacher.';
     document.getElementById('resultStats').innerHTML = '';
@@ -1028,127 +814,61 @@ function closeExam() {
   fetchPublishedTests();
 }
 
-/* ════════════════════════════════════════
-   REVIEW
-════════════════════════════════════════ */
 let allReviewTests = [];
-
 async function populateReviewSelect() {
   const sel = document.getElementById('reviewTestSelect');
   try {
-    const [avRes, schRes] = await Promise.all([
-      fetch(`${BASE_URL}/student/tests/available`),
-      fetch(`${BASE_URL}/student/tests/scheduled`)
-    ]);
+    const [avRes, schRes] = await Promise.all([fetch(`${BASE_URL}/student/tests/available`), fetch(`${BASE_URL}/student/tests/scheduled`)]);
     const avTests = avRes.ok ? await avRes.json() : [];
     const schTests = schRes.ok ? await schRes.json() : [];
-    // Combine and deduplicate by id
     const seen = new Set();
-    allReviewTests = [...(avTests||[]), ...(schTests||[])].filter(t => {
-      if (seen.has(t.id)) return false;
-      seen.add(t.id); return true;
-    });
-    sel.innerHTML = `<option value="">— Choose a completed test —</option>` +
-      allReviewTests.map(t => `<option value="${t.id}">${esc(t.title)}</option>`).join('');
-  } catch(e) {
-    console.error(e);
-  }
+    allReviewTests = [...(avTests||[]), ...(schTests||[])].filter(t => { if (seen.has(t.id)) return false; seen.add(t.id); return true; });
+    sel.innerHTML = `<option value="">— Choose a completed test —</option>` + allReviewTests.map(t => `<option value="${t.id}">${esc(t.title)}</option>`).join('');
+  } catch(e) { console.error(e); }
 }
 
 async function loadReviewQuestions() {
   const testId = document.getElementById('reviewTestSelect').value;
   const area = document.getElementById('reviewArea');
-  if (!testId) {
-    area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><h3>Select a test to review</h3><p>See your answers vs correct answers</p></div>`;
-    return;
-  }
-
+  if (!testId) { area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><h3>Select a test to review</h3></div>`; return; }
   const test = allReviewTests.find(t => String(t.id)===String(testId));
-  if (!test || !test.showResults) {
-    area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><h3>Results not published</h3><p>Your teacher hasn't published results for this test yet.</p></div>`;
-    return;
-  }
-
+  if (!test || !test.showResults) { area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><h3>Results not published</h3><p>Your teacher hasn't published results yet.</p></div>`; return; }
   area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><h3>Loading review…</h3></div>`;
-
   try {
-    // Use the student result endpoint: GET /student/tests/{examCode}/result/{studentId}
     const resultRes = await fetch(`${BASE_URL}/student/tests/${test.examCode}/result/${currentUser.id}`);
-    if (!resultRes.ok) {
-      const errText = await resultRes.text();
-      area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><h3>No submission found</h3><p>${esc(errText) || 'You may not have taken this test.'}</p></div>`;
-      return;
-    }
-
+    if (!resultRes.ok) { const errText = await resultRes.text(); area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><h3>No submission found</h3><p>${esc(errText)||'You may not have taken this test.'}</p></div>`; return; }
     const result = await resultRes.json();
-    // ResultResponse fields: totalScore, totalMarks, questions (array of QuestionResult)
-    const scored = parseFloat(result.totalScore) || 0;
-    const total = result.totalMarks || 0;
+    const scored = parseFloat(result.totalScore) || 0, total = result.totalMarks || 0;
     const pct = total > 0 ? Math.round((scored / total) * 100) : 0;
     const questions = result.questions || [];
-
-    let html = `
-      <div class="panel" style="text-align:center;margin-bottom:16px">
-        <div style="font-size:32px;font-weight:800;color:var(--purple-dark)">${Math.round(scored)}<span style="font-size:16px;font-weight:500;color:var(--text-muted)">/${total}</span></div>
-        <div style="font-size:14px;color:var(--text-muted);margin-top:4px">${pct}% — ${esc(test.title)}</div>
-      </div>`;
-
+    let html = `<div class="panel" style="text-align:center;margin-bottom:16px">
+      <div style="font-size:32px;font-weight:800;color:var(--purple-dark)">${Math.round(scored)}<span style="font-size:16px;font-weight:500;color:var(--text-muted)">/${total}</span></div>
+      <div style="font-size:14px;color:var(--text-muted);margin-top:4px">${pct}% — ${esc(test.title)}</div>
+    </div>`;
     questions.forEach((q, i) => {
       const qNum = q.questionNumber || (i + 1);
       let ansBlock = '';
-
       if (q.questionType === 'OBJECTIVE') {
-        const correct = q.correctOption;
-        const selected = q.selectedOption;
-        const isCorrect = selected && selected === correct;
-        // Option texts are not in ResultResponse, so show option numbers
-        ansBlock = `
-          <div class="review-ans">
-            <div class="ans-row ${isCorrect ? 'ans-correct' : (selected ? 'ans-wrong' : '')}">
-              <div>
-                <div class="ans-label">Your Answer</div>
-                ${selected ? `Option ${selected}` : '<em>Not answered</em>'}
-              </div>
-            </div>
-            ${!isCorrect ? `<div class="ans-row ans-correct"><div><div class="ans-label">Correct Answer</div>Option ${correct}</div></div>` : ''}
-          </div>`;
+        const isCorrect = q.selectedOption && q.selectedOption === q.correctOption;
+        ansBlock = `<div class="review-ans">
+          <div class="ans-row ${isCorrect ? 'ans-correct' : (q.selectedOption ? 'ans-wrong' : '')}">
+            <div><div class="ans-label">Your Answer</div>${q.selectedOption ? `Option ${q.selectedOption}` : '<em>Not answered</em>'}</div>
+          </div>
+          ${!isCorrect ? `<div class="ans-row ans-correct"><div><div class="ans-label">Correct Answer</div>Option ${q.correctOption}</div></div>` : ''}
+        </div>`;
       } else {
         const marksAwarded = q.marksAwarded !== null && q.marksAwarded !== undefined ? parseFloat(q.marksAwarded) : null;
-        ansBlock = `
-          <div class="review-ans">
-            <div class="ans-row ans-subjective">
-              <div>
-                <div class="ans-label">Your Answer</div>
-                ${esc(q.textAnswer || 'Not answered')}
-              </div>
-            </div>
-            ${marksAwarded !== null
-              ? `<div class="marks-awarded">Marks awarded: ${marksAwarded} / ${q.maxMarks}</div>`
-              : '<div class="marks-awarded">Pending review by teacher</div>'}
-          </div>`;
-      }
-
-      html += `
-        <div class="review-q">
-          <div class="review-q-hd">
-            <div class="review-q-num">${qNum}</div>
-            <div class="review-q-text">${esc(q.questionText)}</div>
-            <div style="font-size:11px;font-weight:600;color:var(--text-muted);white-space:nowrap;margin-left:8px">${q.maxMarks} mk</div>
-          </div>
-          ${ansBlock}
+        ansBlock = `<div class="review-ans">
+          <div class="ans-row ans-subjective"><div><div class="ans-label">Your Answer</div>${esc(q.textAnswer || 'Not answered')}</div></div>
+          ${marksAwarded !== null ? `<div class="marks-awarded">Marks awarded: ${marksAwarded} / ${q.maxMarks}</div>` : '<div class="marks-awarded">Pending review by teacher</div>'}
         </div>`;
+      }
+      html += `<div class="review-q"><div class="review-q-hd"><div class="review-q-num">${qNum}</div><div class="review-q-text">${esc(q.questionText)}</div><div style="font-size:11px;font-weight:600;color:var(--text-muted);white-space:nowrap;margin-left:8px">${q.maxMarks} mk</div></div>${ansBlock}</div>`;
     });
-
     area.innerHTML = html;
-  } catch(e) {
-    console.error(e);
-    area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><h3>Failed to load review</h3><p>Please try again later.</p></div>`;
-  }
+  } catch(e) { console.error(e); area.innerHTML = `<div class="empty-state" style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:48px"><h3>Failed to load review</h3></div>`; }
 }
 
-/* ════════════════════════════════════════
-   NOTIFICATIONS
-════════════════════════════════════════ */
 async function fetchNotifications() {
   if (!currentUser) return;
   try {
@@ -1156,15 +876,9 @@ async function fetchNotifications() {
     const data = await res.json();
     const list = document.getElementById('notifList');
     const unread = data.filter(n => !n.isRead).length;
-    const dotSb = document.getElementById('sbNotifDot');
-    const dotTop = document.getElementById('topNotifDot');
-    dotSb.style.display = unread > 0 ? 'block' : 'none';
-    dotTop.style.display = unread > 0 ? 'block' : 'none';
-
-    if (!data.length) {
-      list.innerHTML = `<div class="empty-state" style="padding:48px"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><h3>No notifications</h3><p>You're all caught up!</p></div>`;
-      return;
-    }
+    document.getElementById('sbNotifDot').style.display = unread > 0 ? 'block' : 'none';
+    document.getElementById('topNotifDot').style.display = unread > 0 ? 'block' : 'none';
+    if (!data.length) { list.innerHTML = `<div class="empty-state" style="padding:48px"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><h3>No notifications</h3><p>You're all caught up!</p></div>`; return; }
     list.innerHTML = data.map(n => `
       <div class="notif-item ${!n.isRead?'notif-unread':''}" onclick="markRead(${n.id}, this)">
         <div class="notif-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
@@ -1182,72 +896,40 @@ async function markRead(notifId, el) {
   el.classList.remove('notif-unread');
   const dot = el.querySelector('.notif-dot-badge');
   if (dot) dot.remove();
-  try {
-    await fetch(`${BASE_URL}/student/notifications/${notifId}/read`, { method: 'PUT' });
-    fetchNotifications(); // refresh dot counts
-  } catch(e) { console.error(e); }
+  try { await fetch(`${BASE_URL}/student/notifications/${notifId}/read`, { method: 'PUT' }); fetchNotifications(); } catch(e) {}
 }
 
-/* ════════════════════════════════════════
-   MODAL
-════════════════════════════════════════ */
 let _modalCb = null;
 function openModal(title, sub, cb, danger) {
   document.getElementById('modalTitle').textContent = title;
   document.getElementById('modalSub').textContent = sub;
   document.getElementById('modalConfirmBtn').className = danger ? 'btn-danger' : 'btn-primary';
-  document.getElementById('modalConfirmBtn').textContent = 'Confirm';
-  // SET ONCLICK DIRECTLY HERE - this is the fix
-  document.getElementById('modalConfirmBtn').onclick = function() {
-    closeModal();
-    if (cb) cb();
-  };
+  document.getElementById('modalConfirmBtn').onclick = function() { closeModal(); if (cb) cb(); };
   document.getElementById('modalOverlay').classList.add('open');
 }
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  _modalCb = null;
-}
-document.getElementById('modalConfirmBtn').onclick = function() {
-  closeModal();
-  if (_modalCb) _modalCb();
-};
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); _modalCb = null; }
 
-/* ════════════════════════════════════════
-   LOGOUT
-════════════════════════════════════════ */
 function confirmLogout() {
   openModal('Sign Out', 'Are you sure you want to sign out of Quizely?', () => {
-    sessionStorage.removeItem('quizely_user');
-    localStorage.removeItem('quizely_user');
+    sessionStorage.removeItem('quizely_user'); localStorage.removeItem('quizely_user');
     showToast('Signing out…');
-    setTimeout(() => window.location.href = 'login.html', 900); // no leading slash
+    setTimeout(() => window.location.href = 'login.html', 900);
   }, true);
 }
 
-/* ════════════════════════════════════════
-   TOAST
-════════════════════════════════════════ */
 function showToast(msg, type='') {
   const wrap = document.getElementById('toastWrap');
   const el = document.createElement('div');
-  el.className = `toast ${type}`;
-  el.textContent = msg;
+  el.className = `toast ${type}`; el.textContent = msg;
   wrap.appendChild(el);
   setTimeout(() => el.remove(), 3200);
 }
 
-/* ════════════════════════════════════════
-   UTILS
-════════════════════════════════════════ */
 function esc(str) {
   if (!str) return '';
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-/* ════════════════════════════════════════
-   INIT
-════════════════════════════════════════ */
 initSession();
 fetchPublishedTests();
 fetchNotifications();
