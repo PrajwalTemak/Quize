@@ -59,7 +59,7 @@ public class StudentController {
     @Transactional
     public ResponseEntity<?> startTest(@RequestBody StartTestRequest request) {
 
-        Optional<Test> testOpt = testRepository.findByExamCode(request.getExamCode());
+        Optional<Test> testOpt = testRepository.findByExamCodeIgnoreCase(request.getExamCode());
         if (!testOpt.isPresent())
             return ResponseEntity.badRequest().body("Test not found with exam code: " + request.getExamCode());
 
@@ -114,7 +114,7 @@ public class StudentController {
     @GetMapping("/tests/{examCode}/questions")
     public ResponseEntity<?> getTestQuestions(@PathVariable String examCode) {
 
-        Optional<Test> testOpt = testRepository.findByExamCode(examCode);
+        Optional<Test> testOpt = testRepository.findByExamCodeIgnoreCase(examCode);
         if (!testOpt.isPresent())
             return ResponseEntity.badRequest().body("Test not found with exam code: " + examCode);
 
@@ -148,7 +148,7 @@ public class StudentController {
         if (subOpt.get().getStatus() != SubmissionStatus.IN_PROGRESS)
             return ResponseEntity.badRequest().body("Test already submitted");
 
-        Optional<Test> testOpt = testRepository.findByExamCode(request.getExamCode());
+        Optional<Test> testOpt = testRepository.findByExamCodeIgnoreCase(request.getExamCode());
         if (!testOpt.isPresent())
             return ResponseEntity.badRequest().body("Test not found with exam code: " + request.getExamCode());
 
@@ -196,7 +196,7 @@ public class StudentController {
     public ResponseEntity<String> submitTest(@PathVariable String examCode,
                                               @PathVariable String studentId) {
 
-        Optional<Test> testOpt = testRepository.findByExamCode(examCode);
+        Optional<Test> testOpt = testRepository.findByExamCodeIgnoreCase(examCode);
         if (!testOpt.isPresent())
             return ResponseEntity.badRequest().body("Test not found with exam code: " + examCode);
 
@@ -233,7 +233,7 @@ public class StudentController {
     public ResponseEntity<?> getSubmissionStatus(@PathVariable String examCode,
                                                   @PathVariable String studentId) {
 
-        Optional<Test> testOpt = testRepository.findByExamCodeIgnoreCase
+        Optional<Test> testOpt = testRepository.findByExamCodeIgnoreCase(examCode);
         if (!testOpt.isPresent())
             return ResponseEntity.badRequest().body("Test not found with exam code: " + examCode);
 
